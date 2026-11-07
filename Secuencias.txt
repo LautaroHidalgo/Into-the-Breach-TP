@@ -1,0 +1,28 @@
+
+
+coordenas xy
+
+seleccionar unidad
+aparecen opciones de movimiento validas
+unidad.moverse(Posicion opcionSeleccionada)
+Posicion.desplazarseA(Posicion opcionSeleccionada) #siendo posicion un atributo de unidad
+
+
+
+Class unidad{
+
+    public posicion moverse (Posicion posicion){
+        this.posicion.desplazarA(posicion)
+    }
+
+}
+
+
+
+
+
+MechCombate
+
+- -
+- - 
+- -
