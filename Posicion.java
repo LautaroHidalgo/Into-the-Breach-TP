@@ -10,16 +10,16 @@ class Posicion{
         posicion.desplazarseAMi(this);
     }
 
-    void private desplazarseAMi(Posicion OtraPosicion){
+    private void desplazarseAMi(Posicion OtraPosicion){
         OtraPosicion.setFila(this.fila);
         OtraPosicion.setColumna(this.columna);
     } 
 
-    public void setFila(){
+    private void setFila(int fila){
         this.fila = fila;
     }
 
-    public void setColumna(){
+    private void setColumna(int columna){
         this.columna = columna;
     }
 }

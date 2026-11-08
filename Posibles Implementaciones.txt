@@ -1,0 +1,201 @@
+1. - Unidad tiene como atributo su posicion
+
+unidad.moverse(Posicion opcionSeleccionada)
+
+Posicion.desplazarseA(Posicion opcionSeleccionada)
+
+Class unidad{
+    public posicion moverse (Posicion posicion){
+        this.posicion = Posicion
+    }
+}
+
+Si la posicion existe como objeto, lo que podriamos hacer es que la misma posicion se mande un mensaje para actualizarse, para eso tendriamos que hacer algo como:
+
+- desplazarA 
+- desplazarseAMi
+
+Asi las posiciones podrian pasarse datos sin romper tell dont ask
+
+
+2. - Casilla tiene unidad como atributo
+
+En este caso, la unidad no tiene por que saber cual es su posicion, sino la casilla que tiene asociada. Al moverse, los mensajes serian algo como:
+
+Modelo de movimiento
+
+seleccionar una unidad
+tablero te da las casillas de movimiento disponibles
+seleccionar la casilla
+
+tablero.mover(casillaOrigen,casillaDestino){
+    casillaDeOrigen.moverUnidad(CasillaDestino)
+}
+
+casillaDeOrigen.moverUnidad(CasillaDestino){
+    casillaDestino.recibirUnidad(unidad)
+    this.desocupar()
+}
+
+casillaDestino.recibirUnidad(unidad){
+    this.unidad = unidad
+    this.ocupar()
+}
+
+entonces al recibir un ataque, la casilla hace
+unidad.recibirDaño(ataque)
+
+
+4. - Recepcion de daño
+
+Al mandar un ataque a una casilla, llegamos a la primera situacion particular. Si la casilla tiene una unidad deberia haber algo como:
+
+casilla.unidad.recibirDaño()
+
+Pero, ¿que pasa si unidad no tiene una unidad? ¿es null? estaria mandandole un mensaje a null y tendria un null pointer exception. Entonces, eso seria si la casilla esta ocupada. ¿Como lo resolvemos?
+
+
+Forma 1 (forma preliminar y mas simple):
+puedo hacer eso con un condicional: private estaOcupada(), 
+
+Arma.casilla.estaOcupada()
+
+void recibirAtaque(ataque){
+    if this.estaOcupada(){
+        ocupante.
+    }
+}
+
+Forma 2:
+o con unsubclases: casillaOcupada, casillaDesocupada
+esto no es practico, pues para cada tipo de casilla necesitariamos 2 clases, si esta ocupada o desocupada.
+
+Forma 3: interfaces
+Con una interfaz de atacable: recibirAtaqueConUnidad o recibirAtaqueSinUnidad. Esto puede ser atributo interno de la casilla
+
+casilla{
+    - RecepcionDeDaño r
+}
+
+cuando ocupas una casilla puedes hacer
+
+ocuparCasilla(){
+    RecepcionDeDaño = new r recibirAtaqueConUnidad()
+}
+desocuparCasilla(){
+    RecepcionDeDaño = new r recibirAtaqueSinUnidad()
+}
+
+y luego 
+
+Casilla.recibirAtaque(ataque){
+    this.recepcionDeDaño(ataque,unidad)
+    ataque.generarDesplazamiento(this)
+}
+
+recibirAtaqueConUnidad
+
+recibirAtaqueConUnidad(ataque,unidad){
+    unidad.recibirDaño(unidad)
+}
+
+y recibirAtaqueSinUnidad: No hace nada
+
+
+
+5. - Desplazamientos
+
+Artilleria.generarDesplazamiento(Casilla){
+    adjacentes = tablero.generarAdjacentes(Casilla)
+    for (Casilla adjacente : Adjacentes){
+        adjacente.desplazar
+    }
+}
+
+
+eso lo ultimo lo podemos encapuslar mejor, o delegarselo a tablero. Y desde mi casilla puedo llevar a cabo el desplazamiento... espera, no son demasiados puntos de acomplamiento? mejor no hagamos que sea responsabilidad de casilla.
+
+el ataque puede mandar el mensaje de que se realice el desplazamiento, 
+
+Arma teniendo ataque delega esto a su ataque 
+
+ataque.desplazar(casillaDestino)
+
+adjacentes = tablero.calcularAdjacentes(casillaDestino)
+por cada adjacente:
+    casilla.realizarDesplazamiento(sentido)
+    unidad.desplazarse(casillaDestino)
+
+casillaDestino.recibirUnidadDesplazada(unidad)
+
+otra oportunidad para implementar interfaces
+
+recibirDesplazmientos = new recibirDesplazmientos recibirDesplazmientosEificio
+
+recibirDesplazmientos(unidad)
+    this.unidad.recibirDaño(1)
+    unidad.recibirDaño(1)
+
+y si fuera suelo
+d
+recibirDesplazmientos = new recibirDesplazmientos recibirDesplazmientoLibre
+
+recibirDesplazmientos(unidad)
+    this.unidad = unidad
+    unidad.casilla.desocupar
+    unidad.setCasilla = this
+
+
+Vek.recibirAtaque(ataque)
+
+¿Como lo modelo? 
+
+Pues, el ataque tiene que ir dirigido a una casilla, después de todo, puedes atacar casillas vacias.
+
+Entonces, no le voy a pasar el "vek", sino la casilla a la cual quiero atacar
+
+ahora, la casilla tiene que iniciar una secuencia de ser atacada.
+
+la casilla recibe el ataque
+
+si la casilla tiene unidades, entonces las unidades sufren el daño
+
+
+
+Modelo de empuje por Lau
+
+ataque.empujarAdyacentes()
+
+tablero:
+
+empujarAdyacentes(casillaObjetivo)
+
+por cada direccion ortogonal
+
+casillaOrigen = obtenerCasillaEnDireccion(casillaObjetivo, direccion)
+casillaDestion = obtenerCasillaEnDireccion(casillaOrigen, direccion)
+
+casillaOrigen.empujarUnidadHacia(casillaDestino)
+
+casillaDestino.recibirUnidadEmpujada(this.unidad, this)
+
+
+6. - Recibir unidades como casilla (otra interfaz)
+
+RecepcionDeUnidades recepcionDeUnidades RecepcionUnidadesEstandoOcupada
+RecepcionDeUnidades recepcionDeUnidades RecepcionUnidadesEstandoLibre
+
+
+Casilla.recibirUnidadEmpujada(unidad, casillaOrigen){
+    recepcionDeUnidades.recibirUnidad(unidad, casillaOrigen, this)
+}
+
+recepcionDeUnidadesEstandoLibre(unidad,casillaOrigen, casillaDestino){
+    casillaOrigen.moverUnidad(CasillaDestino)
+    
+}
+
+recepcionDeUnidadesEstandoOcupada(unidad,casillaOrigen, casillaDestino){
+    casillaDestino.unidad.recibirDañoPorColision()
+    casillaOrigen.unidad.recibirDañoPorColision()
+}

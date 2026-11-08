@@ -1,0 +1,36 @@
+Casos de Uso
+
+Caso1: Diagrama de secuencia para el caso donde el Mech de Artillería dispara a un Vek que está  al lado de un edificio: daño en la casilla objetivo, empuje de las unidades adyacentes,  choque contra el edificio y descuento de la Red Eléctrica.
+
+
+Artilleria igual no empuja una unidad si está en la misma casilla objetivo, ¿no? Entonces esta secuencia no tiene mucho sentido, a menos que queramos que: o la unidad de artilleria dispare a la casilla contigua de la creatura para que esta pueda ser empujada hacia el edificio, o dispara al vek directamente cosa que hacer que no sea desplazado. Ambas situaciones 
+
+Modelemos ambas situaciones:
+
+Caso 1.1: Mecha de Artilleria dispara a un Vek que está al lado de un edificio, esta es empujada hacia el edificio, choca contra el edificio y descuenta a la red electrica
+
+MechArtilleria.atacar(casillaDestino) -> Artilleria:Arma
+Arma.atacar(casillaDestino) -> casillaDestino:Casilla
+casillaDestino.recibirAtaque(ataque):
+
+//parte de inflingir daño en la unidad:
+casillaDestino.recepcionDeDaño.recibirAtaque(unidad,ataque) -> r:RecepcionDeDaño
+recepcionDeDaño.unidad.recibirDaño(ataque) -> Vek:unidad
+unidad.recibirDaño(ataque) 
+unidad.vida = ataque.restarPuntosDeVida(hp)
+ataque.restarPuntosDeVida(hp){return hp - daño}
+
+
+
+//Parte de desplazar 
+casillaDestino.recibirAtaque.ataque.generarDesplazamiento(this)
+ataque.empujarAdyacentes(Casilla)
+tablero.empujarAdyacentes(casillaObjetivo)
+
+por cada direccion ortogonal
+
+casillaOrigen = obtenerCasillaEnDireccion(casillaObjetivo, direccion)
+casillaDestion = obtenerCasillaEnDireccion(casillaOrigen, direccion)
+
+casillaOrigen.empujarUnidadHacia(casillaDestino)
+casillaDestino.recibirUnidadEmpujada(this.unidad, this)
