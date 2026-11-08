@@ -1,3 +1,4 @@
+package Preliminar;
 public class Casilla {
     private Posicion posicion;
     private Terreno terreno;
