@@ -34,3 +34,10 @@ casillaDestion = obtenerCasillaEnDireccion(casillaOrigen, direccion)
 
 casillaOrigen.empujarUnidadHacia(casillaDestino)
 casillaDestino.recibirUnidadEmpujada(this.unidad, this)
+Vek.recibirDanio(1)
+edificio.recibirDanio(1)
+edificio.RedElectrica.descontarEnergia(1)
+edificio.cambiarTerreno(suelo)
+
+Esto falta pulirlo, esta inspirado en el diagrama de secuencias UML hecho por Lautaro. Pero ese diagrama en si tiene bastantes cosas que aun tenemos que especificar de nuestro modelo.
+

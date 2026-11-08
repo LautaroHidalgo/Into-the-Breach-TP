@@ -1,0 +1,20 @@
+Movimientos:
+Jugador
+    |
+    | moverUnidad(origen, destino)
+    v
+Tablero
+    |
+    | Validar recorrido y destino
+    |
+    | trasladarUnidadA(destino)
+    v
+CasillaOrigen
+    |
+    | recibirUnidad(unidad)
+    v
+CasillaDestino
+    |
+    | permiteIngreso(unidad)
+    v
+Terreno
