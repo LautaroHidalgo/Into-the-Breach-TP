@@ -24,6 +24,7 @@ enum Fase {
 class Tablero {
   - alcanceMovimiento : int
   + moverUnidad(origen : Posicion, destino : Posicion)
+  + deshacerMovimiento(destinoActual : Posicion, origenAnterior : Posicion)
   + movimientosValidosDesde(origen : Posicion)
   + empujarUnidad(origen : Posicion, direccion : Direccion)
   + obtenerCasilla(posicion : Posicion) : Casilla
