@@ -1,8 +1,0 @@
-Inicializar Edificios
-
-Primero inicializamos la red electrica
-Después le pasamos la red electrica como parametro a la cada edificio al crearlo
-Asi todos los edificios tienen una referencia a la red electrica
-
-
-Al seleccionar una unidad, aparecen opciones de movimiento validas
