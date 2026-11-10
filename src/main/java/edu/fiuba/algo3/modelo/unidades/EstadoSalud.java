@@ -1,6 +1,8 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.unidades;
 
-public enum EstadoSalud {
-    SANO,
-    CONTAMINADO
+public interface EstadoSalud {
+
+    int calcularDanio(int danioBase);
+
+    EstadoSalud contaminar();
 }
