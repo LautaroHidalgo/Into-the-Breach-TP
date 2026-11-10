@@ -8,7 +8,7 @@ public class Tablero {
     private final Map<Posicion, Unidad> unidades;
 
     public Tablero() {
-        this.unidades = new HashMap<>();
+        this.unidades = new HashMap<>(); // vACIO
     }
 
     public void inicializarUnidad(Unidad unidad, Posicion posicion) {
