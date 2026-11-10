@@ -1,5 +1,11 @@
 package edu.fiuba.algo3.entrega_1;
+import edu.fiuba.algo3.modelo.Casilla.Casilla;
+import edu.fiuba.algo3.modelo.Casilla.Montania;
+import edu.fiuba.algo3.modelo.Tablero.Posicion;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -8,18 +14,15 @@ public class testMechSoloPuedeMoverseRangoPermitido {
     @Test
     public void testMechSoloPuedeMoverseRangoPermitido() {
         // ARRANGE
-        Tablero tablero = new Tablero();
+        File mapa = new File("src/test/resources/mapas/mapaTest2.csv");
+        Tablero tablero = new Tablero(mapa);
         MechCombate mech = new MechCombate();
-        Montania montania = new Montania();
-        Posicion origen = new Posicion(4,4);
-        Posicion obstaculo = new Posicion(4,5);
-        Posicion atrasMontania = new Posicion(4,6);
         // montania --- atrasmontania (la próxima para cortar la trayectoria)
-        Posicion libre = new Posicion(4,3);
         // Declaro la variable tablero de tipo Tablero;
         // y construyo con new el objeto en memoria guardandolo en la variable;
         // lo mismo para las demas;
-        Casilla casillaOrigen = tablero.obtenerCasilla(origen);
+        Posicion posicionMech = new Posicion(2,3);
+        Casilla casillaOrigen = tablero.obtenerCasilla(posicionMech);
         Casilla casillaObstaculo = tablero.obtenerCasilla(obstaculo);
         casillaOrigen.recibirUnidad(mech);
         casillaObstaculo.cambiarTerreno(montania);
