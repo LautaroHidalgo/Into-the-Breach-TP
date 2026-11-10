@@ -33,9 +33,9 @@ public class testArtilleriaAtacaPorEncimaDeObstaculosYEmpuja {
         Casilla casillaEnemiga4 = tablero.obtenerCasilla(enemigo4);
         Casilla casillaEnemiga5 = tablero.obtenerCasilla(enemigo5);
         Casilla casillaDestinoArriba = tablero.obtenerCasilla(desplazamientoAr);
+        Casilla casillaDestinoIzquierda = tablero.obtenerCasilla(desplazamientoIz);
         Casilla casillaDestinoDerecha = tablero.obtenerCasilla(desplazamientoDe);
         Casilla casillaDestinoAbajo = tablero.obtenerCasilla(desplazamientoAb);
-        // La de la izquierda no va porque el Vek se choca con la montania
         casillaEnemiga1.recibirUnidad(vek1);
         casillaEnemiga2.recibirUnidad(vek2);
         casillaEnemiga3.recibirUnidad(vek3);
@@ -47,7 +47,7 @@ public class testArtilleriaAtacaPorEncimaDeObstaculosYEmpuja {
         //ACT
         DispararCasillaAdyacente exception = assertThrows(
                 DispararCasillaAdyacente.class, () -> mech.atacar(origen,obstaculo, tablero),
-                "Este mech no puede disparar a una casilla adyacente"
+                "Un mech no puede disparar a una casilla adyacente"
         );
         assertEquals("Disparo a casilla adyacente", exception.getMessage());
 
