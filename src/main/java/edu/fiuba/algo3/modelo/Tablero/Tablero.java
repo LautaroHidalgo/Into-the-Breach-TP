@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.fiuba.algo3.modelo.Casilla.*;
+import edu.fiuba.algo3.modelo.unidades.MechCombate;
 
 public class Tablero {
     private Map<Posicion, Casilla> casillas = new HashMap<>();
@@ -50,7 +51,7 @@ public class Tablero {
         return casillas.get(posicion);
     }
 
-    public void posicionarUnidad(Posicion posicion, Unidad unidad){
+    public void posicionarUnidad(Posicion posicion, MechCombate unidad){
         Casilla casilla = casillas.get(posicion);
         casilla.recibirUnidad(unidad);
     }
