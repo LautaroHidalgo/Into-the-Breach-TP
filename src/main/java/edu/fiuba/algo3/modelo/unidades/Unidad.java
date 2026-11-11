@@ -1,12 +1,14 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-public class Unidad {
+public abstract class Unidad {
 
     private int vida;
+    private final int movimiento;
     private EstadoSalud estadoSalud = new Sano();
 
-    protected Unidad(int vida) {
+    protected Unidad(int vida, int movimiento) {
         this.vida = vida;
+        this.movimiento = movimiento;
     }
 
     public void recibirDanio(int cantidad) {
@@ -21,7 +23,12 @@ public class Unidad {
         return vida > 0;
     }
 
+    // solo para los tests retirar despues
     public int vida(){
         return vida;
+    }
+    // solo para los tests retirar despues
+    public int movimiento(){
+        return movimiento;
     }
 }

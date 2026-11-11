@@ -16,6 +16,16 @@ public class UnidadTest {
     }
 
     @Test
+    public void cadaUnidadEmpiezaLosMovimientosIndicados() {
+        assertEquals(3, new MechCombate().movimiento());
+        assertEquals(3, new MechCanon().movimiento());
+        assertEquals(3, new MechArtilleria().movimiento());
+        assertEquals(3, new Saltador().movimiento());
+        assertEquals(2, new Luciernaga().movimiento());
+        assertEquals(4, new Avispon().movimiento());
+    }
+
+    @Test
     public void recibirDanioReduceLaVida() {
         Luciernaga luciernaga = new Luciernaga();
 
