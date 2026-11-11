@@ -9,4 +9,8 @@ public class Terreno {
         return this.getClass() == otroTerreno.getClass();
     }
 
+    public boolean esTransitable() {
+        return false;
+    }
+
 }

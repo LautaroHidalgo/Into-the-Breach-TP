@@ -41,4 +41,29 @@ public class Posicion {
     public int hashCode() {
         return Objects.hash(fila, columna);
     }
+
+    public Posicion derecha(){
+        if (columna == 7){return null;}
+        return new Posicion(fila,columna+1);
+    }
+
+    public Posicion izquierda(){
+        if (columna == 0){return null;}
+        return new Posicion(fila,columna-1);
+    }
+
+    public Posicion arriba(){
+        if (fila == 0){return null;}
+        return new Posicion(fila-1,columna);
+    }
+
+    public Posicion abajo(){
+        if (fila == 7){return null;}
+        return new Posicion(fila+1,columna);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + fila + ", " + columna + ")";
+    }
 }

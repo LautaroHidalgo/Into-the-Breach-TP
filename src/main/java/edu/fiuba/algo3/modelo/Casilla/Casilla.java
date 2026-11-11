@@ -2,12 +2,8 @@ package edu.fiuba.algo3.modelo.Casilla;
 
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 
-/**
- * Casilla
- */
 public class Casilla {
     private Terreno terreno;
-
     private Unidad unidad;
 
     public Casilla(Terreno terreno){
@@ -24,5 +20,21 @@ public class Casilla {
 
     public void recibirUnidad(Unidad unidadRecibida){
         this.unidad = unidadRecibida;
+    }
+
+    public boolean puedeRecibirUnidad(Unidad unidadRecibida){
+        return esTransitable() && !ocupada();
+    }
+
+    public boolean ocupada(){
+        return this.unidad != null;
+    }
+
+    public Unidad getUnidad(){
+        return this.unidad;
+    }
+
+    public boolean esTransitable() {
+        return terreno.esTransitable();
     }
 }
