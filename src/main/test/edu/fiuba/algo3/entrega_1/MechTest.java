@@ -1,14 +1,13 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.tablero.Posicion;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
+
 import edu.fiuba.algo3.modelo.unidades.MechCombate;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import edu.fiuba.algo3.modelo.unidades.*;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.excepciones.*;
+import edu.fiuba.algo3.modelo.Tablero.*;
 
 public class MechTest {
 
@@ -20,7 +19,7 @@ public class MechTest {
         Posicion destino1 = new Posicion(0, 1);
         Posicion destino2 = new Posicion(0, 2);
         MechCombate mech  = new MechCombate();
-        tablero.inicializarUnidad(mech, origen);
+        tablero.posicionarUnidad(origen, mech);
 
         // ACT
         tablero.moverUnidad(origen, destino1);
@@ -40,8 +39,8 @@ public class MechTest {
         Posicion posicionVek  = new Posicion(0, 1);
         MechCombate mech = new MechCombate();
         Saltador vek = new Saltador();
-        tablero.inicializarUnidad(mech, posicionMech);
-        tablero.inicializarUnidad(vek, posicionVek);
+        tablero.posicionarUnidad(posicionMech, mech);
+        tablero.posicionarUnidad(posicionVek, vek);
 
         // ACT
         mech.atacar(posicionMech, posicionVek, tablero);
@@ -61,7 +60,7 @@ public class MechTest {
         Posicion destino = new Posicion(0, 1);
         MechCombate mech = new MechCombate();
 
-        tablero.inicializarUnidad(mech, origen);
+        tablero.posicionarUnidad(origen, mech);
         tablero.moverUnidad(origen, destino);
 
         // ACT
