@@ -52,9 +52,13 @@ public abstract class Unidad {
     }
 
     public void deshacerMovimiento() {
-        if (!yaAtaco) {
-            yaSeMovio = false;
+        if (yaAtaco) {
+            throw new AccionNoPermitidaException("No se puede deshacer el movimiento después de atacar");
         }
+        if (!yaSeMovio) {
+            throw new MovimientoNoPermitidoException("No hay ningún movimiento para deshacer");
+        }
+        yaSeMovio = false;
     }
 
     public void registrarAtaque() {
