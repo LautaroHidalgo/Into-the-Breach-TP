@@ -54,8 +54,14 @@ public class Tablero {
         return casillas.get(posicion);
     }
 
-    public void posicionarUnidad(Posicion posicion, Unidad unidad){
+    public void posicionarUnidad(Posicion posicion, Unidad unidad) {
         Casilla casilla = casillas.get(posicion);
+
+        if (casilla == null) {
+            casilla = new Casilla(new Suelo());
+            casillas.put(posicion, casilla);
+        }
+
         casilla.recibirUnidad(unidad);
     }
 
@@ -135,6 +141,44 @@ public class Tablero {
             adjacentes.add(posicion.abajo());
         }
         return adjacentes;
+    }
+
+    public void moverUnidad(Posicion origen, Posicion destino) {
+        Casilla casillaOrigen = casillas.get(origen);
+        Casilla casillaDestino = casillas.get(destino);
+
+        if (casillaOrigen == null || !casillaOrigen.ocupada()) {
+            throw new IllegalArgumentException("No hay unidad en el origen");
+        }
+
+        Unidad unidad = casillaOrigen.getUnidad();
+
+        unidad.registrarMovimiento();
+
+        casillaOrigen.liberar();
+
+        if (casillaDestino == null) {
+            casillaDestino = new Casilla(new Suelo());
+            casillas.put(destino, casillaDestino);
+        }
+        casillaDestino.recibirUnidad(unidad);
+    }
+
+    public void deshacerMovimiento(Posicion posicionActual, Posicion posicionOriginal) {
+        Casilla casillaActual = casillas.get(posicionActual);
+        Casilla casillaOriginal = casillas.get(posicionOriginal);
+
+        Unidad unidad = casillaActual.getUnidad();
+
+        unidad.deshacerMovimiento();
+
+        casillaActual.liberar();
+        casillaOriginal.recibirUnidad(unidad);
+    }
+
+    public boolean estaOcupada(Posicion posicion) {
+        Casilla casilla = casillas.get(posicion);
+        return casilla != null && casilla.ocupada();
     }
 
 
