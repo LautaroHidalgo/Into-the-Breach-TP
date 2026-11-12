@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.modelo.Casilla;
-
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class Casilla {
@@ -36,5 +35,11 @@ public class Casilla {
 
     public boolean esTransitable() {
         return terreno.esTransitable();
+    }
+
+    public void recibirAtaque(int danio){
+        if (ocupada()) {
+            this.unidad.recibirDanio(danio);
+        }
     }
 }

@@ -46,4 +46,3 @@ public class TestMovimientoUnidad {
         assertEquals(new HashSet<>(listaEsperada),new HashSet<>(movimientos));
     }
 }
-

@@ -24,4 +24,8 @@ public class Unidad {
     public int vida(){
         return vida;
     }
+
+    public boolean tieneVida(int vida){
+        return this.vida == vida;
+    }
 }

@@ -54,7 +54,12 @@ public class Tablero {
         return casillas.get(posicion);
     }
 
-    public void posicionarUnidad(Posicion posicion, MechCombate unidad){
+    public boolean posicionEstaOcupada(Posicion posicion) {
+        // Tablero delega la pregunta interna
+        return casillas.get(posicion).ocupada();
+    }
+
+    public void posicionarUnidad(Posicion posicion, Unidad unidad){
         Casilla casilla = casillas.get(posicion);
         casilla.recibirUnidad(unidad);
     }
@@ -107,6 +112,15 @@ public class Tablero {
             adjacentes.add(posicion.abajo());
         }
         return adjacentes;
+    }
+
+    public void recibirAtaque(Posicion posicion, int danio){
+        Casilla casillaObjetivo = casillas.get(posicion);
+        casillaObjetivo.recibirAtaque(danio);
+    }
+
+    public void empujarUnidad (Posicion posicion, Direccion direccion){
+        // Coming soon
     }
 
 }
