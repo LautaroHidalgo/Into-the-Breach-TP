@@ -72,4 +72,5 @@ public class AtaqueMechTest {
         assertEquals(3, detras.vida());
         assertTrue(tablero.unidadEstaEn(detras, new Posicion(3, 4)));
     }
+
 }
