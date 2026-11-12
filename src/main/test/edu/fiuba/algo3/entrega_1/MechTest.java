@@ -9,15 +9,18 @@ import edu.fiuba.algo3.modelo.unidades.*;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Tablero.*;
 
+import java.io.File;
+
 public class MechTest {
 
     @Test
     public void mechNoPuedeMoverseDosVecesPorTurno() {
         // ARRANGE
-        Tablero tablero = new Tablero();
-        Posicion origen   = new Posicion(0, 0);
-        Posicion destino1 = new Posicion(0, 1);
-        Posicion destino2 = new Posicion(0, 2);
+        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        Tablero tablero = new Tablero(mapa);
+        Posicion origen   = new Posicion(1, 2);
+        Posicion destino1 = new Posicion(1, 3);
+        Posicion destino2 = new Posicion(1, 4);
         MechCombate mech  = new MechCombate();
         tablero.posicionarUnidad(origen, mech);
 
@@ -34,9 +37,10 @@ public class MechTest {
     @Test
     public void mechNoPuedeAtacarDosVecesPorTurno() {
         // ARRANGE
-        Tablero tablero = new Tablero();
-        Posicion posicionMech = new Posicion(0, 0);
-        Posicion posicionVek  = new Posicion(0, 1);
+        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        Tablero tablero = new Tablero(mapa);
+        Posicion posicionMech = new Posicion(1, 2);
+        Posicion posicionVek  = new Posicion(1, 3);
         MechCombate mech = new MechCombate();
         Saltador vek = new Saltador();
         tablero.posicionarUnidad(posicionMech, mech);
@@ -55,9 +59,10 @@ public class MechTest {
     @Test
     public void sePuedeDeshacerMovimientoSiAunNoAtaco() {
         // ARRANGE
-        Tablero tablero = new Tablero();
-        Posicion origen = new Posicion(0, 0);
-        Posicion destino = new Posicion(0, 1);
+        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        Tablero tablero = new Tablero(mapa);
+        Posicion origen = new Posicion(1, 2);
+        Posicion destino = new Posicion(1, 3);
         MechCombate mech = new MechCombate();
 
         tablero.posicionarUnidad(origen, mech);
