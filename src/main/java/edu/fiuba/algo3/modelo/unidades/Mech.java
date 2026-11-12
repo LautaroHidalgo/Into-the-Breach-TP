@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.armas.Arma;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public abstract class Mech extends Unidad {
 
@@ -11,5 +13,7 @@ public abstract class Mech extends Unidad {
         this.arma = arma;
     }
 
-
+    public void atacar(Posicion origen, Posicion objetivo, Tablero tablero){
+        arma.atacar(tablero, origen, objetivo);
+    }
 }

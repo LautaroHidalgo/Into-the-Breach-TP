@@ -62,6 +62,28 @@ public class Posicion {
         return new Posicion(fila+1,columna);
     }
 
+    // no chequea los bordes eso lo hace el tablero
+    public Posicion obtenerAdyacente(Direccion direccion){
+        return direccion.desplazar(fila , columna);
+    }
+
+    //misma fila o misma columna pero no la misma posición
+    public boolean estaAlineadaCon(Posicion otra) {
+        return otra.alineadaConCoordenadas(fila, columna);
+    }
+
+    private boolean alineadaConCoordenadas(int fil, int col) {
+        return (fila == fil) != (columna == col);
+    }
+
+    public Direccion direccionHacia(Posicion otra) {
+        return otra.direccionDesde(fila, columna);
+    }
+
+    private Direccion direccionDesde(int fil, int col) {
+        return Direccion.entre(fil, col, fila, columna);
+    }
+
     @Override
     public String toString() {
         return "(" + fila + ", " + columna + ")";

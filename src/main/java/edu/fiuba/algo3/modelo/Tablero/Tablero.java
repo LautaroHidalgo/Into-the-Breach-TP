@@ -54,9 +54,37 @@ public class Tablero {
         return casillas.get(posicion);
     }
 
-    public void posicionarUnidad(Posicion posicion, MechCombate unidad){
+    public void posicionarUnidad(Posicion posicion, Unidad unidad){
         Casilla casilla = casillas.get(posicion);
         casilla.recibirUnidad(unidad);
+    }
+
+    private Casilla casillaEn(Posicion posicion) {
+        return casillas.getOrDefault(posicion, new Casilla(new FueraDelTablero()));
+    }
+
+    public boolean estaDentro(Posicion posicion) {
+        return casillas.containsKey(posicion);
+    }
+
+    public void atacar(Posicion posicion, int danio) {
+        casillaEn(posicion).recibirAtaque(danio);
+    }
+
+    public void empujarUnidad(Posicion origen, Direccion direccion) {
+        casillaEn(origen).empujarUnidadHacia(casillaEn(origen.obtenerAdyacente(direccion)));
+    }
+
+    public Posicion buscarPrimerImpacto(Posicion origen, Direccion direccion) {
+        Posicion actual = origen.obtenerAdyacente(direccion);
+        while (!casillaEn(actual).detieneDisparos()) {
+            actual = actual.obtenerAdyacente(direccion);
+        }
+        return actual;
+    }
+
+    public boolean unidadEstaEn(Unidad unidad, Posicion posicion) {
+        return casillaEn(posicion).contiene(unidad);
     }
 
     public List<Posicion> movimientosValidosDesde(Posicion origen) {
@@ -108,5 +136,7 @@ public class Tablero {
         }
         return adjacentes;
     }
+
+
 
 }
