@@ -11,3 +11,5 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 *.iml
 *.~undo-tree~
+hs_err_pid*.log
+replay_pid*.log
