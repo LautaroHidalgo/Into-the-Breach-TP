@@ -181,6 +181,4 @@ public class Tablero {
         return casilla != null && casilla.ocupada();
     }
 
-
-
 }
