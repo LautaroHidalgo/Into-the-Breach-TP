@@ -36,4 +36,29 @@ public class DeshacerMovimientoTest {
                 "El tablero debería rechazar deshacer el movimiento si el Mech ya atacó"
         );
     }
+
+    @Test
+    public void noSePuedeDeshacerUnMovimientoMasDeUnaVezPorTurno() {
+        // ARRANGE
+        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        Tablero tablero = new Tablero(mapa);
+        Posicion origen = new Posicion(1, 2);
+        Posicion primerDestino = new Posicion(1, 3);
+        Posicion segundoDestino = new Posicion(1, 4);
+
+        MechCombate mech = new MechCombate();
+        tablero.posicionarUnidad(origen, mech);
+
+        // ACT
+        tablero.moverUnidad(origen, primerDestino);
+        tablero.deshacerMovimiento(primerDestino, origen);
+        tablero.moverUnidad(origen, segundoDestino);
+
+        // ASSERT
+        assertThrows(
+                MovimientoNoPermitidoException.class,
+                () -> tablero.deshacerMovimiento(segundoDestino, origen),
+                "No deberia deshacer un movimiento más de una vez por turno."
+        );
+    }
 }

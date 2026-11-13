@@ -12,6 +12,7 @@ public abstract class Unidad {
 
     private boolean yaSeMovio = false;
     private boolean yaAtaco = false;
+    private boolean yaDeshizoMovimiento = false;
 
     protected Unidad(int vida, int movimiento) {
         this.vida = vida;
@@ -55,10 +56,14 @@ public abstract class Unidad {
         if (yaAtaco) {
             throw new AccionNoPermitidaException("No se puede deshacer el movimiento después de atacar");
         }
+        if (yaDeshizoMovimiento) {
+            throw new MovimientoNoPermitidoException("No se puede deshacer el movimiento más de una vez por turno.");
+        }
         if (!yaSeMovio) {
             throw new MovimientoNoPermitidoException("No hay ningún movimiento para deshacer");
         }
         yaSeMovio = false;
+        yaDeshizoMovimiento = true;
     }
 
     public void registrarAtaque() {
@@ -72,6 +77,7 @@ public abstract class Unidad {
     public void reiniciarTurno() {
         yaSeMovio = false;
         yaAtaco = false;
+        yaDeshizoMovimiento = false;
     }
 
     // solo para los tests retirar despues
