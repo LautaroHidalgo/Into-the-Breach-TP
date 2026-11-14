@@ -57,6 +57,4 @@ public class AtaqueArtilleriaTest {
         assertTrue(tablero.unidadEstaEn(izquierda, new Posicion(3, 2)));
         assertTrue(tablero.unidadEstaEn(derecha, new Posicion(3, 6)));
     }
-
-
 }
