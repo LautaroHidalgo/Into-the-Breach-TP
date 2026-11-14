@@ -16,13 +16,21 @@ public class UnidadTest {
     }
 
     @Test
-    public void cadaUnidadEmpiezaLosMovimientosIndicados() {
-        assertEquals(3, new MechCombate().movimiento());
-        assertEquals(3, new MechCanon().movimiento());
-        assertEquals(3, new MechArtilleria().movimiento());
-        assertEquals(3, new Saltador().movimiento());
-        assertEquals(2, new Luciernaga().movimiento());
-        assertEquals(4, new Avispon().movimiento());
+    public void cadaUnidadPuedeRecorrerSoloSuMovimiento() {
+        assertTrue(new MechCombate().puedeRecorrer(3));
+        assertFalse(new MechCombate().puedeRecorrer(4));
+        assertTrue(new MechCanon().puedeRecorrer(3));
+        assertFalse(new MechCanon().puedeRecorrer(4));
+        assertTrue(new MechArtilleria().puedeRecorrer(3));
+        assertFalse(new MechArtilleria().puedeRecorrer(4));
+        assertTrue(new Saltador().puedeRecorrer(3));
+        assertFalse(new Saltador().puedeRecorrer(4));
+        assertTrue(new Luciernaga().puedeRecorrer(2));
+        assertFalse(new Luciernaga().puedeRecorrer(3));
+        assertTrue(new Avispon().puedeRecorrer(4));
+        assertFalse(new Avispon().puedeRecorrer(5));
+
+
     }
 
     @Test

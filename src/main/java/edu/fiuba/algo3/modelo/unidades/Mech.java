@@ -14,7 +14,8 @@ public abstract class Mech extends Unidad {
     }
 
     public void atacar(Posicion origen, Posicion objetivo, Tablero tablero){
-        this.registrarAtaque();
+        verificarQuePuedeAtacar();
         arma.atacar(tablero, origen, objetivo);
+        registrarAtaque();
     }
 }

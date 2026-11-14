@@ -107,7 +107,7 @@ public class Tablero {
         while (!pendientes.isEmpty()) {
             Posicion actual = pendientes.remove();
             int distancia = distancias.get(actual);
-            if (distancia == 3) {
+            if (!unidad.puedeRecorrer(distancia + 1)) {
                 continue;
             }
             for (Posicion siguiente : obtenerAdyacentes(actual)) {
