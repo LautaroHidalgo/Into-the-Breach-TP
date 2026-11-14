@@ -80,12 +80,12 @@ public abstract class Unidad {
         yaDeshizoMovimiento = false;
     }
 
-    // solo para los tests retirar despues
+    // consulta para los tests y la interfaz gráfica (mostrar la vida)
     public int vida(){
         return vida;
     }
-    // solo para los tests retirar despues
-    public int movimiento(){
-        return movimiento;
+
+    public boolean puedeRecorrer(int casillas) {
+        return casillas <= movimiento;
     }
 }
