@@ -15,19 +15,21 @@ public class Tablero {
     private Map<Posicion, Casilla> casillas = new HashMap<>();
     //cambio: el tablero sabe de dónde vino cada unidad que se movió (posición actual -> origen)
     private final Map<Posicion, Posicion> origenesDeMovimientos = new HashMap<>();
+    private static final int CASILLAS_MAXIMAS = 64;
+    private static final int TAMANIO = 8;
 
     public Tablero(File mapa) {
         LectorTableroCSV lector = new LectorTableroCSV();
         
         List<Casilla> listaCasillas = lector.transformarArchivo(mapa);
 
-        if (listaCasillas.size() != 64) {
+        if (listaCasillas.size() != CASILLAS_MAXIMAS) {
             throw new TableroInvalidoException("El tablero debe contener exactamente 64 casillas");
         }
 
-        for (int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                casillas.put(new Posicion(i, j), listaCasillas.get((i*8+j)));
+        for (int i = 0; i < TAMANIO; i++){
+            for(int j = 0; j < TAMANIO; j++){
+                casillas.put(new Posicion(i, j), listaCasillas.get((i*TAMANIO+j)));
             }
         }
     }
@@ -40,20 +42,18 @@ public class Tablero {
         casillas.put(posicion,casilla);
     }
 
-    public Boolean equals(Tablero otroTablero){
-        for (int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                Posicion pos = new Posicion(i,j);
-                if (!otroTablero.getCasilla(pos).esIgual(casillas.get(pos))){
-                    return false;
-                }
+    public boolean esIgualA(Tablero otro) {
+        if (casillas.size() != otro.casillas.size()) {
+            return false;
+        }
+        for (Posicion posicion : casillas.keySet()) {
+            Casilla miCasilla = casillas.get(posicion);
+            Casilla suCasilla = otro.casillaEn(posicion);
+            if (!suCasilla.esIgual(miCasilla)) {
+                return false;
             }
         }
         return true;
-    }
-
-    private Casilla getCasilla(Posicion posicion){
-        return casillas.get(posicion);
     }
 
     public void posicionarUnidad(Posicion posicion, Unidad unidad) {
@@ -92,11 +92,11 @@ public class Tablero {
     }
 
     public List<Posicion> movimientosValidosDesde(Posicion origen) {
-        Casilla casillaOrigen = casillas.get(origen);
-        if (casillaOrigen == null || !casillaOrigen.ocupada()) {
+        //cambio: usa casillaEn (sin null) fuera del tablero la casilla tampoco está ocupada
+        Casilla casillaOrigen = casillaEn(origen);
+        if (!casillaOrigen.ocupada()) {
             throw new IllegalArgumentException("No hay unidad en el origen");
         }
-        Unidad unidad = casillaOrigen.getUnidad();
         List<Posicion> movimientosValidos = new ArrayList<>();
         Queue<Posicion> pendientes = new ArrayDeque<>();
         Map<Posicion, Integer> distancias = new HashMap<>();
@@ -105,15 +105,16 @@ public class Tablero {
         while (!pendientes.isEmpty()) {
             Posicion actual = pendientes.remove();
             int distancia = distancias.get(actual);
-            if (!unidad.puedeRecorrer(distancia + 1)) {
+            //cambio: la casilla de origen le pregunta a su unidad (el tablero ya no usa getUnidad)
+            if (!casillaOrigen.suUnidadPuedeRecorrer(distancia + 1)) {
                 continue;
             }
-            for (Posicion siguiente : obtenerAdyacentes(actual)) {
-                Casilla destino = casillas.get(siguiente);
-                if (destino == null || distancias.containsKey(siguiente)) {
-                    continue;
-                }
-                if (!destino.puedeRecibirUnidad(unidad)) {
+            //cambio: recorre las 4 direcciones fuera del tablero casillaEn devuelve FueraDelTablero
+            // que no se puede transitar así que no hacen falta los null ni los if de los bordes
+            for (Direccion direccion : Direccion.values()) {
+                Posicion siguiente = actual.obtenerAdyacente(direccion);
+                if (distancias.containsKey(siguiente)
+                        || !casillaOrigen.suUnidadPuedeEntrarEn(casillaEn(siguiente))) {
                     continue;
                 }
                 distancias.put(siguiente, distancia + 1);
@@ -122,23 +123,6 @@ public class Tablero {
             }
         }
         return movimientosValidos;
-    }
-
-        public List<Posicion> obtenerAdyacentes(Posicion posicion){
-        List<Posicion> adjacentes = new ArrayList<>();
-        if (posicion.derecha() != null){
-            adjacentes.add(posicion.derecha());
-        }
-        if (posicion.izquierda() != null){
-            adjacentes.add(posicion.izquierda());
-        }
-        if (posicion.arriba() != null){
-            adjacentes.add(posicion.arriba());
-        }
-        if (posicion.abajo() != null){
-            adjacentes.add(posicion.abajo());
-        }
-        return adjacentes;
     }
 
     public void moverUnidad(Posicion origen, Posicion destino) {
@@ -159,8 +143,7 @@ public class Tablero {
     }
 
     public boolean estaOcupada(Posicion posicion) {
-        Casilla casilla = casillas.get(posicion);
-        return casilla != null && casilla.ocupada();
+        return casillaEn(posicion).ocupada();
     }
 
 

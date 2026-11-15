@@ -31,9 +31,13 @@ public class Casilla {
     public boolean ocupada(){
         return unidad.ocupaCasilla();
     }
-
-    public Unidad getUnidad(){
-        return this.unidad;
+    // elimine el getUnidad la casilal responde por su unidada
+    public boolean suUnidadPuedeRecorrer(int casillas) {
+        return unidad.puedeRecorrer(casillas);
+    }
+    // la casilla de origen le pasa su unidad a la de destino
+    public boolean suUnidadPuedeEntrarEn(Casilla destino) {
+        return destino.puedeRecibirUnidad(unidad);
     }
 
     public boolean esTransitable() {

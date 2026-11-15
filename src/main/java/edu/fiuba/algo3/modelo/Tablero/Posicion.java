@@ -42,26 +42,6 @@ public class Posicion {
         return Objects.hash(fila, columna);
     }
 
-    public Posicion derecha(){
-        if (columna == 7){return null;}
-        return new Posicion(fila,columna+1);
-    }
-
-    public Posicion izquierda(){
-        if (columna == 0){return null;}
-        return new Posicion(fila,columna-1);
-    }
-
-    public Posicion arriba(){
-        if (fila == 0){return null;}
-        return new Posicion(fila-1,columna);
-    }
-
-    public Posicion abajo(){
-        if (fila == 7){return null;}
-        return new Posicion(fila+1,columna);
-    }
-
     // no chequea los bordes eso lo hace el tablero
     public Posicion obtenerAdyacente(Direccion direccion){
         return direccion.desplazar(fila , columna);
