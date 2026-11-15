@@ -32,7 +32,7 @@ public class DeshacerMovimientoTest {
         // ASSERT
         assertThrows(
                 AccionNoPermitidaException.class,
-                () -> tablero.deshacerMovimiento(destino, origen),
+                () -> tablero.deshacerMovimiento(destino),
                 "El tablero debería rechazar deshacer el movimiento si el Mech ya atacó"
         );
     }
@@ -51,13 +51,13 @@ public class DeshacerMovimientoTest {
 
         // ACT
         tablero.moverUnidad(origen, primerDestino);
-        tablero.deshacerMovimiento(primerDestino, origen);
+        tablero.deshacerMovimiento(primerDestino);
         tablero.moverUnidad(origen, segundoDestino);
 
         // ASSERT
         assertThrows(
                 MovimientoNoPermitidoException.class,
-                () -> tablero.deshacerMovimiento(segundoDestino, origen),
+                () -> tablero.deshacerMovimiento(segundoDestino),
                 "No deberia deshacer un movimiento más de una vez por turno."
         );
     }

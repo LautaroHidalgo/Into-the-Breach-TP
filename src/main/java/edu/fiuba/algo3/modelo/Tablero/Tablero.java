@@ -13,6 +13,8 @@ import edu.fiuba.algo3.modelo.unidades.*;
 
 public class Tablero {
     private Map<Posicion, Casilla> casillas = new HashMap<>();
+    //cambio: el tablero sabe de dónde vino cada unidad que se movió (posición actual -> origen)
+    private final Map<Posicion, Posicion> origenesDeMovimientos = new HashMap<>();
 
     public Tablero(File mapa) {
         LectorTableroCSV lector = new LectorTableroCSV();
@@ -55,14 +57,10 @@ public class Tablero {
     }
 
     public void posicionarUnidad(Posicion posicion, Unidad unidad) {
-        Casilla casilla = casillas.get(posicion);
-
-        if (casilla == null) {
-            casilla = new Casilla(new Suelo());
-            casillas.put(posicion, casilla);
+        if (!estaDentro(posicion)) {
+            throw new PosicionFueraDelTableroException(posicion);
         }
-
-        casilla.recibirUnidad(unidad);
+        casillaEn(posicion).recibirUnidad(unidad);
     }
 
     private Casilla casillaEn(Posicion posicion) {
@@ -144,36 +142,20 @@ public class Tablero {
     }
 
     public void moverUnidad(Posicion origen, Posicion destino) {
-        Casilla casillaOrigen = casillas.get(origen);
-        Casilla casillaDestino = casillas.get(destino);
-
-        if (casillaOrigen == null || !casillaOrigen.ocupada()) {
-            throw new IllegalArgumentException("No hay unidad en el origen");
+        if (!movimientosValidosDesde(origen).contains(destino)) {
+            throw new MovimientoNoPermitidoException("La unidad no puede moverse a " + destino);
         }
-
-        Unidad unidad = casillaOrigen.getUnidad();
-
-        unidad.registrarMovimiento();
-
-        casillaOrigen.liberar();
-
-        if (casillaDestino == null) {
-            casillaDestino = new Casilla(new Suelo());
-            casillas.put(destino, casillaDestino);
-        }
-        casillaDestino.recibirUnidad(unidad);
+        casillaEn(origen).moverUnidadA(casillaEn(destino));
+        origenesDeMovimientos.put(destino, origen);
     }
 
-    public void deshacerMovimiento(Posicion posicionActual, Posicion posicionOriginal) {
-        Casilla casillaActual = casillas.get(posicionActual);
-        Casilla casillaOriginal = casillas.get(posicionOriginal);
-
-        Unidad unidad = casillaActual.getUnidad();
-
-        unidad.deshacerMovimiento();
-
-        casillaActual.liberar();
-        casillaOriginal.recibirUnidad(unidad);
+    public void deshacerMovimiento(Posicion posicionActual) {
+        if (!origenesDeMovimientos.containsKey(posicionActual)) {
+            throw new MovimientoNoPermitidoException("No hay ningún movimiento para deshacer");
+        }
+        Posicion origen = origenesDeMovimientos.get(posicionActual);
+        casillaEn(posicionActual).deshacerMovimientoHacia(casillaEn(origen));
+        origenesDeMovimientos.remove(posicionActual);
     }
 
     public boolean estaOcupada(Posicion posicion) {

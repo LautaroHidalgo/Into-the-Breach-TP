@@ -73,4 +73,18 @@ public class Casilla {
     public boolean contiene(Unidad otra) {
         return unidad == otra;
     }
+
+    public void moverUnidadA(Casilla destino) {
+        Unidad movida = unidad;
+        movida.registrarMovimiento();
+        liberar();
+        destino.recibirUnidad(movida);
+    }
+
+    public void deshacerMovimientoHacia(Casilla origen) {
+        Unidad movida = unidad;
+        movida.deshacerMovimiento();
+        liberar();
+        origen.recibirUnidad(movida);
+    }
 }

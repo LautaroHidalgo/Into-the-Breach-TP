@@ -68,7 +68,7 @@ public class MechTest {
         tablero.moverUnidad(origen, destino);
 
         // ACT
-        tablero.deshacerMovimiento(destino, origen);
+        tablero.deshacerMovimiento(destino);
 
         // ASSERT
         assertFalse(tablero.estaOcupada(destino));
