@@ -1,16 +1,10 @@
 package edu.fiuba.algo3.modelo.unidades.estados;
 
-import edu.fiuba.algo3.modelo.Tablero.MovimientoNoPermitidoException;
-
 public abstract class EstadoTurno {
 
-    public EstadoTurno registrarMovimiento() {
-        throw new MovimientoNoPermitidoException("La unidad ya se movió en este turno");
-    }
+    public abstract EstadoTurno registrarMovimiento();
 
-    public EstadoTurno deshacerMovimiento() {
-        throw new MovimientoNoPermitidoException("No se puede deshacer el movimiento más de una vez por turno.");
-    }
+    public abstract EstadoTurno deshacerMovimiento();
 
     public void verificarQuePuedeAtacar() {
     }
@@ -19,3 +13,6 @@ public abstract class EstadoTurno {
         return new Agotado();
     }
 }
+
+// registrarMovimiento y deshacerMovimiento pasan a ser abstractos para que cada estado
+// defina su propia transición, dejando solo el comportamiento comun de ataque.
