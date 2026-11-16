@@ -1,0 +1,98 @@
+@startuml clases_general
+title Entrega 1 - Diagrama de clases general
+
+hide circle
+hide empty members
+hide members
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+package "modelo.Tablero" {
+  class Tablero
+  class Posicion
+  enum Direccion
+  class LectorTableroCSV
+}
+
+package "modelo.Casilla" {
+  class Casilla
+  class Terreno
+  class Suelo
+  class Agua
+  class Montania
+  class Edificio
+  class FueraDelTablero
+  class RedElectrica
+}
+
+package "modelo.unidades" {
+  abstract class Unidad
+  abstract class Mech
+  abstract class Vek
+  class SinUnidad
+  class MechCombate
+  class MechCanon
+  class MechArtilleria
+  class Saltador
+  class Luciernaga
+  class Avispon
+
+  package "estados" {
+    interface EstadoSalud
+    class Sano
+    class Contaminado
+    abstract class EstadoTurno
+    class Disponible
+    class Movido
+    class MovimientoDeshecho
+    class MovidoSinRetorno
+    class Agotado
+  }
+}
+
+package "modelo.armas" {
+  abstract class Arma
+  class Puno
+  class Canon
+  class Artilleria
+}
+
+Tablero "1" *-- "64" Casilla
+Tablero ..> LectorTableroCSV : usa
+Tablero ..> Posicion
+Posicion ..> Direccion
+
+Casilla --> "1" Terreno
+Casilla --> "1" Unidad : unidad
+Terreno <|-- Suelo
+Terreno <|-- Agua
+Terreno <|-- Montania
+Terreno <|-- Edificio
+Terreno <|-- FueraDelTablero
+Edificio --> RedElectrica
+
+Unidad <|-- Mech
+Unidad <|-- Vek
+Unidad <|-- SinUnidad
+Mech <|-- MechCombate
+Mech <|-- MechCanon
+Mech <|-- MechArtilleria
+Vek <|-- Saltador
+Vek <|-- Luciernaga
+Vek <|-- Avispon
+Unidad --> "1" EstadoSalud
+EstadoSalud <|.. Sano
+EstadoSalud <|.. Contaminado
+Unidad --> "1" EstadoTurno
+EstadoTurno <|-- Disponible
+EstadoTurno <|-- Movido
+EstadoTurno <|-- MovimientoDeshecho
+EstadoTurno <|-- MovidoSinRetorno
+EstadoTurno <|-- Agotado
+
+Mech --> "1" Arma
+Arma <|-- Puno
+Arma <|-- Canon
+Arma <|-- Artilleria
+Arma ..> Tablero : ataca
+@enduml

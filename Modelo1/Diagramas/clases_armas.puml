@@ -1,0 +1,74 @@
+@startuml clases_armas
+title Entrega 1 - Armas (método plantilla)
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+abstract class Arma {
+  # danio : int
+  + atacar(tablero : Tablero, origen : Posicion, objetivo : Posicion)
+  # {abstract} alcanza(origen : Posicion, objetivo : Posicion) : boolean
+  # {abstract} disparar(tablero : Tablero, origen : Posicion, objetivo : Posicion, direccion : Direccion)
+}
+
+class Puno {
+  + {static} DANIO : int = 2
+  # alcanza(...) : boolean
+  # disparar(...)
+}
+
+class Canon {
+  + {static} DANIO : int = 1
+  # alcanza(...) : boolean
+  # disparar(...)
+}
+
+class Artilleria {
+  + {static} DANIO : int = 1
+  + {static} DISTANCIA_MINIMA : int = 2
+  # alcanza(...) : boolean
+  # disparar(...)
+}
+
+class ObjetivoInvalidoException
+
+class Tablero {
+  + estaDentro(posicion : Posicion) : boolean
+  + atacar(posicion : Posicion, danio : int)
+  + empujarUnidad(origen : Posicion, direccion : Direccion)
+  + buscarPrimerImpacto(origen : Posicion, direccion : Direccion) : Posicion
+}
+
+abstract class Mech {
+  + atacar(origen : Posicion, objetivo : Posicion, tablero : Tablero)
+}
+
+Arma <|-- Puno
+Arma <|-- Canon
+Arma <|-- Artilleria
+Mech --> "1" Arma
+Arma ..> Tablero
+Arma ..> ObjetivoInvalidoException : lanza
+
+note right of Arma
+  atacar() valida el objetivo (dentro del
+  tablero y al alcance) y delega en disparar().
+  Cada arma solo define su alcance y su efecto.
+end note
+
+note bottom of Puno
+  Alcance: casilla adyacente.
+  Efecto: 2 de daño y empuje.
+end note
+note bottom of Canon
+  Alcance: cualquier casilla en línea recta.
+  Efecto: 1 de daño y empuje al primer
+  impacto (unidad u obstáculo).
+end note
+note bottom of Artilleria
+  Alcance: línea recta a 2 o más casillas.
+  Efecto: 1 de daño en el objetivo y empuje
+  hacia afuera de las 4 vecinas.
+end note
+@enduml

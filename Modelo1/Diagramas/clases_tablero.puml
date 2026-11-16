@@ -1,0 +1,124 @@
+@startuml clases_tablero
+title Entrega 1 - Tablero, casillas y terrenos
+
+hide circle
+hide empty members
+skinparam classAttributeIconSize 0
+
+class Tablero {
+  - casillas : Map<Posicion, Casilla>
+  - origenesDeMovimientos : Map<Posicion, Posicion>
+  + Tablero(mapa : File)
+  + posicionarUnidad(posicion : Posicion, unidad : Unidad)
+  + moverUnidad(origen : Posicion, destino : Posicion)
+  + deshacerMovimiento(posicionActual : Posicion)
+  + movimientosValidosDesde(origen : Posicion) : List<Posicion>
+  + atacar(posicion : Posicion, danio : int)
+  + empujarUnidad(origen : Posicion, direccion : Direccion)
+  + buscarPrimerImpacto(origen : Posicion, direccion : Direccion) : Posicion
+  + estaDentro(posicion : Posicion) : boolean
+  + estaOcupada(posicion : Posicion) : boolean
+  + unidadEstaEn(unidad : Unidad, posicion : Posicion) : boolean
+  + esIgualA(otro : Tablero) : boolean
+  - casillaEn(posicion : Posicion) : Casilla
+}
+
+class LectorTableroCSV {
+  + transformarArchivo(mapa : File) : List<Casilla>
+}
+
+class Posicion {
+  - fila : int
+  - columna : int
+  + obtenerAdyacente(direccion : Direccion) : Posicion
+  + distanciaACelda(otra : Posicion) : int
+  + estaAlineadaCon(otra : Posicion) : boolean
+  + direccionHacia(otra : Posicion) : Direccion
+  + esIgualA(otra : Posicion) : boolean
+}
+
+enum Direccion {
+  ARRIBA
+  ABAJO
+  IZQUIERDA
+  DERECHA
+  - deltaFila : int
+  - deltaColumna : int
+}
+
+class Casilla {
+  - terreno : Terreno
+  - unidad : Unidad
+  + recibirUnidad(unidad : Unidad)
+  + liberar()
+  + ocupada() : boolean
+  + puedeRecibirUnidad(unidad : Unidad) : boolean
+  + suUnidadPuedeRecorrer(casillas : int) : boolean
+  + suUnidadPuedeEntrarEn(destino : Casilla) : boolean
+  + moverUnidadA(destino : Casilla)
+  + deshacerMovimientoHacia(origen : Casilla)
+  + recibirAtaque(danio : int)
+  + empujarUnidadHacia(destino : Casilla)
+  + recibirUnidadEmpujada(empujada : Unidad, origen : Casilla)
+  + dejarPasar(empujada : Unidad, origen : Casilla)
+  + detieneDisparos() : boolean
+  + contiene(unidad : Unidad) : boolean
+}
+
+class Terreno {
+  + esTransitable() : boolean
+  + bloqueaDisparos() : boolean
+  + recibirAtaque(danio : int)
+  + recibirUnidadEmpujada(empujada : Unidad, origen : Casilla, destino : Casilla)
+}
+
+class Suelo {
+  + esTransitable() : boolean
+  + bloqueaDisparos() : boolean
+  + recibirUnidadEmpujada(...)
+}
+class Agua {
+  + esTransitable() : boolean
+  + bloqueaDisparos() : boolean
+}
+class Montania {
+  + esTransitable() : boolean
+}
+class Edificio {
+  - estaDestruido : boolean
+  + recibirAtaque(danio : int)
+  + recibirUnidadEmpujada(...)
+}
+class FueraDelTablero {
+  + recibirUnidadEmpujada(...)
+}
+class RedElectrica {
+  - energia : int
+  + restarEnergia(cantidad : int)
+  + estaActivo() : boolean
+}
+
+Tablero "1" *-- "64" Casilla
+Tablero ..> LectorTableroCSV
+Tablero ..> Posicion
+Posicion ..> Direccion
+Casilla *-- "1" Terreno
+Terreno <|-- Suelo
+Terreno <|-- Agua
+Terreno <|-- Montania
+Terreno <|-- Edificio
+Terreno <|-- FueraDelTablero
+Edificio --> "1" RedElectrica
+
+note right of FueraDelTablero
+  Null Object: terreno de las posiciones
+  fuera del tablero. No recibe empujes
+  y frena los disparos.
+end note
+
+note bottom of Terreno
+  Comportamiento por defecto: obstáculo
+  (la unidad empujada choca y no se mueve).
+  Suelo lo redefine para dejarla entrar.
+end note
+@enduml
