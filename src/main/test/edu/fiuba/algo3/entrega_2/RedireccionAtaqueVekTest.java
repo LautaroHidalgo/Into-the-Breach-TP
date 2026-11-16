@@ -1,0 +1,51 @@
+package edu.fiuba.algo3.entrega_2;
+import static org.junit.jupiter.api.Assertions.*;
+
+import edu.fiuba.algo3.modelo.Tablero.Direccion;
+import edu.fiuba.algo3.modelo.Tablero.Posicion;
+import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.unidades.Avispon;
+import edu.fiuba.algo3.modelo.unidades.MechCanon;
+import edu.fiuba.algo3.modelo.unidades.Saltador;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+
+
+public class RedireccionAtaqueVekTest {
+
+    @Test
+    public void test08ElAtaqueDelVekSeMueveConElyAtacaOtroVek(){
+        //ARRANGE
+        File mapa = new File("src/test/resources/mapas/mapaTestVeks.csv");
+        Tablero tablero = new Tablero(mapa);
+        Posicion posicionMech = new Posicion(1,2);
+        Posicion posicionVek = new Posicion(1,3);
+        Posicion desplazamientoVek = new Posicion(1,4);
+        Posicion edificio = new Posicion(0,3);
+        Posicion posicionVekVictima = new Posicion(0,4);
+        Direccion direccion = posicionVek.direccionHacia(edificio);
+        MechCanon mech = new MechCanon();
+        Avispon avispon = new Avispon();
+        Saltador saltador = new Saltador();
+
+        tablero.posicionarUnidad(posicionMech, mech);
+        tablero.posicionarUnidad(posicionVek, avispon);
+        tablero.posicionarUnidad(posicionVekVictima, saltador);
+        //avispon.anunciarAtaque(direccion); //Implementar metodo
+
+        //ACT
+        mech.atacar(posicionMech, posicionVek, tablero);
+        //avispon.ejecutarAtaque(); <- Algo así
+
+        //ASSERT
+        assertTrue(tablero.unidadEstaEn(avispon,desplazamientoVek));
+        assertFalse(tablero.estaOcupada(posicionVek));
+
+        assertEquals(1, saltador.vida());
+        assertTrue(tablero.estaOcupada(posicionVekVictima));
+
+        assertEquals(edificio, tablero.buscarPrimerImpacto(posicionVek, direccion));
+    }
+
+}

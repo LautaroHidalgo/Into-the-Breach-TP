@@ -6,34 +6,28 @@
   <version>0.0.1</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <junit.jupiter.version>5.4.0</junit.jupiter.version>
-    <mockito-mockito-core-version>5.7.0</mockito-mockito-core-version>
-    <maven-surefire-version>3.6.1</maven-surefire-version>
-    <archunit-version>1.5.1</archunit-version>
+    <mockito-mockito-core-version>3.3.0</mockito-mockito-core-version>
+    <maven-surefire-version>3.0.0-M3</maven-surefire-version>
+    <archunit-version>0.21.0</archunit-version>
     <!--
     Therefore, we are very proud to announce the availability of JavaFX 17-ea+8 for MacOS AArch64, also known as the Apple M1. You can now download the JavaFX SDK for this platform from our JavaFX Download Page. Ref.: https://gluonhq.com/javafx-for-apple-m1/
 
     Replace the line below by: <javafx-version>18.0.2</javafx-version>
     -->
-    <javafx-version>21.0.1</javafx-version>
+    <javafx-version>17.0.2</javafx-version>
     <pitest-plugin-version>1.17.3</pitest-plugin-version>
     <pitest-junit5-plugin-version>1.0.0</pitest-junit5-plugin-version>
     <main-class>edu.fiuba.algo3.Main</main-class>
   </properties>
   <dependencies>
-  <dependency>
+    <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
       <version>1.1.1</version>
-      <exclusions>
-          <exclusion>
-              <groupId>junit</groupId>
-              <artifactId>junit</artifactId>
-          </exclusion>
-      </exclusions>
-  </dependency>
+    </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -95,12 +89,12 @@
       <plugin>
         <groupId>org.pitest</groupId>
         <artifactId>pitest-maven</artifactId>
-	<version>${pitest-plugin-version}</version>
+        <version>${pitest-plugin-version}</version>
         <dependencies>
           <dependency>
             <groupId>org.pitest</groupId>
             <artifactId>pitest-junit5-plugin</artifactId>
-	    <version>${pitest-junit5-plugin-version}</version>
+            <version>${pitest-junit5-plugin-version}</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -109,7 +103,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
         <configuration>
-          <release>21</release>
+          <release>11</release>
         </configuration>
       </plugin>
       <plugin>
@@ -144,15 +138,14 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-version}</version>
-          <configuration>
-            <useModulePath>false</useModulePath>
-            <argLine>@{argLine}</argLine>
+        <configuration>
+          <argLine>${argLine} -XX:MaxPermSize=256m</argLine>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.12</version>
+        <version>0.8.2</version>
         <executions>
           <execution>
             <goals>

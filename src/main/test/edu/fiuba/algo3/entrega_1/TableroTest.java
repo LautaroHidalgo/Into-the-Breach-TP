@@ -91,7 +91,7 @@ public class TableroTest {
         File mapa = new File("src/test/resources/mapas/mapa.csv");
         Tablero tablero = new Tablero(mapa);
 
-        assertTrue(tablero.equals(mapaEsperado));
+        assertTrue(tablero.esIgualA(mapaEsperado));
     }
 
     @Test
@@ -174,7 +174,7 @@ public class TableroTest {
         File mapa = new File("src/test/resources/mapas/mapa.csv");
         Tablero tablero = new Tablero(mapa);
 
-        assertFalse(tablero.equals(mapaEsperado));
+        assertFalse(tablero.esIgualA(mapaEsperado));
     }
 
     @Test

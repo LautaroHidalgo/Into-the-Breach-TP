@@ -1,9 +1,12 @@
 package edu.fiuba.algo3.modelo.Casilla;
+
+import edu.fiuba.algo3.modelo.unidades.SinUnidad;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class Casilla {
     private Terreno terreno;
-    private Unidad unidad;
+    //cambio: una casilla vacía tiene SinUnidad en vez de null
+    private Unidad unidad = new SinUnidad();
 
     public Casilla(Terreno terreno){
         this.terreno = terreno;
@@ -26,20 +29,66 @@ public class Casilla {
     }
 
     public boolean ocupada(){
-        return this.unidad != null;
+        return unidad.ocupaCasilla();
     }
-
-    public Unidad getUnidad(){
-        return this.unidad;
+    // elimine el getUnidad la casilal responde por su unidada
+    public boolean suUnidadPuedeRecorrer(int casillas) {
+        return unidad.puedeRecorrer(casillas);
+    }
+    // la casilla de origen le pasa su unidad a la de destino
+    public boolean suUnidadPuedeEntrarEn(Casilla destino) {
+        return destino.puedeRecibirUnidad(unidad);
     }
 
     public boolean esTransitable() {
         return terreno.esTransitable();
     }
 
-    public void recibirAtaque(int danio){
-        if (ocupada()) {
-            this.unidad.recibirDanio(danio);
-        }
+    public void liberar() {
+        unidad = new SinUnidad();
+    }
+
+    //el ataque le llega a lo que haya en la casilla, Si está vacía SinUnidad no hace nada
+    public void recibirAtaque(int danio) {
+        unidad.recibirDanio(danio);
+        terreno.recibirAtaque(danio);
+    }
+
+    public void empujarUnidadHacia(Casilla destino) {
+        unidad.serEmpujada(this, destino);
+    }
+
+    //la unidad que ocupa esta casilla decide si hay choque, si está vacía decide el terreno
+    public void recibirUnidadEmpujada(Unidad empujada, Casilla origen) {
+        unidad.chocarCon(empujada, origen, this);
+    }
+
+    //la casilla está vacía así que el terreno decide si la unidad entra o choca
+    public void dejarPasar(Unidad empujada, Casilla origen) {
+        terreno.recibirUnidadEmpujada(empujada, origen, this);
+    }
+
+
+    public boolean detieneDisparos() {
+        return unidad.ocupaCasilla() || terreno.bloqueaDisparos();
+    }
+
+
+    public boolean contiene(Unidad otra) {
+        return unidad == otra;
+    }
+
+    public void moverUnidadA(Casilla destino) {
+        Unidad movida = unidad;
+        movida.registrarMovimiento();
+        liberar();
+        destino.recibirUnidad(movida);
+    }
+
+    public void deshacerMovimientoHacia(Casilla origen) {
+        Unidad movida = unidad;
+        movida.deshacerMovimiento();
+        liberar();
+        origen.recibirUnidad(movida);
     }
 }
