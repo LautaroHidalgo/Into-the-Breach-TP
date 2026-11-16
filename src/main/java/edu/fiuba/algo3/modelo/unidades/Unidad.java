@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
-import edu.fiuba.algo3.modelo.Tablero.*;
+import edu.fiuba.algo3.modelo.unidades.estados.*;
 
 public abstract class Unidad {
     public static final int DANIO_COLISION = 1;
@@ -9,10 +9,7 @@ public abstract class Unidad {
     private int vida;
     private final int movimiento;
     private EstadoSalud estadoSalud = new Sano();
-
-    private boolean yaSeMovio = false;
-    private boolean yaAtaco = false;
-    private boolean yaDeshizoMovimiento = false;
+    private EstadoTurno estadoTurno = new Disponible();
 
     protected Unidad(int vida, int movimiento) {
         this.vida = vida;
@@ -23,7 +20,7 @@ public abstract class Unidad {
         vida = Math.max(0, vida - estadoSalud.calcularDanio(cantidad));
     }
 
-    public void recibirContaminacion(){
+    public void recibirContaminacion() {
         estadoSalud = estadoSalud.contaminar();
     }
 
@@ -44,50 +41,27 @@ public abstract class Unidad {
         recibirDanio(DANIO_COLISION);
     }
 
-
     public void registrarMovimiento() {
-        if (yaSeMovio) {
-            throw new MovimientoNoPermitidoException("La unidad ya se movió en este turno");
-        }
-        yaSeMovio = true;
+        estadoTurno = estadoTurno.registrarMovimiento();
     }
 
     public void deshacerMovimiento() {
-        if (yaAtaco) {
-            throw new AccionNoPermitidaException("No se puede deshacer el movimiento después de atacar");
-        }
-        if (yaDeshizoMovimiento) {
-            throw new MovimientoNoPermitidoException("No se puede deshacer el movimiento más de una vez por turno.");
-        }
-        if (!yaSeMovio) {
-            throw new MovimientoNoPermitidoException("No hay ningún movimiento para deshacer");
-        }
-        yaSeMovio = false;
-        yaDeshizoMovimiento = true;
+        estadoTurno = estadoTurno.deshacerMovimiento();
     }
 
     public void verificarQuePuedeAtacar() {
-        if (yaAtaco) {
-            throw new AccionNoPermitidaException("La unidad ya atacó en este turno");
-        }
+        estadoTurno.verificarQuePuedeAtacar();
     }
 
     public void registrarAtaque() {
-        if (yaAtaco) {
-            throw new AccionNoPermitidaException("La unidad ya atacó en este turno");
-        }
-        yaAtaco = true;
-        yaSeMovio = true;
+        estadoTurno = estadoTurno.registrarAtaque();
     }
 
     public void reiniciarTurno() {
-        yaSeMovio = false;
-        yaAtaco = false;
-        yaDeshizoMovimiento = false;
+        estadoTurno = new Disponible();
     }
 
-    // consulta para los tests y la interfaz gráfica (mostrar la vida)
-    public int vida(){
+    public int vida() {
         return vida;
     }
 
