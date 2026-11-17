@@ -1,0 +1,83 @@
+@startuml secuencia_puno_empuje
+title El Puño daña a un Vek adyacente y lo empuja a una casilla libre
+' Escenario: Mech de Combate en (3,3) en estado Disponible, Vek sano en (3,4),
+' la casilla (3,5) es Suelo y está libre.
+
+hide footbox
+
+actor Jugador
+participant "<u>mech:MechCombate</u>" as Mech
+participant "<u>estadoTurno:Disponible</u>" as Turno
+participant "<u>puno:Puno</u>" as Arma
+participant "<u>origen:Posicion</u>" as Origen
+participant "<u>tablero:Tablero</u>" as Tablero
+participant "<u>c34:Casilla</u>" as C34
+participant "<u>vek:Luciernaga</u>" as Vek
+participant "<u>estadoSalud:Sano</u>" as Salud
+participant "<u>c35:Casilla</u>" as C35
+participant "<u>vacio:SinUnidad</u>" as Sin
+participant "<u>suelo:Suelo</u>" as Suelo
+
+Jugador -> Mech : atacar((3,3), (3,4), tablero)
+activate Mech
+
+Mech -> Mech : verificarQuePuedeAtacar()
+activate Mech
+Mech -> Turno : verificarQuePuedeAtacar()
+deactivate Mech
+
+Mech -> Arma : atacar(tablero, (3,3), (3,4))
+activate Arma
+Arma -> Tablero : estaDentro((3,4))
+Tablero --> Arma : true
+Arma -> Arma : alcanza((3,3), (3,4))
+Arma --> Arma : true
+Arma -> Origen : direccionHacia((3,4))
+Origen --> Arma : DERECHA
+Arma -> Arma : disparar(tablero, (3,3), (3,4), DERECHA)
+activate Arma
+
+Arma -> Tablero : atacar((3,4), 2)
+activate Tablero
+Tablero -> C34 : recibirAtaque(2)
+activate C34
+C34 -> Vek : recibirDanio(2)
+activate Vek
+Vek -> Salud : calcularDanio(2)
+Salud --> Vek : 2
+deactivate Vek
+deactivate C34
+deactivate Tablero
+
+Arma -> Tablero : empujarUnidad((3,4), DERECHA)
+activate Tablero
+Tablero -> C34 : empujarUnidadHacia(c35)
+activate C34
+C34 -> Vek : serEmpujada(c34, c35)
+activate Vek
+Vek -> C35 : recibirUnidadEmpujada(vek, c34)
+activate C35
+C35 -> Sin : chocarCon(vek, c34, c35)
+activate Sin
+Sin -> C35 : dejarPasar(vek, c34)
+C35 -> Suelo : recibirUnidadEmpujada(vek, c34, c35)
+activate Suelo
+Suelo -> C34 : liberar()
+Suelo -> C35 : recibirUnidad(vek)
+deactivate Suelo
+deactivate Sin
+deactivate C35
+deactivate Vek
+deactivate C34
+deactivate Tablero
+
+deactivate Arma
+deactivate Arma
+
+Mech -> Mech : registrarAtaque()
+activate Mech
+Mech -> Turno : registrarAtaque()
+Turno --> Mech : agotado
+deactivate Mech
+deactivate Mech
+@enduml
