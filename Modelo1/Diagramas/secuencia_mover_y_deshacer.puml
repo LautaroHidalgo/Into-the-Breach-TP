@@ -1,0 +1,163 @@
+@startuml secuencia_mover_y_deshacer
+title Un Mech se mueve a una casilla alcanzable y luego deshace el movimiento
+
+hide footbox
+skinparam sequenceMessageAlign center
+
+actor Jugador
+participant "__tablero:Tablero__" as Tablero
+participant "__origen:Posicion__" as POrig
+participant "__casOrigen:Casilla__" as CO
+participant "__mech:MechCombate__" as Mech
+participant "__disponible:Disponible__" as Disp
+participant "__casDestino:Casilla__" as CD
+participant "__suelo:Suelo__" as Suelo
+participant "__vacio:SinUnidad__" as Sin
+
+Jugador -> Tablero : moverUnidad(origen, destino)
+activate Jugador
+activate Tablero
+
+Tablero -> Tablero : movimientosValidosDesde(origen)
+activate Tablero
+
+Tablero -> Tablero : casillaEn(origen)
+activate Tablero
+Tablero --> Tablero : casOrigen
+deactivate Tablero
+
+Tablero -> CO : ocupada()
+activate CO
+CO -> Mech : ocupaCasilla()
+activate Mech
+Mech --> CO : true
+deactivate Mech
+CO --> Tablero : true
+deactivate CO
+
+loop [Mientras haya posiciones pendientes]
+    Tablero -> CO : suUnidadPuedeRecorrer(distancia + 1)
+    activate CO
+    CO -> Mech : puedeRecorrer(distancia + 1)
+    activate Mech
+    Mech --> CO : true
+    deactivate Mech
+    CO --> Tablero : true
+    deactivate CO
+
+    loop [Para cada Direccion]
+        Tablero -> POrig : obtenerAdyacente(direccion)
+        activate POrig
+        POrig --> Tablero : destino
+        deactivate POrig
+
+        Tablero -> Tablero : casillaEn(destino)
+        activate Tablero
+        Tablero --> Tablero : casDestino
+        deactivate Tablero
+
+        Tablero -> CO : suUnidadPuedeEntrarEn(casDestino)
+        activate CO
+        CO -> CD : puedeRecibirUnidad(mech)
+        activate CD
+        CD -> CD : esTransitable()
+        activate CD
+        CD -> Suelo : esTransitable()
+        activate Suelo
+        Suelo --> CD : true
+        deactivate Suelo
+        CD --> CD : true
+        deactivate CD
+        CD -> CD : ocupada()
+        activate CD
+        CD -> Sin : ocupaCasilla()
+        activate Sin
+        Sin --> CD : false
+        deactivate Sin
+        CD --> CD : false
+        deactivate CD
+        CD --> CO : true
+        deactivate CD
+        CO --> Tablero : true
+        deactivate CO
+    end
+end
+Tablero --> Tablero : movimientosValidos
+deactivate Tablero
+
+Tablero -> Tablero : casillaEn(origen)
+activate Tablero
+Tablero --> Tablero : casOrigen
+deactivate Tablero
+
+Tablero -> Tablero : casillaEn(destino)
+activate Tablero
+Tablero --> Tablero : casDestino
+deactivate Tablero
+
+Tablero -> CO : moverUnidadA(casDestino)
+activate CO
+CO -> Mech : registrarMovimiento()
+activate Mech
+Mech -> Disp : registrarMovimiento()
+activate Disp
+create participant "__movido:Movido__" as Mov
+Disp -->> Mov : <<create>>
+Disp --> Mech : movido
+deactivate Disp
+deactivate Mech
+
+CO -> CO : liberar()
+activate CO
+create participant "__:SinUnidad__" as Sin2
+CO -->> Sin2 : <<create>>
+deactivate CO
+
+CO -> CD : recibirUnidad(mech)
+activate CD
+deactivate CD
+deactivate CO
+
+Tablero --> Jugador
+deactivate Tablero
+
+Jugador -> Tablero : deshacerMovimiento(destino)
+activate Tablero
+
+Tablero -> Tablero : casillaEn(destino)
+activate Tablero
+Tablero --> Tablero : casDestino
+deactivate Tablero
+
+Tablero -> Tablero : casillaEn(origen)
+activate Tablero
+Tablero --> Tablero : casOrigen
+deactivate Tablero
+
+Tablero -> CD : deshacerMovimientoHacia(casOrigen)
+activate CD
+CD -> Mech : deshacerMovimiento()
+activate Mech
+Mech -> Mov : deshacerMovimiento()
+activate Mov
+create participant "__:MovimientoDeshecho__" as Desh
+Mov -->> Desh : <<create>>
+Mov --> Mech : movimientoDeshecho
+deactivate Mov
+deactivate Mech
+
+CD -> CD : liberar()
+activate CD
+create participant "__:SinUnidad__" as Sin3
+CD -->> Sin3 : <<create>>
+deactivate CD
+
+CD -> CO : recibirUnidad(mech)
+activate CO
+deactivate CO
+deactivate CD
+
+Tablero --> Jugador
+deactivate Tablero
+deactivate Jugador
+@enduml

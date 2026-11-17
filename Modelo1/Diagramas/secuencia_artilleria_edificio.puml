@@ -1,0 +1,158 @@
+@startuml secuencia_artilleria_edificio
+title Artillería en (3,0) dispara a Vek en (3,4): el Vek vecino en (3,5) choca contra un Edificio en (3,6)
+
+hide footbox
+skinparam sequenceMessageAlign center
+
+actor Jugador
+participant "__mech:MechArtilleria__" as Mech
+participant "__disponible:Disponible__" as Disp
+participant "__artilleria:Artilleria__" as Arma
+participant "__posOrigen:Posicion__" as POrig
+participant "__posObjetivo:Posicion__" as PObj
+participant "__posVecina:Posicion__" as PVec
+participant "__tablero:Tablero__" as Tablero
+participant "__objetivo:Casilla__" as CObj
+participant "__vekObjetivo:Luciernaga__" as VObj
+participant "__sano:Sano__" as Sano
+participant "__suelo:Suelo__" as Suelo
+participant "__vecina:Casilla__" as CVec
+participant "__vekVecino:Luciernaga__" as VVec
+participant "__conEdificio:Casilla__" as CEd
+participant "__vacio:SinUnidad__" as Sin
+participant "__edificio:Edificio__" as Ed
+participant "__red:RedElectrica__" as Red
+
+Jugador -> Mech : atacar(posOrigen, posObjetivo, tablero)
+activate Jugador
+activate Mech
+
+Mech -> Mech : verificarQuePuedeAtacar()
+activate Mech
+Mech -> Disp : verificarQuePuedeAtacar()
+activate Disp
+deactivate Disp
+deactivate Mech
+
+Mech -> Arma : atacar(tablero, posOrigen, posObjetivo)
+activate Arma
+
+Arma -> Tablero : estaDentro(posObjetivo)
+activate Tablero
+Tablero --> Arma : true
+deactivate Tablero
+
+Arma -> Arma : alcanza(posOrigen, posObjetivo)
+activate Arma
+Arma -> POrig : estaAlineadaCon(posObjetivo)
+activate POrig
+POrig --> Arma : true
+deactivate POrig
+Arma -> POrig : distanciaACelda(posObjetivo)
+activate POrig
+POrig --> Arma : 4
+deactivate POrig
+Arma --> Arma : true
+deactivate Arma
+
+Arma -> POrig : direccionHacia(posObjetivo)
+activate POrig
+POrig --> Arma : DERECHA
+deactivate POrig
+
+Arma -> Arma : disparar(tablero, posOrigen, posObjetivo, DERECHA)
+activate Arma
+
+Arma -> Tablero : atacar(posObjetivo, 1)
+activate Tablero
+Tablero -> Tablero : casillaEn(posObjetivo)
+activate Tablero
+Tablero --> Tablero : objetivo
+deactivate Tablero
+Tablero -> CObj : recibirAtaque(1)
+activate CObj
+CObj -> VObj : recibirDanio(1)
+activate VObj
+VObj -> Sano : calcularDanio(1)
+activate Sano
+Sano --> VObj : 1
+deactivate Sano
+deactivate VObj
+CObj -> Suelo : recibirAtaque(1)
+activate Suelo
+deactivate Suelo
+deactivate CObj
+deactivate Tablero
+
+loop [Para cada Direccion (ej. DERECHA hacia posVecina (3,5))]
+    Arma -> PObj : obtenerAdyacente(DERECHA)
+    activate PObj
+    PObj --> Arma : posVecina
+    deactivate PObj
+
+    Arma -> Tablero : empujarUnidad(posVecina, DERECHA)
+    activate Tablero
+    Tablero -> Tablero : casillaEn(posVecina)
+    activate Tablero
+    Tablero --> Tablero : vecina
+    deactivate Tablero
+    Tablero -> PVec : obtenerAdyacente(DERECHA)
+    activate PVec
+    PVec --> Tablero : posEdificio
+    deactivate PVec
+    Tablero -> Tablero : casillaEn(posEdificio)
+    activate Tablero
+    Tablero --> Tablero : conEdificio
+    deactivate Tablero
+
+    Tablero -> CVec : empujarUnidadHacia(conEdificio)
+    activate CVec
+    CVec -> VVec : serEmpujada(vecina, conEdificio)
+    activate VVec
+    VVec -> CEd : recibirUnidadEmpujada(vekVecino, vecina)
+    activate CEd
+    CEd -> Sin : chocarCon(vekVecino, vecina, conEdificio)
+    activate Sin
+    Sin -> CEd : dejarPasar(vekVecino, vecina)
+    activate CEd
+    CEd -> Ed : recibirUnidadEmpujada(vekVecino, vecina, conEdificio)
+    activate Ed
+    Ed -> VVec : recibirDanio(1)
+    activate VVec
+    VVec -> Sano : calcularDanio(1)
+    activate Sano
+    Sano --> VVec : 1
+    deactivate Sano
+    deactivate VVec
+    Ed -> Ed : recibirAtaque(1)
+    activate Ed
+    Ed -> Red : restarEnergia(1)
+    activate Red
+    deactivate Red
+    deactivate Ed
+    deactivate Ed
+    deactivate CEd
+    deactivate Sin
+    deactivate CEd
+    deactivate VVec
+    deactivate CVec
+    deactivate Tablero
+end
+
+deactivate Arma
+deactivate Arma
+
+Mech -> Mech : registrarAtaque()
+activate Mech
+Mech -> Disp : registrarAtaque()
+activate Disp
+create participant "__:Agotado__" as Agot
+Disp -->> Agot : <<create>>
+Disp --> Mech : agotado
+deactivate Disp
+deactivate Mech
+
+Mech --> Jugador
+deactivate Mech
+deactivate Jugador
+@enduml

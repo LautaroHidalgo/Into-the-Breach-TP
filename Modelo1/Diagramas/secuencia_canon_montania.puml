@@ -1,0 +1,165 @@
+@startuml secuencia_canon_montania
+title Cañón en (3,0) dispara hacia (3,4) e impacta en el primer obstáculo: una Montaña en (3,2)
+
+hide footbox
+skinparam sequenceMessageAlign center
+
+actor Jugador
+participant "__mech:MechCanon__" as Mech
+participant "__disponible:Disponible__" as Disp
+participant "__canon:Canon__" as Arma
+participant "__posOrigen:Posicion__" as POrig
+participant "__pos31:Posicion__" as P31
+participant "__pos32:Posicion__" as P32
+participant "__tablero:Tablero__" as Tablero
+participant "__c31:Casilla__" as C31
+participant "__suelo:Suelo__" as Suelo
+participant "__c32:Casilla__" as C32
+participant "__vacio:SinUnidad__" as Sin
+participant "__montania:Montania__" as Mon
+participant "__c33:Casilla__" as C33
+
+Jugador -> Mech : atacar(posOrigen, posObjetivo, tablero)
+activate Jugador
+activate Mech
+
+Mech -> Mech : verificarQuePuedeAtacar()
+activate Mech
+Mech -> Disp : verificarQuePuedeAtacar()
+activate Disp
+deactivate Disp
+deactivate Mech
+
+Mech -> Arma : atacar(tablero, posOrigen, posObjetivo)
+activate Arma
+
+Arma -> Tablero : estaDentro(posObjetivo)
+activate Tablero
+Tablero --> Arma : true
+deactivate Tablero
+
+Arma -> Arma : alcanza(posOrigen, posObjetivo)
+activate Arma
+Arma -> POrig : estaAlineadaCon(posObjetivo)
+activate POrig
+POrig --> Arma : true
+deactivate POrig
+Arma --> Arma : true
+deactivate Arma
+
+Arma -> POrig : direccionHacia(posObjetivo)
+activate POrig
+POrig --> Arma : DERECHA
+deactivate POrig
+
+Arma -> Arma : disparar(tablero, posOrigen, posObjetivo, DERECHA)
+activate Arma
+
+Arma -> Tablero : buscarPrimerImpacto(posOrigen, DERECHA)
+activate Tablero
+
+Tablero -> POrig : obtenerAdyacente(DERECHA)
+activate POrig
+POrig --> Tablero : pos31
+deactivate POrig
+
+Tablero -> Tablero : casillaEn(pos31)
+activate Tablero
+Tablero --> Tablero : c31
+deactivate Tablero
+
+Tablero -> C31 : detieneDisparos()
+activate C31
+C31 -> Sin : ocupaCasilla()
+activate Sin
+Sin --> C31 : false
+deactivate Sin
+C31 -> Suelo : bloqueaDisparos()
+activate Suelo
+Suelo --> C31 : false
+deactivate Suelo
+C31 --> Tablero : false
+deactivate C31
+
+Tablero -> P31 : obtenerAdyacente(DERECHA)
+activate P31
+P31 --> Tablero : pos32
+deactivate P31
+
+Tablero -> Tablero : casillaEn(pos32)
+activate Tablero
+Tablero --> Tablero : c32
+deactivate Tablero
+
+Tablero -> C32 : detieneDisparos()
+activate C32
+C32 -> Sin : ocupaCasilla()
+activate Sin
+Sin --> C32 : false
+deactivate Sin
+C32 -> Mon : bloqueaDisparos()
+activate Mon
+Mon --> C32 : true
+deactivate Mon
+C32 --> Tablero : true
+deactivate C32
+
+Tablero --> Arma : pos32
+deactivate Tablero
+
+Arma -> Tablero : atacar(pos32, 1)
+activate Tablero
+Tablero -> Tablero : casillaEn(pos32)
+activate Tablero
+Tablero --> Tablero : c32
+deactivate Tablero
+Tablero -> C32 : recibirAtaque(1)
+activate C32
+C32 -> Sin : recibirDanio(1)
+activate Sin
+deactivate Sin
+C32 -> Mon : recibirAtaque(1)
+activate Mon
+deactivate Mon
+deactivate C32
+deactivate Tablero
+
+Arma -> Tablero : empujarUnidad(pos32, DERECHA)
+activate Tablero
+Tablero -> Tablero : casillaEn(pos32)
+activate Tablero
+Tablero --> Tablero : c32
+deactivate Tablero
+Tablero -> P32 : obtenerAdyacente(DERECHA)
+activate P32
+P32 --> Tablero : pos33
+deactivate P32
+Tablero -> Tablero : casillaEn(pos33)
+activate Tablero
+Tablero --> Tablero : c33
+deactivate Tablero
+Tablero -> C32 : empujarUnidadHacia(c33)
+activate C32
+C32 -> Sin : serEmpujada(c32, c33)
+activate Sin
+deactivate Sin
+deactivate C32
+deactivate Tablero
+
+deactivate Arma
+deactivate Arma
+
+Mech -> Mech : registrarAtaque()
+activate Mech
+Mech -> Disp : registrarAtaque()
+activate Disp
+create participant "__:Agotado__" as Agot
+Disp -->> Agot : <<create>>
+Disp --> Mech : agotado
+deactivate Disp
+deactivate Mech
+
+Mech --> Jugador
+deactivate Mech
+deactivate Jugador
+@enduml
