@@ -1,78 +1,65 @@
 @startuml clases_general
-title Entrega 1 - Diagrama de clases general
+title Entrega 1 - Vista general del modelo
 
 hide circle
-hide empty members
 hide members
-skinparam classAttributeIconSize 0
 skinparam linetype ortho
 
-package "modelo.Tablero" {
-  class Tablero
-  class Posicion
-  enum Direccion
-  class LectorTableroCSV
-}
+class Tablero
+class Posicion
+enum Direccion
+class LectorTableroCSV
 
-package "modelo.Casilla" {
-  class Casilla
-  class Terreno
-  class Suelo
-  class Agua
-  class Montania
-  class Edificio
-  class FueraDelTablero
-  class RedElectrica
-}
+class Casilla
+class Terreno
+class Suelo
+class Agua
+class Montania
+class Edificio
+class FueraDelTablero
+class RedElectrica
 
-package "modelo.unidades" {
-  abstract class Unidad
-  abstract class Mech
-  abstract class Vek
-  class SinUnidad
-  class MechCombate
-  class MechCanon
-  class MechArtilleria
-  class Saltador
-  class Luciernaga
-  class Avispon
+abstract class Unidad
+abstract class Mech
+abstract class Vek
+class SinUnidad
+class MechCombate
+class MechCanon
+class MechArtilleria
+class Saltador
+class Luciernaga
+class Avispon
+interface EstadoSalud
+class Sano
+class Contaminado
+abstract class EstadoTurno
+class Agotado
+class Disponible
+class Movido
+class MovimientoDeshecho
+class MovimientoSinRetorno
 
-  package "estados" {
-    interface EstadoSalud
-    class Sano
-    class Contaminado
-    abstract class EstadoTurno
-    class Disponible
-    class Movido
-    class MovimientoDeshecho
-    class MovidoSinRetorno
-    class Agotado
-  }
-}
+abstract class Arma
+class Puno
+class Canon
+class Artilleria
 
-package "modelo.armas" {
-  abstract class Arma
-  class Puno
-  class Canon
-  class Artilleria
-}
-
-Tablero "1" *-- "64" Casilla
-Tablero ..> LectorTableroCSV : usa
-Tablero ..> Posicion
+Tablero "1" *--- "64" Casilla : casillas
+Tablero "1" --> "0..*" Posicion : origenesDeMovimientos
+Tablero ..> LectorTableroCSV
 Posicion ..> Direccion
 
-Casilla --> "1" Terreno
-Casilla --> "1" Unidad : unidad
+Casilla "1" *---- "1" Terreno
+Casilla "0..1" --> "1" Unidad
 Terreno <|-- Suelo
 Terreno <|-- Agua
 Terreno <|-- Montania
 Terreno <|-- Edificio
 Terreno <|-- FueraDelTablero
-Edificio --> RedElectrica
+Edificio "1" --> "1" RedElectrica
 
 Unidad <|-- Mech
-Unidad <|-- Vek
+Unidad <|--- Vek
 Unidad <|-- SinUnidad
 Mech <|-- MechCombate
 Mech <|-- MechCanon
@@ -80,19 +67,18 @@ Mech <|-- MechArtilleria
 Vek <|-- Saltador
 Vek <|-- Luciernaga
 Vek <|-- Avispon
-Unidad --> "1" EstadoSalud
+Unidad "1" ----> "1" EstadoSalud
 EstadoSalud <|.. Sano
 EstadoSalud <|.. Contaminado
-Unidad --> "1" EstadoTurno
-EstadoTurno <|-- Disponible
-EstadoTurno <|-- Movido
-EstadoTurno <|-- MovimientoDeshecho
-EstadoTurno <|-- MovidoSinRetorno
-EstadoTurno <|-- Agotado
-
-Mech --> "1" Arma
+Unidad "1" ---> "1" EstadoTurno
+EstadoTurno <|--- Agotado
+EstadoTurno <|--- Disponible
+EstadoTurno <|--- Movido
+EstadoTurno <|--- MovimientoDeshecho
+EstadoTurno <|--- MovimientoSinRetorno
+Mech "1" *-- "1" Arma
 Arma <|-- Puno
 Arma <|-- Canon
 Arma <|-- Artilleria
-Arma ..> Tablero : ataca
+Arma ..> Tablero
 @enduml
