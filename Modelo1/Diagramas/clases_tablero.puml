@@ -1,124 +1,122 @@
 @startuml clases_tablero
-title Entrega 1 - Tablero, casillas y terrenos
+title Entrega 1 - Diagrama de Clases: Tablero, Casillas y Terrenos
 
 hide circle
-hide empty members
 skinparam classAttributeIconSize 0
-
-class Tablero {
-  - casillas : Map<Posicion, Casilla>
-  - origenesDeMovimientos : Map<Posicion, Posicion>
-  + Tablero(mapa : File)
-  + posicionarUnidad(posicion : Posicion, unidad : Unidad)
-  + moverUnidad(origen : Posicion, destino : Posicion)
-  + deshacerMovimiento(posicionActual : Posicion)
-  + movimientosValidosDesde(origen : Posicion) : List<Posicion>
-  + atacar(posicion : Posicion, danio : int)
-  + empujarUnidad(origen : Posicion, direccion : Direccion)
-  + buscarPrimerImpacto(origen : Posicion, direccion : Direccion) : Posicion
-  + estaDentro(posicion : Posicion) : boolean
-  + estaOcupada(posicion : Posicion) : boolean
-  + unidadEstaEn(unidad : Unidad, posicion : Posicion) : boolean
-  + esIgualA(otro : Tablero) : boolean
-  - casillaEn(posicion : Posicion) : Casilla
-}
+top to bottom direction
 
 class LectorTableroCSV {
-  + transformarArchivo(mapa : File) : List<Casilla>
+  + transformarArchivo(mapa:File):List<Casilla>
+}
+
+class Tablero {
+  + Tablero(mapa:File)
+  + posicionarUnidad(pos:Posicion, u:Unidad)
+  + moverUnidad(orig:Posicion, dest:Posicion)
+  + deshacerMovimiento(posActual:Posicion)
+  + movimientosValidosDesde(orig:Posicion):List<Posicion>
+  + atacar(pos:Posicion, danio:int)
+  + empujarUnidad(orig:Posicion, dir:Direccion)
+  + buscarPrimerImpacto(orig:Posicion, dir:Direccion):Posicion
+  + estaDentro(pos:Posicion):boolean
+  + estaOcupada(pos:Posicion):boolean
+  + unidadEstaEn(u:Unidad, pos:Posicion):boolean
+  + esIgualA(otro:Tablero):boolean
+  - casillaEn(pos:Posicion):Casilla
 }
 
 class Posicion {
-  - fila : int
-  - columna : int
-  + obtenerAdyacente(direccion : Direccion) : Posicion
-  + distanciaACelda(otra : Posicion) : int
-  + estaAlineadaCon(otra : Posicion) : boolean
-  + direccionHacia(otra : Posicion) : Direccion
-  + esIgualA(otra : Posicion) : boolean
+  - fila:int
+  - columna:int
+  + Posicion(fila:int, columna:int)
+  + obtenerAdyacente(dir:Direccion):Posicion
+  + distanciaACelda(otra:Posicion):int
+  + estaAlineadaCon(otra:Posicion):boolean
+  + direccionHacia(otra:Posicion):Direccion
+  + esIgualA(otra:Posicion):boolean
 }
 
-enum Direccion {
-  ARRIBA
-  ABAJO
-  IZQUIERDA
-  DERECHA
-  - deltaFila : int
-  - deltaColumna : int
+class Direccion {
+  - deltaFila:int
+  - deltaColumna:int
+  + fila():int
+  + columna():int
 }
 
 class Casilla {
-  - terreno : Terreno
-  - unidad : Unidad
-  + recibirUnidad(unidad : Unidad)
+  - unidad:Unidad
+  + Casilla(terreno:Terreno)
+  + recibirUnidad(u:Unidad)
   + liberar()
-  + ocupada() : boolean
-  + puedeRecibirUnidad(unidad : Unidad) : boolean
-  + suUnidadPuedeRecorrer(casillas : int) : boolean
-  + suUnidadPuedeEntrarEn(destino : Casilla) : boolean
-  + moverUnidadA(destino : Casilla)
-  + deshacerMovimientoHacia(origen : Casilla)
-  + recibirAtaque(danio : int)
-  + empujarUnidadHacia(destino : Casilla)
-  + recibirUnidadEmpujada(empujada : Unidad, origen : Casilla)
-  + dejarPasar(empujada : Unidad, origen : Casilla)
-  + detieneDisparos() : boolean
-  + contiene(unidad : Unidad) : boolean
+  + ocupada():boolean
+  + puedeRecibirUnidad(u:Unidad):boolean
+  + suUnidadPuedeRecorrer(casillas:int):boolean
+  + suUnidadPuedeEntrarEn(dest:Casilla):boolean
+  + moverUnidadA(dest:Casilla)
+  + deshacerMovimientoHacia(orig:Casilla)
+  + recibirAtaque(danio:int)
+  + empujarUnidadHacia(dest:Casilla)
+  + recibirUnidadEmpujada(empujada:Unidad, orig:Casilla)
+  + dejarPasar(empujada:Unidad, orig:Casilla)
+  + detieneDisparos():boolean
+  + contiene(u:Unidad):boolean
 }
 
-class Terreno {
-  + esTransitable() : boolean
-  + bloqueaDisparos() : boolean
-  + recibirAtaque(danio : int)
-  + recibirUnidadEmpujada(empujada : Unidad, origen : Casilla, destino : Casilla)
+abstract class Terreno {
+  + esTransitable():boolean
+  + bloqueaDisparos():boolean
+  + recibirAtaque(danio:int)
+  + recibirUnidadEmpujada(empujada:Unidad, orig:Casilla, dest:Casilla)
 }
 
 class Suelo {
-  + esTransitable() : boolean
-  + bloqueaDisparos() : boolean
-  + recibirUnidadEmpujada(...)
+  + esTransitable():boolean
+  + bloqueaDisparos():boolean
+  + recibirUnidadEmpujada(empujada:Unidad, orig:Casilla, dest:Casilla)
 }
+
 class Agua {
-  + esTransitable() : boolean
-  + bloqueaDisparos() : boolean
+  + esTransitable():boolean
+  + bloqueaDisparos():boolean
 }
+
 class Montania {
-  + esTransitable() : boolean
+  + esTransitable():boolean
 }
-class Edificio {
-  - estaDestruido : boolean
-  + recibirAtaque(danio : int)
-  + recibirUnidadEmpujada(...)
-}
+
 class FueraDelTablero {
-  + recibirUnidadEmpujada(...)
+  + recibirUnidadEmpujada(empujada:Unidad, orig:Casilla, dest:Casilla)
 }
+
+class Edificio {
+  - estaDestruido:boolean
+  + Edificio(red:RedElectrica)
+  + recibirAtaque(danio:int)
+  + recibirUnidadEmpujada(empujada:Unidad, orig:Casilla, dest:Casilla)
+}
+
 class RedElectrica {
-  - energia : int
-  + restarEnergia(cantidad : int)
-  + estaActivo() : boolean
+  - energia:int
+  + RedElectrica(energiaInicial:int)
+  + restarEnergia(cantidad:int)
+  + estaActivo():boolean
 }
 
-Tablero "1" *-- "64" Casilla
-Tablero ..> LectorTableroCSV
-Tablero ..> Posicion
-Posicion ..> Direccion
-Casilla *-- "1" Terreno
-Terreno <|-- Suelo
-Terreno <|-- Agua
-Terreno <|-- Montania
-Terreno <|-- Edificio
-Terreno <|-- FueraDelTablero
-Edificio --> "1" RedElectrica
+Tablero .up.> LectorTableroCSV
+Tablero .down.> Posicion
+Posicion .right.> Direccion
+Posicion -[hidden]down-> Casilla
 
-note right of FueraDelTablero
-  Null Object: terreno de las posiciones
-  fuera del tablero. No recibe empujes
-  y frena los disparos.
-end note
+Tablero "1" *-down- "64" Casilla
+Casilla "1" *-down- "1" Terreno
 
-note bottom of Terreno
-  Comportamiento por defecto: obstáculo
-  (la unidad empujada choca y no se mueve).
-  Suelo lo redefine para dejarla entrar.
-end note
+Terreno <|-down- Suelo
+Terreno <|-down- Agua
+Terreno <|-down- Montania
+Terreno <|-down- FueraDelTablero
+Terreno <|-down- Edificio
+
+Suelo -[hidden]down-> FueraDelTablero
+Agua -[hidden]down-> Edificio
+Edificio "*" -down-> "1" RedElectrica
 @enduml

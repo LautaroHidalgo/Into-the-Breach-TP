@@ -1,116 +1,146 @@
 @startuml clases_unidades
-title Entrega 1 - Unidades, estado de salud y estado de turno
+title Entrega 1 - Diagrama de Clases: Unidades, Estado de Salud y Estado de Turno
 
 hide circle
-hide empty members
 skinparam classAttributeIconSize 0
+top to bottom direction
 
 abstract class Unidad {
-  + {static} DANIO_COLISION : int = 1
-  - vida : int
-  - movimiento : int
-  - estadoSalud : EstadoSalud
-  - estadoTurno : EstadoTurno
-  + recibirDanio(cantidad : int)
+  - {static} DANIO_COLISION:int
+  - vida:int
+  - movimiento:int
+  # Unidad(vida:int, movimiento:int)
+  + recibirDanio(cantidad:int)
   + recibirContaminacion()
-  + estaViva() : boolean
-  + puedeRecorrer(casillas : int) : boolean
-  + ocupaCasilla() : boolean
-  + serEmpujada(origen : Casilla, destino : Casilla)
-  + chocarCon(empujada : Unidad, origen : Casilla, destino : Casilla)
+  + estaViva():boolean
+  + puedeRecorrer(casillas:int):boolean
+  + ocupaCasilla():boolean
+  + serEmpujada(orig:Casilla, dest:Casilla)
+  + chocarCon(empujada:Unidad, orig:Casilla, dest:Casilla)
   + registrarMovimiento()
   + deshacerMovimiento()
   + verificarQuePuedeAtacar()
   + registrarAtaque()
   + reiniciarTurno()
-  + vida() : int
+  + vida():int
 }
 
-abstract class Mech {
-  - arma : Arma
-  + atacar(origen : Posicion, objetivo : Posicion, tablero : Tablero)
-}
-
-abstract class Vek
-
-class SinUnidad {
-  + ocupaCasilla() : boolean
-  + recibirDanio(cantidad : int)
-  + serEmpujada(origen : Casilla, destino : Casilla)
-  + chocarCon(empujada : Unidad, origen : Casilla, destino : Casilla)
-}
-
-class MechCombate
-class MechCanon
-class MechArtilleria
-class Saltador
-class Luciernaga
-class Avispon
-
-interface EstadoSalud {
-  + calcularDanio(danioBase : int) : int
-  + contaminar() : EstadoSalud
+interface "<<Interfaz>>\nEstadoSalud" as EstadoSalud {
+  + calcularDanio(danioBase:int):int
+  + contaminar():EstadoSalud
 }
 class Sano
 class Contaminado
 
 abstract class EstadoTurno {
-  + registrarMovimiento() : EstadoTurno
-  + deshacerMovimiento() : EstadoTurno
+  + registrarMovimiento():EstadoTurno
+  + deshacerMovimiento():EstadoTurno
   + verificarQuePuedeAtacar()
-  + registrarAtaque() : EstadoTurno
+  + registrarAtaque():EstadoTurno
 }
-class Disponible
-class Movido
-class MovimientoDeshecho
-class MovidoSinRetorno
-class Agotado
+class Disponible {
+  + registrarMovimiento():EstadoTurno
+  + deshacerMovimiento():EstadoTurno
+}
+class Movido {
+  + deshacerMovimiento():EstadoTurno
+}
+class MovimientoDeshecho {
+  + registrarMovimiento():EstadoTurno
+}
+class MovidoSinRetorno {
+  + deshacerMovimiento():EstadoTurno
+}
+class Agotado {
+  + deshacerMovimiento():EstadoTurno
+  + verificarQuePuedeAtacar()
+  + registrarAtaque():EstadoTurno
+}
 
-abstract class Arma
+class SinUnidad {
+  + ocupaCasilla():boolean
+  + recibirDanio(cantidad:int)
+  + serEmpujada(orig:Casilla, dest:Casilla)
+  + chocarCon(empujada:Unidad, orig:Casilla, dest:Casilla)
+}
 
-Unidad <|-- Mech
-Unidad <|-- Vek
-Unidad <|-- SinUnidad
-Mech <|-- MechCombate
-Mech <|-- MechCanon
-Mech <|-- MechArtilleria
-Vek <|-- Saltador
-Vek <|-- Luciernaga
-Vek <|-- Avispon
+abstract class Vek {
+  # Vek(vida:int, movimiento:int)
+}
+class Saltador {
+  - {static} VIDA:int
+  - {static} MOVIMIENTO:int
+  + Saltador()
+}
+class Luciernaga {
+  - {static} VIDA:int
+  - {static} MOVIMIENTO:int
+  + Luciernaga()
+}
+class Avispon {
+  - {static} VIDA:int
+  - {static} MOVIMIENTO:int
+  + Avispon()
+}
 
-Unidad --> "1" EstadoSalud
+abstract class Mech {
+  # Mech(vida:int, movimiento:int, arma:Arma)
+  + atacar(orig:Posicion, obj:Posicion, t:Tablero)
+}
+class MechCombate {
+  - {static} VIDA:int
+  - {static} MOVIMIENTO:int
+  + MechCombate()
+}
+class MechCanon {
+  - {static} VIDA:int
+  - {static} MOVIMIENTO:int
+  + MechCanon()
+}
+class MechArtilleria {
+  - {static} VIDA:int
+  - {static} MOVIMIENTO:int
+  + MechArtilleria()
+}
+
+abstract class Arma {
+  + atacar(t:Tablero, orig:Posicion, obj:Posicion)
+}
+
+' 1. EstadoSalud debajo de Unidad
+Unidad "1" -down-> "1" EstadoSalud
 EstadoSalud <|.. Sano
 EstadoSalud <|.. Contaminado
 
-Unidad --> "1" EstadoTurno
-EstadoTurno <|-- Disponible
-EstadoTurno <|-- Movido
-EstadoTurno <|-- MovimientoDeshecho
-EstadoTurno <|-- MovidoSinRetorno
-EstadoTurno <|-- Agotado
+' 2. EstadoTurno debajo de EstadoSalud
+Sano -[hidden]down-> EstadoTurno
+Contaminado -[hidden]down-> EstadoTurno
+Unidad "1" -down-> "1" EstadoTurno
+EstadoTurno <|-down- Disponible
+EstadoTurno <|-down- Movido
+EstadoTurno <|-down- MovimientoDeshecho
+EstadoTurno <|-down- MovidoSinRetorno
+EstadoTurno <|-down- Agotado
+Disponible -[hidden]down-> MovimientoDeshecho
+Movido -[hidden]down-> MovidoSinRetorno
+MovimientoDeshecho -[hidden]down-> Agotado
 
-Mech --> "1" Arma
+' 3. Subclases de Unidad debajo de EstadoTurno
+Agotado -[hidden]down-> SinUnidad
+Agotado -[hidden]down-> Vek
+Unidad <|-down- SinUnidad
+Unidad <|-down- Vek
+Unidad <|-down- Mech
 
-note right of SinUnidad
-  Null Object: ocupa una casilla vacía.
-  No recibe daño, no se deja empujar y,
-  si le empujan una unidad encima,
-  le pasa la decisión al terreno.
-end note
+Vek <|-down- Saltador
+Vek <|-down- Luciernaga
+Vek <|-down- Avispon
+Saltador -[hidden]down-> Avispon
 
-note bottom of Contaminado
-  calcularDanio devuelve el doble.
-  contaminar() devuelve this:
-  la contaminación no se acumula.
-end note
-
-note right of MechCombate
-  Vida 3, movimiento 3, Puño
-end note
-note right of MechCanon
-  Vida 3, movimiento 3, Cañón
-end note
-note right of MechArtilleria
-  Vida 2, movimiento 3, Artillería
-end note
+Avispon -[hidden]down-> Mech
+Mech "1" -right-> "1" Arma
+Mech <|-down- MechCombate
+Mech <|-down- MechCanon
+Mech <|-down- MechArtilleria
+MechCombate -[hidden]down-> MechArtilleria
 @enduml
