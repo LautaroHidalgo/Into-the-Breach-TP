@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.unidades.estados;
 
 public class Contaminado implements EstadoSalud {
 
-    public static final int MULTIPLICADOR_DANIO = 2;
+    private static final int MULTIPLICADOR_DANIO = 2;
 
     @Override
     public int calcularDanio(int danioBase) {

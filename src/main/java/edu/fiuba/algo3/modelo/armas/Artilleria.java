@@ -6,8 +6,8 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public class Artilleria extends Arma {
 
-    public static final int DANIO = 1;
-    public static final int DISTANCIA_MINIMA = 2;
+    private static final int DANIO = 1;
+    private static final int DISTANCIA_MINIMA = 2;
 
     public Artilleria() {
         super(DANIO);

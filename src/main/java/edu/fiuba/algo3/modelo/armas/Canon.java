@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public class Canon extends Arma {
 
-    public static final int DANIO = 1;
+    private static final int DANIO = 1;
 
     public Canon() {
         super(DANIO);

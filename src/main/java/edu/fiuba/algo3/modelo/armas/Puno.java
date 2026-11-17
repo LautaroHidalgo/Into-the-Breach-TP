@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
 public class Puno extends Arma {
 
-    public static final int DANIO = 2;
+    private static final int DANIO = 2;
 
     public Puno() {
         super(DANIO);
