@@ -22,7 +22,12 @@ public class Edificio extends Terreno{
 
     @Override
     public boolean esTransitable() {
-        return false;
+        return this.estaDestruido;
+    }
+
+    @Override
+    public boolean bloqueaDisparos() {
+        return !this.estaDestruido;
     }
 
     @Override
@@ -35,6 +40,11 @@ public class Edificio extends Terreno{
 
     @Override
     public void recibirUnidadEmpujada(Unidad empujada, Casilla origen, Casilla destino) {
+        if (this.estaDestruido) {
+            origen.liberar();
+            destino.recibirUnidad(empujada);
+            return;
+        }
         super.recibirUnidadEmpujada(empujada, origen, destino);
         this.recibirAtaque(Unidad.DANIO_COLISION);
     }
