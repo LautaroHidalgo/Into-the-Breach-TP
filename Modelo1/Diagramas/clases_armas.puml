@@ -1,74 +1,61 @@
 @startuml clases_armas
-title Entrega 1 - Armas (método plantilla)
+title Entrega 1 - Diagrama de Clases: Armas
 
 hide circle
-hide empty members
 skinparam classAttributeIconSize 0
+top to bottom direction
+
+abstract class Mech {
+  + atacar(orig:Posicion, obj:Posicion, t:Tablero)
+}
+
+class ObjetivoInvalidoException {
+  + ObjetivoInvalidoException(mensaje:String)
+}
 
 abstract class Arma {
-  # danio : int
-  + atacar(tablero : Tablero, origen : Posicion, objetivo : Posicion)
-  # {abstract} alcanza(origen : Posicion, objetivo : Posicion) : boolean
-  # {abstract} disparar(tablero : Tablero, origen : Posicion, objetivo : Posicion, direccion : Direccion)
+  - danio:int
+  # Arma(danio:int)
+  + atacar(t:Tablero, orig:Posicion, obj:Posicion)
+  # {abstract} alcanza(orig:Posicion, obj:Posicion):boolean
+  # {abstract} disparar(t:Tablero, orig:Posicion, obj:Posicion, dir:Direccion)
 }
 
 class Puno {
-  + {static} DANIO : int = 2
-  # alcanza(...) : boolean
-  # disparar(...)
+  - {static} DANIO:int
+  # alcanza(orig:Posicion, obj:Posicion):boolean
+  # disparar(t:Tablero, orig:Posicion, obj:Posicion, dir:Direccion)
 }
 
 class Canon {
-  + {static} DANIO : int = 1
-  # alcanza(...) : boolean
-  # disparar(...)
+  - {static} DANIO:int
+  # alcanza(orig:Posicion, obj:Posicion):boolean
+  # disparar(t:Tablero, orig:Posicion, obj:Posicion, dir:Direccion)
 }
 
 class Artilleria {
-  + {static} DANIO : int = 1
-  + {static} DISTANCIA_MINIMA : int = 2
-  # alcanza(...) : boolean
-  # disparar(...)
+  - {static} DANIO:int
+  - {static} DISTANCIA_MINIMA:int
+  # alcanza(orig:Posicion, obj:Posicion):boolean
+  # disparar(t:Tablero, orig:Posicion, obj:Posicion, dir:Direccion)
 }
-
-class ObjetivoInvalidoException
 
 class Tablero {
-  + estaDentro(posicion : Posicion) : boolean
-  + atacar(posicion : Posicion, danio : int)
-  + empujarUnidad(origen : Posicion, direccion : Direccion)
-  + buscarPrimerImpacto(origen : Posicion, direccion : Direccion) : Posicion
+  + estaDentro(pos:Posicion):boolean
+  + atacar(pos:Posicion, danio:int)
+  + empujarUnidad(orig:Posicion, dir:Direccion)
+  + buscarPrimerImpacto(orig:Posicion, dir:Direccion):Posicion
 }
 
-abstract class Mech {
-  + atacar(origen : Posicion, objetivo : Posicion, tablero : Tablero)
-}
+Mech "1" -down-> "1" Arma
+Arma .up.> ObjetivoInvalidoException
+Arma .down.> Tablero
 
-Arma <|-- Puno
-Arma <|-- Canon
-Arma <|-- Artilleria
-Mech --> "1" Arma
-Arma ..> Tablero
-Arma ..> ObjetivoInvalidoException : lanza
+Arma <|-down- Puno
+Arma <|-down- Canon
+Arma <|-down- Artilleria
 
-note right of Arma
-  atacar() valida el objetivo (dentro del
-  tablero y al alcance) y delega en disparar().
-  Cada arma solo define su alcance y su efecto.
-end note
-
-note bottom of Puno
-  Alcance: casilla adyacente.
-  Efecto: 2 de daño y empuje.
-end note
-note bottom of Canon
-  Alcance: cualquier casilla en línea recta.
-  Efecto: 1 de daño y empuje al primer
-  impacto (unidad u obstáculo).
-end note
-note bottom of Artilleria
-  Alcance: línea recta a 2 o más casillas.
-  Efecto: 1 de daño en el objetivo y empuje
-  hacia afuera de las 4 vecinas.
-end note
+Tablero -[hidden]down-> Puno
+Puno -[hidden]down-> Canon
+Canon -[hidden]down-> Artilleria
 @enduml
