@@ -8,4 +8,8 @@ public class Avispon extends Vek {
     public Avispon() {
         super(VIDA, MOVIMIENTO);
     }
+
+    @Override
+    public void recibirContaminacion() {
+    }
 }

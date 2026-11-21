@@ -28,4 +28,7 @@ public class Terreno {
     public void recibirUnidadEmpujada(Unidad empujada, Casilla origen, Casilla destino) {
         empujada.recibirDanio(Unidad.DANIO_COLISION);
     }
+
+    public void aplicarEfecto(Unidad unidad) {
+    }
 }

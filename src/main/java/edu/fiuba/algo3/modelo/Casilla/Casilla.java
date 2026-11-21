@@ -22,6 +22,7 @@ public class Casilla {
 
     public void recibirUnidad(Unidad unidadRecibida){
         this.unidad = unidadRecibida;
+        this.terreno.aplicarEfecto(unidadRecibida);
     }
 
     public boolean puedeRecibirUnidad(Unidad unidadRecibida){
