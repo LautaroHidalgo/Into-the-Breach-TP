@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.unidades;
+import edu.fiuba.algo3.modelo.armas.EscupitajoAcido;
 
 public class Luciernaga extends Vek {
 
@@ -6,6 +7,6 @@ public class Luciernaga extends Vek {
     public static final int MOVIMIENTO = 2;
 
     public Luciernaga(){
-        super(VIDA, MOVIMIENTO);
+        super(VIDA, MOVIMIENTO, new EscupitajoAcido(), new Terrestre());
     }
 }

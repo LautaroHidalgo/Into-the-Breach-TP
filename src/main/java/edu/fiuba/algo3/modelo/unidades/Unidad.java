@@ -10,10 +10,12 @@ public abstract class Unidad {
     private final int movimiento;
     private EstadoSalud estadoSalud = new Sano();
     private EstadoTurno estadoTurno = new Disponible();
+    private final Desplazamiento desplazamiento;
 
-    protected Unidad(int vida, int movimiento) {
+    protected Unidad(int vida, int movimiento, Desplazamiento desplazamiento) {
         this.vida = vida;
         this.movimiento = movimiento;
+        this.desplazamiento = desplazamiento;
     }
 
     public void recibirDanio(int cantidad) {
@@ -26,6 +28,28 @@ public abstract class Unidad {
 
     public boolean estaViva() {
         return vida > 0;
+    }
+
+    //la unidad termina en Ácido según su desplazamiento se contamina o no
+    public void terminarEnAcido() {
+        desplazamiento.terminarEnAcido(this);
+    }
+
+    //la unidad termina en Agua según su desplazamiento le afecta o no
+    public void terminarEnAgua() {
+        desplazamiento.terminarEnAgua(this);
+    }
+
+    public boolean puedeAtacarDesdeElAgua() {
+        return desplazamiento.puedeAtacarDesdeElAgua();
+    }
+
+    // una unidad terrestre cae al Agua. Por defecto no le pasa nada (Mech), el Vek lo redefine
+    public void caerAlAgua() {
+    }
+
+    protected void morir() {
+        vida = 0;
     }
 
     public boolean ocupaCasilla() {

@@ -1,12 +1,14 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 
+import edu.fiuba.algo3.modelo.armas.Mordida;
+
 public class Saltador extends Vek {
 
     private static final int VIDA = 2;
     private static final int MOVIMIENTO = 3;
 
     public Saltador() {
-        super(VIDA, MOVIMIENTO);
+        super(VIDA, MOVIMIENTO, new Mordida(), new Terrestre());
     }
 }

@@ -22,21 +22,37 @@ public class Casilla {
 
     public void recibirUnidad(Unidad unidadRecibida){
         this.unidad = unidadRecibida;
-        this.terreno.aplicarEfecto(unidadRecibida);
     }
 
+    //ubica la unidad SIN aplicar el efecto del terreno
     public boolean puedeRecibirUnidad(Unidad unidadRecibida){
         return esTransitable() && !ocupada();
+    }
+
+    // la unidad termina acá por movimiento o empuje así que se aplica el efecto del terreno
+    public void recibirUnidadQueLlega(Unidad unidadQueLlega) {
+        this.unidad = unidadQueLlega;
+        this.terreno.aplicarEfecto(unidadQueLlega);
+    }
+
+    // el terreno decide si su unidad puede atacar desde acá (en el Agua la terrestre no)
+    public boolean suUnidadPuedeAtacar() {
+        return terreno.permiteAtacar(unidad);
+    }
+
+    //contamina a la unidad que ocupa la casilla (si está vacía SinUnidad no hace nada)
+    public void contaminarUnidad() {
+        unidad.recibirContaminacion();
     }
 
     public boolean ocupada(){
         return unidad.ocupaCasilla();
     }
-    // elimine el getUnidad la casilal responde por su unidada
+
     public boolean suUnidadPuedeRecorrer(int casillas) {
         return unidad.puedeRecorrer(casillas);
     }
-    // la casilla de origen le pasa su unidad a la de destino
+
     public boolean suUnidadPuedeEntrarEn(Casilla destino) {
         return destino.puedeRecibirUnidad(unidad);
     }
@@ -83,7 +99,7 @@ public class Casilla {
         Unidad movida = unidad;
         movida.registrarMovimiento();
         liberar();
-        destino.recibirUnidad(movida);
+        destino.recibirUnidadQueLlega(movida);
     }
 
     public void deshacerMovimientoHacia(Casilla origen) {

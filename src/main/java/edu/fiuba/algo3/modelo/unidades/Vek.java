@@ -1,8 +1,15 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-public abstract class Vek extends Unidad {
+import edu.fiuba.algo3.modelo.armas.Arma;
 
-    protected Vek(int vida, int movimiento) {
-        super(vida, movimiento);
+public abstract class Vek extends UnidadDeCombate {
+
+    protected Vek(int vida, int movimiento, Arma arma, Desplazamiento desplazamiento) {
+        super(vida, movimiento, arma, desplazamiento);
+    }
+
+    @Override
+    public void caerAlAgua() {
+        morir();
     }
 }
