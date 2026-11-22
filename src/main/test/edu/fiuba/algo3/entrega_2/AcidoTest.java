@@ -10,43 +10,49 @@ import java.io.File;
 
 public class AcidoTest {
 
-    // ARREGLAR TESTS
     @Test
-    public void test04UnaUnidadTerrestreEnAcidoPorMovimientoQuedaContaminadayRecibeDobleDanio() {
+    public void test04UnaUnidadTerrestreEmpujadaAlAcidoQuedaContaminadayRecibeDobleDanio() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa);
 
-        Posicion posicionMech = new Posicion(2, 2);
-        Posicion destinoAcido = new Posicion(2, 3);
+        Posicion posicionMech = new Posicion(1, 2);
+        Posicion origenSuelo = new Posicion(1, 3);
+        Posicion destinoAcido = new Posicion(1, 4);
+        Posicion destinoFinal = new Posicion(1, 5);
         Luciernaga luciernaga = new Luciernaga();
         MechCanon mech = new MechCanon();
 
         tablero.posicionarUnidad(posicionMech, mech);
-        tablero.posicionarUnidad(destinoAcido, luciernaga);
+        tablero.posicionarUnidad(origenSuelo, luciernaga);
 
         //ACT
+        tablero.empujarUnidad(origenSuelo, Direccion.DERECHA);
         mech.atacar(posicionMech, destinoAcido, tablero);
 
         //ASSERT
+        assertTrue(tablero.unidadEstaEn(luciernaga, destinoFinal));
         assertEquals(1, luciernaga.vida());
     }
-    // ARREGLAR TESTS
+
     @Test
     public void test04BAvisponEnAcidoNoSeContaminaYRecibeDanioComun() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa);
-        Posicion posicionMech = new Posicion(1, 3);
+
+        Posicion posicionMech = new Posicion(1, 2);
+        Posicion origenSuelo = new Posicion(1, 3);
         Posicion destinoAcido = new Posicion(1, 4);
         Posicion destinoSuelo = new Posicion(1, 5);
         Avispon avispon = new Avispon();
         MechCanon mech = new MechCanon();
 
         tablero.posicionarUnidad(posicionMech, mech);
-        tablero.posicionarUnidad(destinoAcido, avispon);
+        tablero.posicionarUnidad(origenSuelo, avispon);
 
         //ACT
+        tablero.empujarUnidad(origenSuelo, Direccion.DERECHA);
         mech.atacar(posicionMech, destinoAcido, tablero);
 
         //ASSERT
@@ -71,6 +77,7 @@ public class AcidoTest {
         mech.recibirDanio(1);
 
         //ASSERT
+        assertTrue(tablero.unidadEstaEn(mech, destinoAcido));
         assertEquals(1, mech.vida());
     }
 
@@ -91,5 +98,4 @@ public class AcidoTest {
         //ASSERT
         assertEquals(2, luciernaga.vida());
     }
-
 }
