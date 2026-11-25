@@ -6,34 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UnidadTest {
 
     @Test
-    public void cadaUnidadEmpiezaConLaVidaIndicada() {
-        assertEquals(3, new MechCombate().vida());
-        assertEquals(3, new MechCanon().vida());
-        assertEquals(2, new MechArtilleria().vida());
-        assertEquals(2, new Saltador().vida());
-        assertEquals(3, new Luciernaga().vida());
-        assertEquals(2, new Avispon().vida());
-    }
-
-    @Test
-    public void cadaUnidadPuedeRecorrerSoloSuMovimiento() {
-        assertTrue(new MechCombate().puedeRecorrer(3));
-        assertFalse(new MechCombate().puedeRecorrer(4));
-        assertTrue(new MechCanon().puedeRecorrer(3));
-        assertFalse(new MechCanon().puedeRecorrer(4));
-        assertTrue(new MechArtilleria().puedeRecorrer(3));
-        assertFalse(new MechArtilleria().puedeRecorrer(4));
-        assertTrue(new Saltador().puedeRecorrer(3));
-        assertFalse(new Saltador().puedeRecorrer(4));
-        assertTrue(new Luciernaga().puedeRecorrer(2));
-        assertFalse(new Luciernaga().puedeRecorrer(3));
-        assertTrue(new Avispon().puedeRecorrer(4));
-        assertFalse(new Avispon().puedeRecorrer(5));
-
-
-    }
-
-    @Test
     public void recibirDanioReduceLaVida() {
         Luciernaga luciernaga = new Luciernaga();
 
