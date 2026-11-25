@@ -10,11 +10,12 @@ import java.util.Queue;
 
 import edu.fiuba.algo3.modelo.Casilla.*;
 import edu.fiuba.algo3.modelo.unidades.*;
+import edu.fiuba.algo3.modelo.Tablero.comandos.*;
 
 public class Tablero {
     private Map<Posicion, Casilla> casillas = new HashMap<>();
     //el tablero sabe de dónde vino cada unidad que se movió (posición actual -> origen)
-    private final Map<Posicion, Posicion> origenesDeMovimientos = new HashMap<>();
+    private final Map<Posicion, Comando> movimientos = new HashMap<>();
     private static final int CASILLAS_MAXIMAS = 64;
     private static final int TAMANIO = 8;
 
@@ -141,17 +142,14 @@ public class Tablero {
         if (!movimientosValidosDesde(origen).contains(destino)) {
             throw new MovimientoNoPermitidoException("La unidad no puede moverse a " + destino);
         }
-        casillaEn(origen).moverUnidadA(casillaEn(destino));
-        origenesDeMovimientos.put(destino, origen);
+        Comando movimiento = casillaEn(origen).moverUnidadA(casillaEn(destino));
+        movimientos.put(destino, movimiento);
     }
 
     public void deshacerMovimiento(Posicion posicionActual) {
-        if (!origenesDeMovimientos.containsKey(posicionActual)) {
-            throw new MovimientoNoPermitidoException("No hay ningún movimiento para deshacer");
-        }
-        Posicion origen = origenesDeMovimientos.get(posicionActual);
-        casillaEn(posicionActual).deshacerMovimientoHacia(casillaEn(origen));
-        origenesDeMovimientos.remove(posicionActual);
+        Comando movimiento = movimientos.getOrDefault(posicionActual, new SinMovimiento());
+        movimiento.deshacer();
+        movimientos.remove(posicionActual);
     }
 
     public boolean estaOcupada(Posicion posicion) {

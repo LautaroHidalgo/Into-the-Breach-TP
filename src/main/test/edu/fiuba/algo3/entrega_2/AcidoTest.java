@@ -98,4 +98,26 @@ public class AcidoTest {
         //ASSERT
         assertEquals(2, luciernaga.vida());
     }
+
+    @Test
+    public void alDeshacerElMovimientoDeUnMechQueTerminoSobreAcidoDejaDeEstarContaminado() {
+        //ARRANGE
+        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa);
+
+        Posicion origenSuelo = new Posicion(1, 3);
+        Posicion destinoAcido = new Posicion(1, 4);
+        MechCombate mech = new MechCombate();
+
+        tablero.posicionarUnidad(origenSuelo, mech);
+
+        //ACT
+        tablero.moverUnidad(origenSuelo, destinoAcido);
+        tablero.deshacerMovimiento(destinoAcido);
+        mech.recibirDanio(1);
+
+        //ASSERT
+        assertTrue(tablero.unidadEstaEn(mech, origenSuelo));
+        assertEquals(2, mech.vida());
+    }
 }

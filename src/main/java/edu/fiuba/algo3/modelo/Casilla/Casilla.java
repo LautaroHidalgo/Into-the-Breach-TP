@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Casilla;
 
 import edu.fiuba.algo3.modelo.unidades.SinUnidad;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.Tablero.comandos.*;
 
 public class Casilla {
     private Terreno terreno;
@@ -95,11 +96,8 @@ public class Casilla {
         return unidad == otra;
     }
 
-    public void moverUnidadA(Casilla destino) {
-        Unidad movida = unidad;
-        movida.registrarMovimiento();
-        liberar();
-        destino.recibirUnidadQueLlega(movida);
+    public Comando moverUnidadA(Casilla destino) {
+        return unidad.moverseEntre(this, destino);
     }
 
     public void deshacerMovimientoHacia(Casilla origen) {
