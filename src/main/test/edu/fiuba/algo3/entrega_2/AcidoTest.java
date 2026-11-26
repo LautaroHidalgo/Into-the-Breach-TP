@@ -121,4 +121,30 @@ public class AcidoTest {
         assertTrue(tablero.unidadEstaEn(mech, origenSuelo));
         assertEquals(2, mech.vida());
     }
+
+    @Test
+    public void test06BUnMechYaContaminadoQueSeMueveASueloYDeshaceSigueContaminado() {
+        // ARRANGE
+        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
+
+        Posicion origenSuelo = new Posicion(1, 2);
+        Posicion destinoSuelo = new Posicion(1, 3);
+        MechCombate mech = new MechCombate();
+        mech.recibirContaminacion();
+
+        tablero.posicionarUnidad(origenSuelo, mech);
+
+        // ACT
+        tablero.moverUnidad(origenSuelo, destinoSuelo);
+        tablero.deshacerMovimiento(destinoSuelo);
+        mech.recibirDanio(1);
+
+        // ASSERT
+        assertTrue(tablero.unidadEstaEn(mech, origenSuelo));
+        assertEquals(1, mech.vida());
+    }
+
+
+
 }

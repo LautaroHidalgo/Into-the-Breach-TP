@@ -88,4 +88,20 @@ public class DeshacerMovimientoTest {
         );
     }
 
+    @Test
+    public void noSePuedeDeshacerEnUnaCasillaDondeNoHuboMovimiento() {
+        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
+        Posicion posicionMech = new Posicion(1, 2);
+
+        MechCombate mech = new MechCombate();
+        tablero.posicionarUnidad(posicionMech, mech);
+
+        assertThrows(
+                MovimientoNoPermitidoException.class,
+                () -> tablero.deshacerMovimiento(posicionMech),
+                "No debería poder deshacer si la unidad todavía no se movió."
+        );
+    }
+
 }
