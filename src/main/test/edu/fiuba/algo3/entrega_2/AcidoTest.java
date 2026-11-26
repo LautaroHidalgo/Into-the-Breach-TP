@@ -100,7 +100,7 @@ public class AcidoTest {
     }
 
     @Test
-    public void alDeshacerElMovimientoDeUnMechQueTerminoSobreAcidoDejaDeEstarContaminado() {
+    public void test06AlDeshacerElMovimientoDeUnMechQueTerminoSobreAcidoDejaDeEstarContaminado() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa);

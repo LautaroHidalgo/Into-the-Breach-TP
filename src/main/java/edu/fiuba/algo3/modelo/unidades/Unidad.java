@@ -13,7 +13,6 @@ public abstract class Unidad {
     private EstadoSalud estadoSalud = new Sano();
     private EstadoTurno estadoTurno = new Disponible();
     private final Desplazamiento desplazamiento;
-    private boolean puedeDeshacerEnEsteTurno = true;
     protected Posicion posicion;
 
     protected Unidad(int vida, int movimiento, Desplazamiento desplazamiento) {
@@ -67,16 +66,9 @@ public abstract class Unidad {
     }
 
     public Comando moverseEntre(Casilla origen, Casilla destino) {
-        Comando comando = crearComandoMovimiento(origen, destino);
+        Comando comando = new ComandoMover(this, origen, destino, this.estadoSalud);
         comando.ejecutar();
         return comando;
-    }
-
-    private Comando crearComandoMovimiento(Casilla origen, Casilla destino) {
-        if (!puedeDeshacerEnEsteTurno) {
-            return new ComandoMoverSinDeshacer(this, origen, destino);
-        }
-        return new ComandoMover(this, origen, destino, this.estadoSalud);
     }
 
     public void registrarMovimiento() {
@@ -85,7 +77,6 @@ public abstract class Unidad {
 
     public void deshacerMovimiento() {
         estadoTurno = estadoTurno.deshacerMovimiento();
-        puedeDeshacerEnEsteTurno = false;
     }
 
     public void deshacerMovimiento(EstadoSalud estadoSaludPrevio) {
@@ -103,7 +94,6 @@ public abstract class Unidad {
 
     public void reiniciarTurno() {
         estadoTurno = new Disponible();
-        puedeDeshacerEnEsteTurno = true;
     }
 
     public int vida() {
