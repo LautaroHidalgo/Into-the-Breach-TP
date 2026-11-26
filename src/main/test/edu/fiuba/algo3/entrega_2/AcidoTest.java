@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +15,7 @@ public class AcidoTest {
     public void test04UnaUnidadTerrestreEmpujadaAlAcidoQuedaContaminadayRecibeDobleDanio() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionMech = new Posicion(1, 2);
         Posicion origenSuelo = new Posicion(1, 3);
@@ -39,7 +40,7 @@ public class AcidoTest {
     public void test04BAvisponEnAcidoNoSeContaminaYRecibeDanioComun() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionMech = new Posicion(1, 2);
         Posicion origenSuelo = new Posicion(1, 3);
@@ -64,7 +65,7 @@ public class AcidoTest {
     public void test04UnMechQueSeMueveAlAcidoQuedaContaminadoYRecibeDobleDanio() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion origenSuelo = new Posicion(1, 3);
         Posicion destinoAcido = new Posicion(1, 4);
@@ -85,7 +86,7 @@ public class AcidoTest {
     public void ubicarUnaUnidadSobreElAcidoNoLaContamina() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionAcido = new Posicion(1, 4);
         Luciernaga luciernaga = new Luciernaga();
@@ -103,7 +104,7 @@ public class AcidoTest {
     public void test06AlDeshacerElMovimientoDeUnMechQueTerminoSobreAcidoDejaDeEstarContaminado() {
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion origenSuelo = new Posicion(1, 3);
         Posicion destinoAcido = new Posicion(1, 4);

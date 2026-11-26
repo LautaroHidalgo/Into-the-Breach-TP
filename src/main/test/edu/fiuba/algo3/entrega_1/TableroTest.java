@@ -15,7 +15,7 @@ public class TableroTest {
     public void tableroSeCargaAPartirDeUnMapaPredefinido() {
 
         RedElectrica redElectrica = new RedElectrica();
-        Tablero mapaEsperado = new Tablero(redElectrica);
+        Tablero mapaEsperado = new Tablero();
 
         mapaEsperado.agregarCasilla(new Posicion(0, 0), new Casilla(new Montania()));
         mapaEsperado.agregarCasilla(new Posicion(0, 1), new Casilla(new Montania()));
@@ -99,7 +99,7 @@ public class TableroTest {
     public void comparar2MapasDiferentesDaFalso() {
 
         RedElectrica redElectrica = new RedElectrica();
-        Tablero mapaEsperado = new Tablero(redElectrica);
+        Tablero mapaEsperado = new Tablero();
 
         mapaEsperado.agregarCasilla(new Posicion(0, 0), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(0, 1), new Casilla(new Suelo()));

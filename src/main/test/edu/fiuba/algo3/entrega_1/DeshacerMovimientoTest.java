@@ -66,7 +66,7 @@ public class DeshacerMovimientoTest {
     @Test
     public void dosMechsDistintosNoPuedenDeshacerSuMovimientoEnElMismoTurno() {
         File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origenMech1 = new Posicion(1, 2);
         Posicion destinoMech1 = new Posicion(1, 3);
         Posicion origenMech2 = new Posicion(2, 2);

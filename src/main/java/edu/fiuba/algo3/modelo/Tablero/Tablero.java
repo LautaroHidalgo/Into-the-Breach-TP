@@ -17,16 +17,11 @@ public class Tablero {
     private final Map<Posicion, Comando> movimientos = new HashMap<>();
     private Comando estadoDeshacer = new SinMovimiento();
     private final Queue<Vek> ataquesAnunciados = new ArrayDeque<>();
-    //cambio: el tablero sabe de dónde vino cada unidad que se movió (posición actual -> origen)
-    private final Map<Posicion, Posicion> origenesDeMovimientos = new HashMap<>();
-    private final RedElectrica redElectrica;
     private static final int CASILLAS_MAXIMAS = 64;
     private static final int TAMANIO = 8;
 
     public Tablero(File mapa, RedElectrica redElectrica) {
-        this.redElectrica = redElectrica;
         LectorTableroCSV lector = new LectorTableroCSV();
-        
         List<Casilla> listaCasillas = lector.transformarArchivo(mapa, redElectrica);
 
         if (listaCasillas.size() != CASILLAS_MAXIMAS) {
@@ -40,9 +35,8 @@ public class Tablero {
         }
     }
 
-    public Tablero(RedElectrica redElectrica) {
+    public Tablero() {
         this.casillas = new HashMap<>();
-        this.redElectrica = redElectrica;
     }
 
     public void agregarCasilla(Posicion posicion, Casilla casilla) {

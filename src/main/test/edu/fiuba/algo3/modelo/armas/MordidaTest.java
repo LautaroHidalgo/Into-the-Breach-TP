@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.armas;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Luciernaga;
@@ -18,7 +19,7 @@ public class MordidaTest {
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         arma = new Mordida();
     }
 

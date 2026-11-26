@@ -1,8 +1,9 @@
-//cambio: archivo nuevo. La Luciérnaga contamina a la unidad que impacta y la contaminación no se acumula.
+//Cambio: archivo nuevo. La Luciérnaga contamina a la unidad que impacta y la contaminación no se acumula.
 package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
 import edu.fiuba.algo3.modelo.Casilla.Montania;
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Luciernaga;
@@ -18,7 +19,7 @@ public class LuciernagaTest {
 
     @Test
     public void test06LaLuciernagaDaniaYContaminaALaPrimeraUnidadQueImpactaSinEmpujarla() {
-        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         Luciernaga luciernaga = new Luciernaga();
         MechCombate mech = new MechCombate();
         tablero.posicionarUnidad(new Posicion(3, 0), luciernaga);
@@ -38,7 +39,7 @@ public class LuciernagaTest {
     public void test06LaContaminacionNoSeAcumula() {
         // mapaTestAcido.csv: (2,3), (2,4) y (2,5) son Ácido Dos disparos de Artillería empujan al Mech,
         // sin dañarlo de (2,5) a (2,4) y de (2,4) a (2,3) queda contaminado dos veces.
-        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaTestAcido.csv"));
+        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaTestAcido.csv"), new RedElectrica());
         MechCombate mech = new MechCombate();
         MechArtilleria primeraArtilleria = new MechArtilleria();
         MechArtilleria segundaArtilleria = new MechArtilleria();
@@ -62,7 +63,7 @@ public class LuciernagaTest {
 
     @Test
     public void siLaLuciernagaImpactaUnObstaculoNoDaniaALaUnidadQueEstaDetras() {
-        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         Luciernaga luciernaga = new Luciernaga();
         MechCombate mech = new MechCombate();
         tablero.posicionarUnidad(new Posicion(3, 0), luciernaga);
