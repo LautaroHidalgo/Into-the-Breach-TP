@@ -50,7 +50,7 @@ Tablero ..> LectorTableroCSV
 Posicion ..> Direccion
 
 Casilla "1" *---- "1" Terreno
-Casilla "0..1" --> "1" Unidad
+Casilla "1" --> "0..1" Unidad
 Terreno <|-- Suelo
 Terreno <|-- Agua
 Terreno <|-- Montania

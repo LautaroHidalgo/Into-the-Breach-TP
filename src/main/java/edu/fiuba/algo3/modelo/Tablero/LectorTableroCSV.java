@@ -35,6 +35,9 @@ public class LectorTableroCSV {
                     if ("M".equals(tipo)) {
                         listaCasillas.add(new Casilla(new Montania()));
                     }
+                    if ("C".equals(tipo)) {
+                        listaCasillas.add(new Casilla(new Acido()));
+                    }
                 }
             }
         } catch (IOException e) {

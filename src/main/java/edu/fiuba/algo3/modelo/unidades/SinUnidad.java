@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Casilla.Casilla;
 public class SinUnidad extends Unidad{
 
     public SinUnidad(){
-        super(0, 0);
+        super(0, 0, new Terrestre());
     }
 
     @Override
@@ -16,6 +16,11 @@ public class SinUnidad extends Unidad{
     @Override
     public void recibirDanio(int cantidad){
         // No hay nadie que reciba el daño.
+    }
+
+    @Override
+    public void recibirContaminacion() {
+        // No hay nadie a quien contaminar.
     }
 
     @Override

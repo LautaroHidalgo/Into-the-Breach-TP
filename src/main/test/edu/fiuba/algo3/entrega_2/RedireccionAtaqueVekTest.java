@@ -25,6 +25,7 @@ public class RedireccionAtaqueVekTest {
         Posicion desplazamientoVek = new Posicion(1,4);
         Posicion edificio = new Posicion(0,3);
         Posicion posicionVekVictima = new Posicion(0,4);
+        // Se guarda la direccion ARRIBA
         Direccion direccion = posicionVek.direccionHacia(edificio);
         MechCanon mech = new MechCanon();
         Avispon avispon = new Avispon();
@@ -33,11 +34,11 @@ public class RedireccionAtaqueVekTest {
         tablero.posicionarUnidad(posicionMech, mech);
         tablero.posicionarUnidad(posicionVek, avispon);
         tablero.posicionarUnidad(posicionVekVictima, saltador);
-        //avispon.anunciarAtaque(direccion); //Implementar metodo
+        avispon.anunciarAtaque(direccion);
 
         //ACT
         mech.atacar(posicionMech, posicionVek, tablero);
-        //avispon.ejecutarAtaque(); <- Algo así
+        avispon.ejecutarAtaque(tablero);
 
         //ASSERT
         assertTrue(tablero.unidadEstaEn(avispon,desplazamientoVek));

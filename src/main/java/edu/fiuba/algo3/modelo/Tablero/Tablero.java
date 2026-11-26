@@ -10,9 +10,13 @@ import java.util.Queue;
 
 import edu.fiuba.algo3.modelo.Casilla.*;
 import edu.fiuba.algo3.modelo.unidades.*;
+import edu.fiuba.algo3.modelo.Tablero.comandos.*;
 
 public class Tablero {
     private Map<Posicion, Casilla> casillas = new HashMap<>();
+    private final Map<Posicion, Comando> movimientos = new HashMap<>();
+    private Comando estadoDeshacer = new SinMovimiento();
+    private final Queue<Vek> ataquesAnunciados = new ArrayDeque<>();
     //cambio: el tablero sabe de dónde vino cada unidad que se movió (posición actual -> origen)
     private final Map<Posicion, Posicion> origenesDeMovimientos = new HashMap<>();
     private final RedElectrica redElectrica;
@@ -31,7 +35,7 @@ public class Tablero {
 
         for (int i = 0; i < TAMANIO; i++){
             for(int j = 0; j < TAMANIO; j++){
-                casillas.put(new Posicion(i, j), listaCasillas.get((i*TAMANIO+j)));
+                agregarCasilla(new Posicion(i, j), listaCasillas.get((i*TAMANIO+j)));
             }
         }
     }
@@ -42,6 +46,7 @@ public class Tablero {
     }
 
     public void agregarCasilla(Posicion posicion, Casilla casilla) {
+        casilla.ubicarseEn(posicion);
         casillas.put(posicion,casilla);
     }
 
@@ -70,6 +75,16 @@ public class Tablero {
         return casillas.getOrDefault(posicion, new Casilla(new FueraDelTablero()));
     }
 
+    public void verificarQueSePuedeAtacarDesde(Posicion origen) {
+        if (!casillaEn(origen).suUnidadPuedeAtacar()) {
+            throw new AccionNoPermitidaException("La unidad no puede atacar desde " + origen);
+        }
+    }
+
+    public void contaminar(Posicion posicion) {
+        casillaEn(posicion).contaminarUnidad();
+    }
+
     public boolean estaDentro(Posicion posicion) {
         return casillas.containsKey(posicion);
     }
@@ -95,7 +110,6 @@ public class Tablero {
     }
 
     public List<Posicion> movimientosValidosDesde(Posicion origen) {
-        //cambio: usa casillaEn (sin null) fuera del tablero la casilla tampoco está ocupada
         Casilla casillaOrigen = casillaEn(origen);
         if (!casillaOrigen.ocupada()) {
             throw new IllegalArgumentException("No hay unidad en el origen");
@@ -108,12 +122,9 @@ public class Tablero {
         while (!pendientes.isEmpty()) {
             Posicion actual = pendientes.remove();
             int distancia = distancias.get(actual);
-            //cambio: la casilla de origen le pregunta a su unidad (el tablero ya no usa getUnidad)
             if (!casillaOrigen.suUnidadPuedeRecorrer(distancia + 1)) {
                 continue;
             }
-            //cambio: recorre las 4 direcciones fuera del tablero casillaEn devuelve FueraDelTablero
-            // que no se puede transitar así que no hacen falta los null ni los if de los bordes
             for (Direccion direccion : Direccion.values()) {
                 Posicion siguiente = actual.obtenerAdyacente(direccion);
                 if (distancias.containsKey(siguiente)
@@ -132,23 +143,30 @@ public class Tablero {
         if (!movimientosValidosDesde(origen).contains(destino)) {
             throw new MovimientoNoPermitidoException("La unidad no puede moverse a " + destino);
         }
-        casillaEn(origen).moverUnidadA(casillaEn(destino));
-        origenesDeMovimientos.put(destino, origen);
+        Comando movimiento = casillaEn(origen).moverUnidadA(casillaEn(destino));
+        movimientos.put(destino, estadoDeshacer.registrarEnTurno(movimiento));
     }
 
     public void deshacerMovimiento(Posicion posicionActual) {
-        if (!origenesDeMovimientos.containsKey(posicionActual)) {
-            throw new MovimientoNoPermitidoException("No hay ningún movimiento para deshacer");
+        Comando movimiento = movimientos.getOrDefault(posicionActual, estadoDeshacer);
+        movimiento.deshacer();
+        estadoDeshacer = new ComandoMoverSinDeshacer();
+        movimientos.replaceAll((pos, cmd) -> estadoDeshacer);
+    }
+
+    public void anunciarAtaqueVek(Vek vek, Direccion direccion) {
+        vek.anunciarAtaque(direccion);
+        ataquesAnunciados.add(vek);
+    }
+
+    public void ejecutarAtaquesAnunciados() {
+        while (!ataquesAnunciados.isEmpty()) {
+            Vek vek = ataquesAnunciados.remove();
+            vek.ejecutarAtaque(this);
         }
-        Posicion origen = origenesDeMovimientos.get(posicionActual);
-        casillaEn(posicionActual).deshacerMovimientoHacia(casillaEn(origen));
-        origenesDeMovimientos.remove(posicionActual);
     }
 
     public boolean estaOcupada(Posicion posicion) {
         return casillaEn(posicion).ocupada();
     }
-
-
-
 }

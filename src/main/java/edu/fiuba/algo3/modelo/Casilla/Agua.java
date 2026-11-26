@@ -1,15 +1,15 @@
 package edu.fiuba.algo3.modelo.Casilla;
+import edu.fiuba.algo3.modelo.unidades.Unidad;
 
-/**
- * Agua
- */
-public class Agua extends Terreno{
-    public boolean esTransitable() {
-        return false;
+public class Agua extends TerrenoTransitable {
+
+    @Override
+    public void aplicarEfecto(Unidad unidad) {
+        unidad.terminarEnAgua();
     }
 
     @Override
-    public boolean bloqueaDisparos() {
-        return false;
+    public boolean permiteAtacar(Unidad unidad) {
+        return unidad.puedeAtacarDesdeElAgua();
     }
 }

@@ -1,0 +1,23 @@
+@startuml paquetes
+title Entrega 1 - Diagrama de paquetes
+
+package "edu.fiuba.algo3.modelo" {
+  package "Tablero" as P_Tablero {
+  }
+  package "Casilla" as P_Casilla {
+  }
+  package "unidades" as P_Unidades {
+  }
+  package "armas" as P_Armas {
+  }
+}
+
+P_Tablero ..> P_Casilla
+P_Tablero ..> P_Unidades
+P_Casilla ..> P_Unidades
+P_Unidades ..> P_Casilla
+P_Unidades ..> P_Tablero
+P_Unidades ..> P_Armas
+P_Armas ..> P_Tablero
+
+@enduml

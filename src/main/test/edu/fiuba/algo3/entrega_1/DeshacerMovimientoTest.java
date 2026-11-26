@@ -62,4 +62,30 @@ public class DeshacerMovimientoTest {
                 "No deberia deshacer un movimiento más de una vez por turno."
         );
     }
+
+    @Test
+    public void dosMechsDistintosNoPuedenDeshacerSuMovimientoEnElMismoTurno() {
+        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        Tablero tablero = new Tablero(mapa);
+        Posicion origenMech1 = new Posicion(1, 2);
+        Posicion destinoMech1 = new Posicion(1, 3);
+        Posicion origenMech2 = new Posicion(2, 2);
+        Posicion destinoMech2 = new Posicion(2, 3);
+
+        MechCombate mech1 = new MechCombate();
+        MechCanon mech2 = new MechCanon();
+        tablero.posicionarUnidad(origenMech1, mech1);
+        tablero.posicionarUnidad(origenMech2, mech2);
+
+        tablero.moverUnidad(origenMech1, destinoMech1);
+        tablero.moverUnidad(origenMech2, destinoMech2);
+        tablero.deshacerMovimiento(destinoMech1);
+
+        assertThrows(
+                MovimientoNoPermitidoException.class,
+                () -> tablero.deshacerMovimiento(destinoMech2),
+                "Un segundo Mech no debería poder deshacer si otro Mech ya deshizo en el mismo turno."
+        );
+    }
+
 }
