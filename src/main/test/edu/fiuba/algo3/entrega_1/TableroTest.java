@@ -14,12 +14,13 @@ public class TableroTest {
     @Test
     public void tableroSeCargaAPartirDeUnMapaPredefinido() {
 
-        Tablero mapaEsperado = new Tablero();
+        RedElectrica redElectrica = new RedElectrica();
+        Tablero mapaEsperado = new Tablero(redElectrica);
 
         mapaEsperado.agregarCasilla(new Posicion(0, 0), new Casilla(new Montania()));
         mapaEsperado.agregarCasilla(new Posicion(0, 1), new Casilla(new Montania()));
-        mapaEsperado.agregarCasilla(new Posicion(0, 2), new Casilla(new Edificio()));
-        mapaEsperado.agregarCasilla(new Posicion(0, 3), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(0, 2), new Casilla(new Edificio(redElectrica)));
+        mapaEsperado.agregarCasilla(new Posicion(0, 3), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(0, 4), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(0, 5), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(0, 6), new Casilla(new Montania()));
@@ -34,7 +35,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(1, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(1, 7), new Casilla(new Montania()));
 
-        mapaEsperado.agregarCasilla(new Posicion(2, 0), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(2, 0), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(2, 1), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(2, 2), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(2, 3), new Casilla(new Suelo()));
@@ -43,11 +44,11 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(2, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(2, 7), new Casilla(new Agua()));
 
-        mapaEsperado.agregarCasilla(new Posicion(3, 0), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(3, 0), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(3, 1), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(3, 2), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(3, 3), new Casilla(new Montania()));
-        mapaEsperado.agregarCasilla(new Posicion(3, 4), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(3, 4), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(3, 5), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(3, 6), new Casilla(new Agua()));
         mapaEsperado.agregarCasilla(new Posicion(3, 7), new Casilla(new Agua()));
@@ -55,8 +56,8 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(4, 0), new Casilla(new Montania()));
         mapaEsperado.agregarCasilla(new Posicion(4, 1), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(4, 2), new Casilla(new Suelo()));
-        mapaEsperado.agregarCasilla(new Posicion(4, 3), new Casilla(new Edificio()));
-        mapaEsperado.agregarCasilla(new Posicion(4, 4), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(4, 3), new Casilla(new Edificio(redElectrica)));
+        mapaEsperado.agregarCasilla(new Posicion(4, 4), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(4, 5), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(4, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(4, 7), new Casilla(new Montania()));
@@ -77,7 +78,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(6, 4), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(6, 5), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(6, 6), new Casilla(new Suelo()));
-        mapaEsperado.agregarCasilla(new Posicion(6, 7), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(6, 7), new Casilla(new Edificio(redElectrica)));
 
         mapaEsperado.agregarCasilla(new Posicion(7, 0), new Casilla(new Agua()));
         mapaEsperado.agregarCasilla(new Posicion(7, 1), new Casilla(new Agua()));
@@ -89,7 +90,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(7, 7), new Casilla(new Montania()));
 
         File mapa = new File("src/test/resources/mapas/mapa.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         assertTrue(tablero.esIgualA(mapaEsperado));
     }
@@ -97,7 +98,8 @@ public class TableroTest {
     @Test
     public void comparar2MapasDiferentesDaFalso() {
 
-        Tablero mapaEsperado = new Tablero();
+        RedElectrica redElectrica = new RedElectrica();
+        Tablero mapaEsperado = new Tablero(redElectrica);
 
         mapaEsperado.agregarCasilla(new Posicion(0, 0), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(0, 1), new Casilla(new Suelo()));
@@ -117,7 +119,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(1, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(1, 7), new Casilla(new Montania()));
 
-        mapaEsperado.agregarCasilla(new Posicion(2, 0), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(2, 0), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(2, 1), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(2, 2), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(2, 3), new Casilla(new Suelo()));
@@ -126,11 +128,11 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(2, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(2, 7), new Casilla(new Agua()));
 
-        mapaEsperado.agregarCasilla(new Posicion(3, 0), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(3, 0), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(3, 1), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(3, 2), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(3, 3), new Casilla(new Montania()));
-        mapaEsperado.agregarCasilla(new Posicion(3, 4), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(3, 4), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(3, 5), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(3, 6), new Casilla(new Agua()));
         mapaEsperado.agregarCasilla(new Posicion(3, 7), new Casilla(new Agua()));
@@ -138,8 +140,8 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(4, 0), new Casilla(new Montania()));
         mapaEsperado.agregarCasilla(new Posicion(4, 1), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(4, 2), new Casilla(new Suelo()));
-        mapaEsperado.agregarCasilla(new Posicion(4, 3), new Casilla(new Edificio()));
-        mapaEsperado.agregarCasilla(new Posicion(4, 4), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(4, 3), new Casilla(new Edificio(redElectrica)));
+        mapaEsperado.agregarCasilla(new Posicion(4, 4), new Casilla(new Edificio(redElectrica)));
         mapaEsperado.agregarCasilla(new Posicion(4, 5), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(4, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(4, 7), new Casilla(new Montania()));
@@ -160,7 +162,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(6, 4), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(6, 5), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(6, 6), new Casilla(new Suelo()));
-        mapaEsperado.agregarCasilla(new Posicion(6, 7), new Casilla(new Edificio()));
+        mapaEsperado.agregarCasilla(new Posicion(6, 7), new Casilla(new Edificio(redElectrica)));
 
         mapaEsperado.agregarCasilla(new Posicion(7, 0), new Casilla(new Agua()));
         mapaEsperado.agregarCasilla(new Posicion(7, 1), new Casilla(new Agua()));
@@ -172,7 +174,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(7, 7), new Casilla(new Montania()));
 
         File mapa = new File("src/test/resources/mapas/mapa.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, redElectrica);
 
         assertFalse(tablero.esIgualA(mapaEsperado));
     }
@@ -182,6 +184,6 @@ public class TableroTest {
 
         File mapa = new File("src/test/resources/mapas/mapaInvalido.csv");
         
-        assertThrows(TableroInvalidoException.class,() -> new Tablero(mapa));  
+        assertThrows(TableroInvalidoException.class,() -> new Tablero(mapa, new RedElectrica()));
     }
 }

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 import static org.junit.jupiter.api.Assertions.*;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Direccion;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -18,7 +19,7 @@ public class RedireccionAtaqueVekTest {
     public void test08ElAtaqueDelVekSeMueveConElyAtacaOtroVek(){
         //ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaTestVeks.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion posicionMech = new Posicion(1,2);
         Posicion posicionVek = new Posicion(1,3);
         Posicion desplazamientoVek = new Posicion(1,4);

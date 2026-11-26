@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +15,7 @@ public class DeshacerMovimientoTest {
     public void noSePuedeDeshacerUnMovimientoDespuesDeQueElMechAtaco() {
         // ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen = new Posicion(1, 2);
         Posicion destino = new Posicion(1, 3);
         Posicion posVek = new Posicion(1, 4);
@@ -41,7 +42,7 @@ public class DeshacerMovimientoTest {
     public void noSePuedeDeshacerUnMovimientoMasDeUnaVezPorTurno() {
         // ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen = new Posicion(1, 2);
         Posicion primerDestino = new Posicion(1, 3);
         Posicion segundoDestino = new Posicion(1, 4);

@@ -15,19 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EdificioTest {
 
     @Test
-    public void unEdificioIntactoAportaEnergiaALaRedElectrica() {
-        // ARRANGE
-        RedElectrica redElectrica = new RedElectrica();
-        new Edificio(redElectrica);
-
-        // ACT
-        int energiaActual = redElectrica.getEnergia();
-
-        // ASSERT
-        assertEquals(5, energiaActual);
-    }
-
-    @Test
     public void unEdificioAlRecibirDanioRestaEnergiaDeLaRedElectrica() {
         // ARRANGE
         RedElectrica redElectrica = new RedElectrica();
@@ -57,11 +44,12 @@ public class EdificioTest {
     @Test
     public void unUnidadNoPuedeMoverseAUnaCasillaOcupadaPorUnEdificio() {
         // ARRANGE
-        Tablero tablero = new Tablero();
+        RedElectrica redElectrica = new RedElectrica();
+        Tablero tablero = new Tablero(redElectrica);
         Posicion origen = new Posicion(1, 1);
         Posicion casillaConEdificio = new Posicion(1, 2);
         tablero.agregarCasilla(origen, new Casilla(new Suelo()));
-        tablero.agregarCasilla(casillaConEdificio, new Casilla(new Edificio()));
+        tablero.agregarCasilla(casillaConEdificio, new Casilla(new Edificio(redElectrica)));
         Unidad unidad = new MechCanon();
         tablero.posicionarUnidad(origen, unidad);
 
@@ -76,7 +64,7 @@ public class EdificioTest {
     public void unEdificioSeDaniaDebidoAQueUnaUnidadChocaContraElla() {
         // ARRANGE
         RedElectrica redElectrica = new RedElectrica();
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(redElectrica);
         Posicion origen = new Posicion(1, 1);
         Posicion casillaConEdificio = new Posicion(1, 2);
         tablero.agregarCasilla(origen, new Casilla(new Suelo()));
@@ -95,7 +83,7 @@ public class EdificioTest {
     public void edificioDestruidoPasaASerTransitable() {
         // ARRANGE
         RedElectrica redElectrica = new RedElectrica();
-        Tablero tablero = new Tablero();
+        Tablero tablero = new Tablero(redElectrica);
         Posicion origen = new Posicion(1, 1);
         Posicion posEdificio = new Posicion(1, 2);
         tablero.agregarCasilla(origen, new Casilla(new Suelo()));
@@ -119,7 +107,8 @@ public class EdificioTest {
     @Test
     public void choqueContraMontaniaProduceDanio() {
         // ARRANGE
-        Tablero tablero = new Tablero();
+        RedElectrica redElectrica = new RedElectrica();
+        Tablero tablero = new Tablero(redElectrica);
         Posicion origen = new Posicion(1, 1);
         Posicion posMontania = new Posicion(1, 2);
         tablero.agregarCasilla(origen, new Casilla(new Suelo()));
@@ -139,7 +128,8 @@ public class EdificioTest {
     @Test
     public void coqueContraUnidadProduceDanio() {
         // ARRANGE
-        Tablero tablero = new Tablero();
+        RedElectrica redElectrica = new RedElectrica();
+        Tablero tablero = new Tablero(redElectrica);
         Posicion posEmpujada = new Posicion(1, 1);
         Posicion posObstaculo = new Posicion(1, 2);
         tablero.agregarCasilla(posEmpujada, new Casilla(new Suelo()));
@@ -162,7 +152,8 @@ public class EdificioTest {
     @Test
     public void empujarUnaUnidadAfueraDelTablero() {
         // ARRANGE
-        Tablero tablero = new Tablero();
+        RedElectrica redElectrica = new RedElectrica();
+        Tablero tablero = new Tablero(redElectrica);
         Posicion borde = new Posicion(0, 0);
         tablero.agregarCasilla(borde, new Casilla(new Suelo()));
         Unidad unidad = new MechCanon();
@@ -190,5 +181,20 @@ public class EdificioTest {
         // ASSERT
         assertEquals(0, redElectrica.getEnergia());
         assertFalse(redElectrica.estaActivo());
+    }
+
+    @Test
+    public void multipleEdificiosCompartenLaMismaRedElectricaAlRecibirDanio() {
+        // ARRANGE
+        RedElectrica redElectrica = new RedElectrica();
+        Casilla casillaEdificio1 = new Casilla(new Edificio(redElectrica));
+        Casilla casillaEdificio2 = new Casilla(new Edificio(redElectrica));
+
+        // ACT
+        casillaEdificio1.recibirAtaque(1);
+        casillaEdificio2.recibirAtaque(1);
+
+        // ASSERT
+        assertEquals(3, redElectrica.getEnergia());
     }
 }

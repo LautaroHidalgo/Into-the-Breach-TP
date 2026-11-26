@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.unidades.MechCombate;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +17,7 @@ public class MechTest {
     public void mechNoPuedeMoverseDosVecesPorTurno() {
         // ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen   = new Posicion(1, 2);
         Posicion destino1 = new Posicion(1, 3);
         Posicion destino2 = new Posicion(1, 4);
@@ -37,7 +38,7 @@ public class MechTest {
     public void mechNoPuedeAtacarDosVecesPorTurno() {
         // ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion posicionMech = new Posicion(1, 2);
         Posicion posicionVek  = new Posicion(1, 3);
         MechCombate mech = new MechCombate();
@@ -59,7 +60,7 @@ public class MechTest {
     public void sePuedeDeshacerMovimientoSiAunNoAtaco() {
         // ARRANGE
         File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen = new Posicion(1, 2);
         Posicion destino = new Posicion(1, 3);
         MechCombate mech = new MechCombate();

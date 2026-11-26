@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -21,7 +22,7 @@ public class MechTest {
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         mech = new MechCombate();
         vek = new Luciernaga();
         tablero.posicionarUnidad(posicionMech, mech);
