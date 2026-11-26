@@ -21,7 +21,7 @@ public class TestMovimientoUnidad {
     public void testMechSoloPuedeMoverseRangoPermitido() {
         
         File mapa = new File("src/test/resources/mapas/mapaTest2.csv");
-        Tablero tablero = new Tablero(mapa);
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         
         MechCombate mech = new MechCombate();
         Posicion posicionMech = new Posicion(2,3);

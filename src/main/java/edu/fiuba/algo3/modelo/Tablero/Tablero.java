@@ -15,13 +15,15 @@ public class Tablero {
     private Map<Posicion, Casilla> casillas = new HashMap<>();
     //cambio: el tablero sabe de dónde vino cada unidad que se movió (posición actual -> origen)
     private final Map<Posicion, Posicion> origenesDeMovimientos = new HashMap<>();
+    private final RedElectrica redElectrica;
     private static final int CASILLAS_MAXIMAS = 64;
     private static final int TAMANIO = 8;
 
-    public Tablero(File mapa) {
+    public Tablero(File mapa, RedElectrica redElectrica) {
+        this.redElectrica = redElectrica;
         LectorTableroCSV lector = new LectorTableroCSV();
         
-        List<Casilla> listaCasillas = lector.transformarArchivo(mapa);
+        List<Casilla> listaCasillas = lector.transformarArchivo(mapa, redElectrica);
 
         if (listaCasillas.size() != CASILLAS_MAXIMAS) {
             throw new TableroInvalidoException("El tablero debe contener exactamente 64 casillas");
@@ -34,8 +36,9 @@ public class Tablero {
         }
     }
 
-    public Tablero() {
+    public Tablero(RedElectrica redElectrica) {
         this.casillas = new HashMap<>();
+        this.redElectrica = redElectrica;
     }
 
     public void agregarCasilla(Posicion posicion, Casilla casilla) {

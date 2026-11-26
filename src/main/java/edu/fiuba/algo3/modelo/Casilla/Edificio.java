@@ -11,10 +11,6 @@ public class Edificio extends Terreno{
     private final RedElectrica redElectrica;
     private boolean estaDestruido;
 
-    public Edificio() {
-        this(new RedElectrica());
-    }
-
     public Edificio(RedElectrica redElectrica) {
         this.redElectrica = redElectrica;
         this.estaDestruido = false;

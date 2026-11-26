@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.MovimientoNoPermitidoException;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.PosicionFueraDelTableroException;
@@ -23,7 +24,7 @@ public class MovimientoMechTest {
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaParaMovimiento.csv"));
+        tablero = new Tablero(new File("src/test/resources/mapas/mapaParaMovimiento.csv"), new RedElectrica());
         mech = new MechCombate();
         tablero.posicionarUnidad(origen, mech);
     }
@@ -100,7 +101,7 @@ public class MovimientoMechTest {
 
     @Test
     public void cadaUnidadSeMueveSegunSuPropioRango() {
-        Tablero libre = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        Tablero libre = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         libre.posicionarUnidad(new Posicion(3, 0), new Luciernaga());
         libre.posicionarUnidad(new Posicion(5, 0), new Avispon());
 
