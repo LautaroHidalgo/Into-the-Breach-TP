@@ -30,7 +30,7 @@ public class Tablero {
 
         for (int i = 0; i < TAMANIO; i++){
             for(int j = 0; j < TAMANIO; j++){
-                casillas.put(new Posicion(i, j), listaCasillas.get((i*TAMANIO+j)));
+                agregarCasilla(new Posicion(i, j), listaCasillas.get((i*TAMANIO+j)));
             }
         }
     }
@@ -40,6 +40,7 @@ public class Tablero {
     }
 
     public void agregarCasilla(Posicion posicion, Casilla casilla) {
+        casilla.ubicarseEn(posicion);
         casillas.put(posicion,casilla);
     }
 

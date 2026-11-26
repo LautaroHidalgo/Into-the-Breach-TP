@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
+import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.estados.*;
 import edu.fiuba.algo3.modelo.Tablero.comandos.*;
 
@@ -13,6 +14,7 @@ public abstract class Unidad {
     private EstadoTurno estadoTurno = new Disponible();
     private final Desplazamiento desplazamiento;
     private boolean puedeDeshacerEnEsteTurno = true;
+    protected Posicion posicion;
 
     protected Unidad(int vida, int movimiento, Desplazamiento desplazamiento) {
         this.vida = vida;
@@ -110,5 +112,9 @@ public abstract class Unidad {
 
     public boolean puedeRecorrer(int casillas) {
         return casillas <= movimiento;
+    }
+
+    public void ubicarseEn(Posicion posicion) {
+        this.posicion = posicion;
     }
 }
