@@ -6,9 +6,10 @@ import edu.fiuba.algo3.modelo.Casilla.Montania;
 import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Luciernaga;
-import edu.fiuba.algo3.modelo.unidades.MechArtilleria;
-import edu.fiuba.algo3.modelo.unidades.MechCombate;
+import edu.fiuba.algo3.modelo.unidades.mech.MechArtilleria;
+import edu.fiuba.algo3.modelo.unidades.mech.MechCombate;
+import edu.fiuba.algo3.modelo.unidades.vek.Luciernaga;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

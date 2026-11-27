@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.Tablero.excepciones;
 
 public class PosicionesNoAlineadasException extends RuntimeException {
     public PosicionesNoAlineadasException() {

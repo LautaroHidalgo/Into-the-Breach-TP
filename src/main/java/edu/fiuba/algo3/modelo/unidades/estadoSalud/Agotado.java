@@ -1,6 +1,7 @@
-package edu.fiuba.algo3.modelo.unidades.estados;
-import edu.fiuba.algo3.modelo.Tablero.AccionNoPermitidaException;
-import edu.fiuba.algo3.modelo.Tablero.MovimientoNoPermitidoException;
+package edu.fiuba.algo3.modelo.unidades.estadoSalud;
+import edu.fiuba.algo3.modelo.Tablero.excepciones.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.Tablero.excepciones.MovimientoNoPermitidoException;
+import edu.fiuba.algo3.modelo.unidades.estadoTurno.EstadoTurno;
 
 public class Agotado extends EstadoTurno {
     @Override

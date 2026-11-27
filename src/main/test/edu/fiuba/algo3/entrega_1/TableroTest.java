@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import edu.fiuba.algo3.modelo.Casilla.*;
 import edu.fiuba.algo3.modelo.Tablero.*;
+import edu.fiuba.algo3.modelo.Tablero.excepciones.TableroInvalidoException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo.unidades;
+package edu.fiuba.algo3.modelo.unidades.desplazamiento;
+
+import edu.fiuba.algo3.modelo.unidades.Unidad;
 
 public class Terrestre implements Desplazamiento {
 

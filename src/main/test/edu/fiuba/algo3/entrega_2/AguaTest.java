@@ -3,13 +3,14 @@ package edu.fiuba.algo3.entrega_2;
 import edu.fiuba.algo3.modelo.Casilla.Agua;
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
 import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
-import edu.fiuba.algo3.modelo.Tablero.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Avispon;
-import edu.fiuba.algo3.modelo.unidades.MechArtilleria;
-import edu.fiuba.algo3.modelo.unidades.MechCombate;
-import edu.fiuba.algo3.modelo.unidades.Saltador;
+import edu.fiuba.algo3.modelo.Tablero.excepciones.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.unidades.mech.MechArtilleria;
+import edu.fiuba.algo3.modelo.unidades.mech.MechCombate;
+import edu.fiuba.algo3.modelo.unidades.vek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.vek.Saltador;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

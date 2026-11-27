@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.unidades;
+package edu.fiuba.algo3.modelo.unidades.mech;
 
 import edu.fiuba.algo3.modelo.armas.Artilleria;
 

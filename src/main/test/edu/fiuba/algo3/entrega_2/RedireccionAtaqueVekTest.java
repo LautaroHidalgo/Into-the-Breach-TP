@@ -5,9 +5,10 @@ import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Direccion;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Avispon;
-import edu.fiuba.algo3.modelo.unidades.MechCanon;
-import edu.fiuba.algo3.modelo.unidades.Saltador;
+import edu.fiuba.algo3.modelo.unidades.mech.MechCanon;
+import edu.fiuba.algo3.modelo.unidades.vek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.vek.Saltador;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

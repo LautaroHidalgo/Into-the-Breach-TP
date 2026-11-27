@@ -1,9 +1,11 @@
-package edu.fiuba.algo3.modelo.unidades;
+package edu.fiuba.algo3.modelo.unidades.vek;
 
 import edu.fiuba.algo3.modelo.Tablero.Direccion;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.armas.Arma;
+import edu.fiuba.algo3.modelo.unidades.UnidadDeCombate;
+import edu.fiuba.algo3.modelo.unidades.desplazamiento.Desplazamiento;
 
 public abstract class Vek extends UnidadDeCombate {
     private Direccion direccionAtaque;

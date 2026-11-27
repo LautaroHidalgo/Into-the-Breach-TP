@@ -1,6 +1,7 @@
-package edu.fiuba.algo3.modelo.unidades;
+package edu.fiuba.algo3.modelo.unidades.vek;
 
 import edu.fiuba.algo3.modelo.armas.Picadura;
+import edu.fiuba.algo3.modelo.unidades.desplazamiento.Volador;
 
 public class Avispon extends Vek {
 

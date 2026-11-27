@@ -1,5 +1,5 @@
-package edu.fiuba.algo3.modelo.unidades.estados;
-import edu.fiuba.algo3.modelo.Tablero.MovimientoNoPermitidoException;
+package edu.fiuba.algo3.modelo.unidades.estadoTurno;
+import edu.fiuba.algo3.modelo.Tablero.excepciones.MovimientoNoPermitidoException;
 
 public class Movido extends EstadoTurno {
     @Override

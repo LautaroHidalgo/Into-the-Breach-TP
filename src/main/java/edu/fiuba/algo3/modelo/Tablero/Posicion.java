@@ -33,7 +33,6 @@ public class Posicion {
         if (!(otro instanceof Posicion)) {
             return false;
         }
-
         return esIgualA((Posicion) otro);
     }
 

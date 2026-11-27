@@ -1,7 +1,8 @@
-package edu.fiuba.algo3.modelo.unidades;
+package edu.fiuba.algo3.modelo.unidades.vek;
 
 
 import edu.fiuba.algo3.modelo.armas.Mordida;
+import edu.fiuba.algo3.modelo.unidades.desplazamiento.Terrestre;
 
 public class Saltador extends Vek {
 

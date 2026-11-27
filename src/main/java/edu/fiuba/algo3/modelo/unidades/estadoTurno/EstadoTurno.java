@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo.unidades.estados;
+package edu.fiuba.algo3.modelo.unidades.estadoTurno;
+
+import edu.fiuba.algo3.modelo.unidades.estadoSalud.Agotado;
 
 public abstract class EstadoTurno {
 

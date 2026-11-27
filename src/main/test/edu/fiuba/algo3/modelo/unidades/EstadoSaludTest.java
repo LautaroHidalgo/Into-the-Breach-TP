@@ -1,10 +1,11 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 
-import edu.fiuba.algo3.modelo.unidades.estados.Contaminado;
-import edu.fiuba.algo3.modelo.unidades.estados.EstadoSalud;
-import edu.fiuba.algo3.modelo.unidades.estados.Sano;
 import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.unidades.estadoSalud.Contaminado;
+import edu.fiuba.algo3.modelo.unidades.estadoSalud.EstadoSalud;
+import edu.fiuba.algo3.modelo.unidades.estadoSalud.Sano;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -3,7 +3,8 @@ package edu.fiuba.algo3.modelo.armas;
 import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.vek.Luciernaga;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

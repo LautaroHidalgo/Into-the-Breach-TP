@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.unidades.estados;
+package edu.fiuba.algo3.modelo.unidades.estadoSalud;
 
 public interface EstadoSalud {
 

@@ -1,6 +1,10 @@
 package edu.fiuba.algo3.modelo.unidades;
 
 import org.junit.jupiter.api.Test;
+
+import edu.fiuba.algo3.modelo.unidades.vek.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.vek.Saltador;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UnidadTest {

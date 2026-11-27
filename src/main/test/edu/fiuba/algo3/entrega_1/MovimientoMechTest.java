@@ -1,14 +1,15 @@
 package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
-import edu.fiuba.algo3.modelo.Tablero.MovimientoNoPermitidoException;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
-import edu.fiuba.algo3.modelo.Tablero.PosicionFueraDelTableroException;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
-import edu.fiuba.algo3.modelo.unidades.Avispon;
-import edu.fiuba.algo3.modelo.unidades.Luciernaga;
-import edu.fiuba.algo3.modelo.unidades.MechCombate;
-import edu.fiuba.algo3.modelo.unidades.Saltador;
+import edu.fiuba.algo3.modelo.Tablero.excepciones.MovimientoNoPermitidoException;
+import edu.fiuba.algo3.modelo.Tablero.excepciones.PosicionFueraDelTableroException;
+import edu.fiuba.algo3.modelo.unidades.mech.MechCombate;
+import edu.fiuba.algo3.modelo.unidades.vek.Avispon;
+import edu.fiuba.algo3.modelo.unidades.vek.Luciernaga;
+import edu.fiuba.algo3.modelo.unidades.vek.Saltador;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
