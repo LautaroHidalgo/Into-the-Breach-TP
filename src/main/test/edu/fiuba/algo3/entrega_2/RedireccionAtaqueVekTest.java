@@ -18,7 +18,7 @@ public class RedireccionAtaqueVekTest {
     @Test
     public void test08ElAtaqueDelVekSeMueveConElyAtacaOtroVek(){
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestVeks.csv");
+        File mapa = new File("src/main/mapas/mapaTestVeks.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion posicionMech = new Posicion(1,2);
         Posicion posicionVek = new Posicion(1,3);

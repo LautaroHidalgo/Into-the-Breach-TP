@@ -89,7 +89,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(7, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(7, 7), new Casilla(new Montania()));
 
-        File mapa = new File("src/test/resources/mapas/mapa.csv");
+        File mapa = new File("src/main/mapas/mapa.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         assertTrue(tablero.esIgualA(mapaEsperado));
@@ -173,7 +173,7 @@ public class TableroTest {
         mapaEsperado.agregarCasilla(new Posicion(7, 6), new Casilla(new Suelo()));
         mapaEsperado.agregarCasilla(new Posicion(7, 7), new Casilla(new Montania()));
 
-        File mapa = new File("src/test/resources/mapas/mapa.csv");
+        File mapa = new File("src/main/mapas/mapa.csv");
         Tablero tablero = new Tablero(mapa, redElectrica);
 
         assertFalse(tablero.esIgualA(mapaEsperado));
@@ -182,7 +182,7 @@ public class TableroTest {
     @Test
     public void noSePuedeCrearUnMapaConCantidadDeCasillasDistintoA64(){
 
-        File mapa = new File("src/test/resources/mapas/mapaInvalido.csv");
+        File mapa = new File("src/main/mapas/mapaInvalido.csv");
         
         assertThrows(TableroInvalidoException.class,() -> new Tablero(mapa, new RedElectrica()));
     }

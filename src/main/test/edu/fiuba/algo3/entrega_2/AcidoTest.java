@@ -14,7 +14,7 @@ public class AcidoTest {
     @Test
     public void test04UnaUnidadTerrestreEmpujadaAlAcidoQuedaContaminadayRecibeDobleDanio() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionMech = new Posicion(1, 2);
@@ -39,7 +39,7 @@ public class AcidoTest {
     @Test
     public void test04BAvisponEnAcidoNoSeContaminaYRecibeDanioComun() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionMech = new Posicion(1, 2);
@@ -64,7 +64,7 @@ public class AcidoTest {
     @Test
     public void test04UnMechQueSeMueveAlAcidoQuedaContaminadoYRecibeDobleDanio() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion origenSuelo = new Posicion(1, 3);
@@ -85,7 +85,7 @@ public class AcidoTest {
     @Test
     public void ubicarUnaUnidadSobreElAcidoNoLaContamina() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionAcido = new Posicion(1, 4);
@@ -103,7 +103,7 @@ public class AcidoTest {
     @Test
     public void test06AlDeshacerElMovimientoDeUnMechQueTerminoSobreAcidoDejaDeEstarContaminado() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion origenSuelo = new Posicion(1, 3);
@@ -125,7 +125,7 @@ public class AcidoTest {
     @Test
     public void test06BUnMechYaContaminadoQueSeMueveASueloYDeshaceSigueContaminado() {
         // ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion origenSuelo = new Posicion(1, 2);

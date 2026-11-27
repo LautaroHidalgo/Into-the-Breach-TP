@@ -15,7 +15,7 @@ import java.io.File;
 public class EmergenciaTest {
     @Test
     public void test10VekSobreCasillaEmergenciaBloqueaAparicionyRecibeDanio(){
-        File mapa = new File("src/test/resources/mapas/mapaTestVeks.csv");
+        File mapa = new File("src/main/mapas/mapaTestVeks.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
 
     }

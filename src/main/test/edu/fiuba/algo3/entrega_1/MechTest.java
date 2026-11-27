@@ -16,7 +16,7 @@ public class MechTest {
     @Test
     public void mechNoPuedeMoverseDosVecesPorTurno() {
         // ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        File mapa = new File("src/main/mapas/mapaParaMovimiento.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen   = new Posicion(1, 2);
         Posicion destino1 = new Posicion(1, 3);
@@ -37,7 +37,7 @@ public class MechTest {
     @Test
     public void mechNoPuedeAtacarDosVecesPorTurno() {
         // ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        File mapa = new File("src/main/mapas/mapaParaMovimiento.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion posicionMech = new Posicion(1, 2);
         Posicion posicionVek  = new Posicion(1, 3);
@@ -59,7 +59,7 @@ public class MechTest {
     @Test
     public void sePuedeDeshacerMovimientoSiAunNoAtaco() {
         // ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        File mapa = new File("src/main/mapas/mapaParaMovimiento.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen = new Posicion(1, 2);
         Posicion destino = new Posicion(1, 3);

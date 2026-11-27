@@ -24,7 +24,7 @@ public class MovimientoMechTest {
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaParaMovimiento.csv"), new RedElectrica());
+        tablero = new Tablero(new File("src/main/mapas/mapaParaMovimiento.csv"), new RedElectrica());
         mech = new MechCombate();
         tablero.posicionarUnidad(origen, mech);
     }
@@ -101,7 +101,7 @@ public class MovimientoMechTest {
 
     @Test
     public void cadaUnidadSeMueveSegunSuPropioRango() {
-        Tablero libre = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
+        Tablero libre = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         libre.posicionarUnidad(new Posicion(3, 0), new Luciernaga());
         libre.posicionarUnidad(new Posicion(5, 0), new Avispon());
 

@@ -19,7 +19,7 @@ public class LuciernagaTest {
 
     @Test
     public void test06LaLuciernagaDaniaYContaminaALaPrimeraUnidadQueImpactaSinEmpujarla() {
-        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
+        Tablero tablero = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         Luciernaga luciernaga = new Luciernaga();
         MechCombate mech = new MechCombate();
         tablero.posicionarUnidad(new Posicion(3, 0), luciernaga);
@@ -39,7 +39,7 @@ public class LuciernagaTest {
     public void test06LaContaminacionNoSeAcumula() {
         // mapaTestAcido.csv: (2,3), (2,4) y (2,5) son Ácido Dos disparos de Artillería empujan al Mech,
         // sin dañarlo de (2,5) a (2,4) y de (2,4) a (2,3) queda contaminado dos veces.
-        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaTestAcido.csv"), new RedElectrica());
+        Tablero tablero = new Tablero(new File("src/main/mapas/mapaTestAcido.csv"), new RedElectrica());
         MechCombate mech = new MechCombate();
         MechArtilleria primeraArtilleria = new MechArtilleria();
         MechArtilleria segundaArtilleria = new MechArtilleria();
@@ -63,7 +63,7 @@ public class LuciernagaTest {
 
     @Test
     public void siLaLuciernagaImpactaUnObstaculoNoDaniaALaUnidadQueEstaDetras() {
-        Tablero tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), new RedElectrica());
+        Tablero tablero = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         Luciernaga luciernaga = new Luciernaga();
         MechCombate mech = new MechCombate();
         tablero.posicionarUnidad(new Posicion(3, 0), luciernaga);

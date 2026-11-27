@@ -20,7 +20,7 @@ public class TestMovimientoUnidad {
     @Test
     public void testMechSoloPuedeMoverseRangoPermitido() {
         
-        File mapa = new File("src/test/resources/mapas/mapaTest2.csv");
+        File mapa = new File("src/main/mapas/mapaTest2.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         
         MechCombate mech = new MechCombate();

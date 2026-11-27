@@ -14,7 +14,7 @@ public class DeshacerMovimientoTest {
     @Test
     public void noSePuedeDeshacerUnMovimientoDespuesDeQueElMechAtaco() {
         // ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        File mapa = new File("src/main/mapas/mapaParaMovimiento.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen = new Posicion(1, 2);
         Posicion destino = new Posicion(1, 3);
@@ -41,7 +41,7 @@ public class DeshacerMovimientoTest {
     @Test
     public void noSePuedeDeshacerUnMovimientoMasDeUnaVezPorTurno() {
         // ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        File mapa = new File("src/main/mapas/mapaParaMovimiento.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origen = new Posicion(1, 2);
         Posicion primerDestino = new Posicion(1, 3);
@@ -65,7 +65,7 @@ public class DeshacerMovimientoTest {
 
     @Test
     public void dosMechsDistintosNoPuedenDeshacerSuMovimientoEnElMismoTurno() {
-        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        File mapa = new File("src/main/mapas/mapaParaMovimiento.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion origenMech1 = new Posicion(1, 2);
         Posicion destinoMech1 = new Posicion(1, 3);
@@ -90,7 +90,7 @@ public class DeshacerMovimientoTest {
 
     @Test
     public void noSePuedeDeshacerEnUnaCasillaDondeNoHuboMovimiento() {
-        File mapa = new File("src/test/resources/mapas/mapaParaMovimiento.csv");
+        File mapa = new File("src/main/mapas/mapaParaMovimiento.csv");
         Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion posicionMech = new Posicion(1, 2);
 

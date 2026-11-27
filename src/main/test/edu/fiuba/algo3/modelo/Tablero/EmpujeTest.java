@@ -22,7 +22,7 @@ public class EmpujeTest {
     @BeforeEach
     public void setUp() {
         redElectrica = new RedElectrica();
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"), redElectrica);
+        tablero = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), redElectrica);
         empujada = new Luciernaga();
         tablero.posicionarUnidad(origen, empujada);
     }
