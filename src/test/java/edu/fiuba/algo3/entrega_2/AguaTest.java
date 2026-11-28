@@ -2,6 +2,7 @@ package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.modelo.Casilla.Agua;
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.AccionNoPermitidaException;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -29,7 +30,7 @@ public class AguaTest {
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        tablero = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         tablero.agregarCasilla(agua, new Casilla(new Agua()));
         artilleria = new MechArtilleria();
         tablero.posicionarUnidad(posicionArtilleria, artilleria);

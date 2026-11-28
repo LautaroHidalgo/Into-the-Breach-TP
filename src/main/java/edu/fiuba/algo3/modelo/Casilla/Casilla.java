@@ -1,15 +1,22 @@
 package edu.fiuba.algo3.modelo.Casilla;
 
+import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.unidades.SinUnidad;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
+import edu.fiuba.algo3.modelo.Tablero.comandos.*;
 
 public class Casilla {
     private Terreno terreno;
     //cambio: una casilla vacía tiene SinUnidad en vez de null
     private Unidad unidad = new SinUnidad();
+    private Posicion posicion;
 
     public Casilla(Terreno terreno){
         this.terreno = terreno;
+    }
+
+    public void ubicarseEn(Posicion posicion) {
+        this.posicion = posicion;
     }
 
     public boolean esIgual(Casilla otraCasilla){
@@ -22,6 +29,7 @@ public class Casilla {
 
     public void recibirUnidad(Unidad unidadRecibida){
         this.unidad = unidadRecibida;
+        unidadRecibida.ubicarseEn(this.posicion);
     }
 
     //ubica la unidad SIN aplicar el efecto del terreno
@@ -31,7 +39,7 @@ public class Casilla {
 
     // la unidad termina acá por movimiento o empuje así que se aplica el efecto del terreno
     public void recibirUnidadQueLlega(Unidad unidadQueLlega) {
-        this.unidad = unidadQueLlega;
+        recibirUnidad(unidadQueLlega);
         this.terreno.aplicarEfecto(unidadQueLlega);
     }
 
@@ -95,11 +103,8 @@ public class Casilla {
         return unidad == otra;
     }
 
-    public void moverUnidadA(Casilla destino) {
-        Unidad movida = unidad;
-        movida.registrarMovimiento();
-        liberar();
-        destino.recibirUnidadQueLlega(movida);
+    public Comando moverUnidadA(Casilla destino) {
+        return unidad.moverseEntre(this, destino);
     }
 
     public void deshacerMovimientoHacia(Casilla origen) {

@@ -10,7 +10,7 @@ import edu.fiuba.algo3.modelo.Casilla.*;
 
 public class LectorTableroCSV {
 
-    public List<Casilla> transformarArchivo(File mapa){
+    public List<Casilla> transformarArchivo(File mapa, RedElectrica redElectrica){
         if (mapa == null) {
             throw new IllegalArgumentException("Mapa inexistente");
         }
@@ -30,7 +30,7 @@ public class LectorTableroCSV {
                         listaCasillas.add(new Casilla(new Agua()));
                     }
                     if ("E".equals(tipo)) {
-                        listaCasillas.add(new Casilla(new Edificio()));
+                        listaCasillas.add(new Casilla(new Edificio(new RedElectrica())));
                     }
                     if ("M".equals(tipo)) {
                         listaCasillas.add(new Casilla(new Montania()));

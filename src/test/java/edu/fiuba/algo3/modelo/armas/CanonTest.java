@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.armas;
 import edu.fiuba.algo3.modelo.Casilla.Agua;
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
 import edu.fiuba.algo3.modelo.Casilla.Edificio;
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.Luciernaga;
@@ -21,7 +22,7 @@ public class CanonTest {
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        tablero = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         canon = new Canon();
     }
 
@@ -40,7 +41,7 @@ public class CanonTest {
     @Test
     public void unEdificioFrenaElDisparo(){
         Luciernaga detras = new Luciernaga();
-        tablero.agregarCasilla(new Posicion(3,2), new Casilla(new Edificio()));
+        tablero.agregarCasilla(new Posicion(3,2), new Casilla(new Edificio(new RedElectrica())));
         tablero.posicionarUnidad(new Posicion(3, 4), detras);
 
         canon.atacar(tablero, origen, new Posicion(3, 4));

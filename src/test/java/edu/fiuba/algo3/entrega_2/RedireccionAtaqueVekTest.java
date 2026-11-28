@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.entrega_2;
 import static org.junit.jupiter.api.Assertions.*;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Direccion;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
@@ -17,13 +18,14 @@ public class RedireccionAtaqueVekTest {
     @Test
     public void test08ElAtaqueDelVekSeMueveConElyAtacaOtroVek(){
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestVeks.csv");
-        Tablero tablero = new Tablero(mapa);
+        File mapa = new File("src/main/mapas/mapaTestVeks.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
         Posicion posicionMech = new Posicion(1,2);
         Posicion posicionVek = new Posicion(1,3);
         Posicion desplazamientoVek = new Posicion(1,4);
         Posicion edificio = new Posicion(0,3);
         Posicion posicionVekVictima = new Posicion(0,4);
+        // Se guarda la direccion ARRIBA
         Direccion direccion = posicionVek.direccionHacia(edificio);
         MechCanon mech = new MechCanon();
         Avispon avispon = new Avispon();
@@ -32,11 +34,11 @@ public class RedireccionAtaqueVekTest {
         tablero.posicionarUnidad(posicionMech, mech);
         tablero.posicionarUnidad(posicionVek, avispon);
         tablero.posicionarUnidad(posicionVekVictima, saltador);
-        //avispon.anunciarAtaque(direccion); //Implementar metodo
+        avispon.anunciarAtaque(direccion);
 
         //ACT
         mech.atacar(posicionMech, posicionVek, tablero);
-        //avispon.ejecutarAtaque(); <- Algo así
+        avispon.ejecutarAtaque(tablero);
 
         //ASSERT
         assertTrue(tablero.unidadEstaEn(avispon,desplazamientoVek));

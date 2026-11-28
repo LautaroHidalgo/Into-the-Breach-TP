@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
 import edu.fiuba.algo3.modelo.Casilla.Edificio;
 import edu.fiuba.algo3.modelo.Casilla.Montania;
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.unidades.Luciernaga;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,11 +16,13 @@ public class EmpujeTest {
 
     private Tablero tablero;
     private Luciernaga empujada;
+    private RedElectrica redElectrica;
     private final Posicion origen = new Posicion(3, 3);
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        redElectrica = new RedElectrica();
+        tablero = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), redElectrica);
         empujada = new Luciernaga();
         tablero.posicionarUnidad(origen, empujada);
     }
@@ -69,7 +72,7 @@ public class EmpujeTest {
 
     @Test
     public void empujarContraUnEdificioDaniaALaUnidadYNoLaMueve() {
-        tablero.agregarCasilla(new Posicion(3, 4), new Casilla(new Edificio()));
+        tablero.agregarCasilla(new Posicion(3, 4), new Casilla(new Edificio(redElectrica)));
 
         tablero.empujarUnidad(origen, Direccion.DERECHA);
 

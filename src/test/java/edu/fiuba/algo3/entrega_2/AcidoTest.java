@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.entrega_2;
 
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,8 +14,8 @@ public class AcidoTest {
     @Test
     public void test04UnaUnidadTerrestreEmpujadaAlAcidoQuedaContaminadayRecibeDobleDanio() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionMech = new Posicion(1, 2);
         Posicion origenSuelo = new Posicion(1, 3);
@@ -38,8 +39,8 @@ public class AcidoTest {
     @Test
     public void test04BAvisponEnAcidoNoSeContaminaYRecibeDanioComun() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionMech = new Posicion(1, 2);
         Posicion origenSuelo = new Posicion(1, 3);
@@ -63,8 +64,8 @@ public class AcidoTest {
     @Test
     public void test04UnMechQueSeMueveAlAcidoQuedaContaminadoYRecibeDobleDanio() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion origenSuelo = new Posicion(1, 3);
         Posicion destinoAcido = new Posicion(1, 4);
@@ -84,8 +85,8 @@ public class AcidoTest {
     @Test
     public void ubicarUnaUnidadSobreElAcidoNoLaContamina() {
         //ARRANGE
-        File mapa = new File("src/test/resources/mapas/mapaTestAcido.csv");
-        Tablero tablero = new Tablero(mapa);
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
 
         Posicion posicionAcido = new Posicion(1, 4);
         Luciernaga luciernaga = new Luciernaga();
@@ -98,4 +99,52 @@ public class AcidoTest {
         //ASSERT
         assertEquals(2, luciernaga.vida());
     }
+
+    @Test
+    public void test06AlDeshacerElMovimientoDeUnMechQueTerminoSobreAcidoDejaDeEstarContaminado() {
+        //ARRANGE
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
+
+        Posicion origenSuelo = new Posicion(1, 3);
+        Posicion destinoAcido = new Posicion(1, 4);
+        MechCombate mech = new MechCombate();
+
+        tablero.posicionarUnidad(origenSuelo, mech);
+
+        //ACT
+        tablero.moverUnidad(origenSuelo, destinoAcido);
+        tablero.deshacerMovimiento(destinoAcido);
+        mech.recibirDanio(1);
+
+        //ASSERT
+        assertTrue(tablero.unidadEstaEn(mech, origenSuelo));
+        assertEquals(2, mech.vida());
+    }
+
+    @Test
+    public void test06BUnMechYaContaminadoQueSeMueveASueloYDeshaceSigueContaminado() {
+        // ARRANGE
+        File mapa = new File("src/main/mapas/mapaTestAcido.csv");
+        Tablero tablero = new Tablero(mapa, new RedElectrica());
+
+        Posicion origenSuelo = new Posicion(1, 2);
+        Posicion destinoSuelo = new Posicion(1, 3);
+        MechCombate mech = new MechCombate();
+        mech.recibirContaminacion();
+
+        tablero.posicionarUnidad(origenSuelo, mech);
+
+        // ACT
+        tablero.moverUnidad(origenSuelo, destinoSuelo);
+        tablero.deshacerMovimiento(destinoSuelo);
+        mech.recibirDanio(1);
+
+        // ASSERT
+        assertTrue(tablero.unidadEstaEn(mech, origenSuelo));
+        assertEquals(1, mech.vida());
+    }
+
+
+
 }

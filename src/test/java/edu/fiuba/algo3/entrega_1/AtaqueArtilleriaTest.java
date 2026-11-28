@@ -2,6 +2,7 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Casilla.Casilla;
 import edu.fiuba.algo3.modelo.Casilla.Montania;
+import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.armas.ObjetivoInvalidoException;
@@ -22,7 +23,7 @@ public class AtaqueArtilleriaTest {
 
     @BeforeEach
     public void setUp() {
-        tablero = new Tablero(new File("src/test/resources/mapas/mapaSinObstaculos.csv"));
+        tablero = new Tablero(new File("src/main/mapas/mapaSinObstaculos.csv"), new RedElectrica());
         mech = new MechArtilleria();
         tablero.posicionarUnidad(posicionMech, mech);
     }
