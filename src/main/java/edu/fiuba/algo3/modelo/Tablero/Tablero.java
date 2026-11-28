@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.tablero;
 
 import java.io.File;
 import java.util.ArrayDeque;
@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import edu.fiuba.algo3.modelo.Casilla.*;
 import edu.fiuba.algo3.modelo.unidades.*;
 import edu.fiuba.algo3.modelo.unidades.vek.Vek;
-import edu.fiuba.algo3.modelo.Tablero.comandos.*;
-import edu.fiuba.algo3.modelo.Tablero.excepciones.AccionNoPermitidaException;
-import edu.fiuba.algo3.modelo.Tablero.excepciones.MovimientoNoPermitidoException;
-import edu.fiuba.algo3.modelo.Tablero.excepciones.PosicionFueraDelTableroException;
-import edu.fiuba.algo3.modelo.Tablero.excepciones.TableroInvalidoException;
+import edu.fiuba.algo3.modelo.casilla.*;
+import edu.fiuba.algo3.modelo.tablero.comandos.*;
+import edu.fiuba.algo3.modelo.tablero.excepciones.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.tablero.excepciones.MovimientoNoPermitidoException;
+import edu.fiuba.algo3.modelo.tablero.excepciones.PosicionFueraDelTableroException;
+import edu.fiuba.algo3.modelo.tablero.excepciones.TableroInvalidoException;
 
 public class Tablero {
     private Map<Posicion, Casilla> casillas = new HashMap<>();

@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo.armas;
 
-import edu.fiuba.algo3.modelo.Tablero.Direccion;
-import edu.fiuba.algo3.modelo.Tablero.Posicion;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class Picadura extends Arma {
 

@@ -1,11 +1,12 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.tablero;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import edu.fiuba.algo3.modelo.Casilla.*;
+
+import edu.fiuba.algo3.modelo.casilla.*;
 
 
 public class LectorTableroCSV {
@@ -30,7 +31,7 @@ public class LectorTableroCSV {
                         listaCasillas.add(new Casilla(new Agua()));
                     }
                     if ("E".equals(tipo)) {
-                        listaCasillas.add(new Casilla(new Edificio(new RedElectrica())));
+                        listaCasillas.add(new Casilla(new Edificio(redElectrica)));
                     }
                     if ("M".equals(tipo)) {
                         listaCasillas.add(new Casilla(new Montania()));

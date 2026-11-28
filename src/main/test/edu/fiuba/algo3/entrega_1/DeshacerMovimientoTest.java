@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,9 +7,10 @@ import edu.fiuba.algo3.modelo.unidades.*;
 import edu.fiuba.algo3.modelo.unidades.mech.MechCanon;
 import edu.fiuba.algo3.modelo.unidades.mech.MechCombate;
 import edu.fiuba.algo3.modelo.unidades.vek.Saltador;
-import edu.fiuba.algo3.modelo.Tablero.*;
-import edu.fiuba.algo3.modelo.Tablero.excepciones.AccionNoPermitidaException;
-import edu.fiuba.algo3.modelo.Tablero.excepciones.MovimientoNoPermitidoException;
+import edu.fiuba.algo3.modelo.casilla.RedElectrica;
+import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.tablero.excepciones.AccionNoPermitidaException;
+import edu.fiuba.algo3.modelo.tablero.excepciones.MovimientoNoPermitidoException;
 
 import java.io.File;
 

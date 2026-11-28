@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,7 +8,8 @@ import edu.fiuba.algo3.modelo.unidades.mech.MechCanon;
 import edu.fiuba.algo3.modelo.unidades.mech.MechCombate;
 import edu.fiuba.algo3.modelo.unidades.vek.Avispon;
 import edu.fiuba.algo3.modelo.unidades.vek.Luciernaga;
-import edu.fiuba.algo3.modelo.Tablero.*;
+import edu.fiuba.algo3.modelo.casilla.RedElectrica;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 import java.io.File;
 

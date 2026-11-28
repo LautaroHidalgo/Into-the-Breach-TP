@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Casilla;
+package edu.fiuba.algo3.modelo.casilla;
 
 import edu.fiuba.algo3.modelo.unidades.Unidad;
 

@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.Casilla.Casilla;
-import edu.fiuba.algo3.modelo.Tablero.Posicion;
-import edu.fiuba.algo3.modelo.Tablero.comandos.*;
+import edu.fiuba.algo3.modelo.casilla.Casilla;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.comandos.*;
 import edu.fiuba.algo3.modelo.unidades.desplazamiento.Desplazamiento;
-import edu.fiuba.algo3.modelo.unidades.estadoSalud.*;
-import edu.fiuba.algo3.modelo.unidades.estadoTurno.Disponible;
-import edu.fiuba.algo3.modelo.unidades.estadoTurno.EstadoTurno;
+import edu.fiuba.algo3.modelo.unidades.estadosalud.*;
+import edu.fiuba.algo3.modelo.unidades.estadoturno.Disponible;
+import edu.fiuba.algo3.modelo.unidades.estadoturno.EstadoTurno;
 
 public abstract class Unidad {
     public static final int DANIO_COLISION = 1;

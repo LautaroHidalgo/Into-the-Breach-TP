@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Tablero.excepciones;
+package edu.fiuba.algo3.modelo.tablero.excepciones;
 
 public class AccionNoPermitidaException extends RuntimeException {
     public AccionNoPermitidaException(String message) {

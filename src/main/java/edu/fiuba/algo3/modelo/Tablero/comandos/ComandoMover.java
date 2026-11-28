@@ -1,8 +1,8 @@
-package edu.fiuba.algo3.modelo.Tablero.comandos;
+package edu.fiuba.algo3.modelo.tablero.comandos;
 
-import edu.fiuba.algo3.modelo.Casilla.Casilla;
+import edu.fiuba.algo3.modelo.casilla.Casilla;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.unidades.estadoSalud.EstadoSalud;
+import edu.fiuba.algo3.modelo.unidades.estadosalud.EstadoSalud;
 
 public class ComandoMover implements Comando {
     private final Unidad unidad;

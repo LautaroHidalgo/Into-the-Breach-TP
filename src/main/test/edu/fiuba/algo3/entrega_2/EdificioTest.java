@@ -1,10 +1,9 @@
 package edu.fiuba.algo3.entrega_2;
 
-import edu.fiuba.algo3.modelo.Casilla.*;
-
-import edu.fiuba.algo3.modelo.Tablero.Direccion;
-import edu.fiuba.algo3.modelo.Tablero.Posicion;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.casilla.*;
+import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.*;
 import edu.fiuba.algo3.modelo.unidades.mech.MechCanon;
 import edu.fiuba.algo3.modelo.unidades.vek.Saltador;

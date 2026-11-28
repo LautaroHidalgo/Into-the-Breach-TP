@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.Tablero.Posicion;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
 import edu.fiuba.algo3.modelo.armas.Arma;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.desplazamiento.Desplazamiento;
 
 public abstract class UnidadDeCombate extends Unidad {

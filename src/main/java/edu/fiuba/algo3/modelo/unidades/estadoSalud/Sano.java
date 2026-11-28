@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.unidades.estadoSalud;
+package edu.fiuba.algo3.modelo.unidades.estadosalud;
 
 public class Sano implements EstadoSalud {
 

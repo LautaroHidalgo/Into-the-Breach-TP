@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.entrega_1;
-import edu.fiuba.algo3.modelo.Casilla.*;
-import edu.fiuba.algo3.modelo.Tablero.*;
-import edu.fiuba.algo3.modelo.unidades.*;
+import edu.fiuba.algo3.modelo.casilla.*;
+import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.unidades.mech.MechCombate;
 
 import org.junit.jupiter.api.Test;
@@ -12,12 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestMovimientoUnidad {
-    
-    /*public void testUnidadPuedeMoverseACualquierCasillaEnUnMapaLibre(){
-        File mapa = new File("src/test/resources/mapas/mapaTest2.csv");
-        Tablero tablero = new Tablero(mapa);
-    }*/
+public class Test02testMechSoloPuedeMoverseRangoPermitido {
     
     @Test
     public void testMechSoloPuedeMoverseRangoPermitido() {
@@ -43,7 +37,6 @@ public class TestMovimientoUnidad {
         listaEsperada.add(new Posicion(3, 2));
         listaEsperada.add(new Posicion(3, 3));
         listaEsperada.add(new Posicion(4, 2));
-
 
         assertEquals(new HashSet<>(listaEsperada),new HashSet<>(movimientos));
     }

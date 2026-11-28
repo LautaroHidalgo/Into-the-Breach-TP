@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.unidades;
 
-import edu.fiuba.algo3.modelo.Casilla.Casilla;
+import edu.fiuba.algo3.modelo.casilla.Casilla;
 import edu.fiuba.algo3.modelo.unidades.desplazamiento.Terrestre;
 
 public class SinUnidad extends Unidad{

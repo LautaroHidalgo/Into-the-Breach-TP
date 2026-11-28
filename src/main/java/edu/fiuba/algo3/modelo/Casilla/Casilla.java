@@ -1,9 +1,9 @@
-package edu.fiuba.algo3.modelo.Casilla;
+package edu.fiuba.algo3.modelo.casilla;
 
-import edu.fiuba.algo3.modelo.Tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.comandos.*;
 import edu.fiuba.algo3.modelo.unidades.SinUnidad;
 import edu.fiuba.algo3.modelo.unidades.Unidad;
-import edu.fiuba.algo3.modelo.Tablero.comandos.*;
 
 public class Casilla {
     private Terreno terreno;

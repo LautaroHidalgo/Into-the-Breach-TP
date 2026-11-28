@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Tablero.comandos;
+package edu.fiuba.algo3.modelo.tablero.comandos;
 
 public interface Comando {
     void ejecutar();

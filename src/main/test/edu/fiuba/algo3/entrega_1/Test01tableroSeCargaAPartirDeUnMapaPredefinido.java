@@ -2,15 +2,15 @@ package edu.fiuba.algo3.entrega_1;
 
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.Casilla.*;
-import edu.fiuba.algo3.modelo.Tablero.*;
-import edu.fiuba.algo3.modelo.Tablero.excepciones.TableroInvalidoException;
+import edu.fiuba.algo3.modelo.casilla.*;
+import edu.fiuba.algo3.modelo.tablero.*;
+import edu.fiuba.algo3.modelo.tablero.excepciones.TableroInvalidoException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 
-public class TableroTest {
+public class Test01tableroSeCargaAPartirDeUnMapaPredefinido {
 
     @Test
     public void tableroSeCargaAPartirDeUnMapaPredefinido() {

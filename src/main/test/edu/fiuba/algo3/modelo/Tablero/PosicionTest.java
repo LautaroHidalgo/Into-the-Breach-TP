@@ -2,7 +2,9 @@ package edu.fiuba.algo3.modelo.Tablero;
 
 import org.junit.jupiter.api.Test;
 
-import edu.fiuba.algo3.modelo.Tablero.excepciones.PosicionesNoAlineadasException;
+import edu.fiuba.algo3.modelo.tablero.Direccion;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.excepciones.PosicionesNoAlineadasException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.modelo.Tablero.comandos;
+package edu.fiuba.algo3.modelo.tablero.comandos;
 
-import edu.fiuba.algo3.modelo.Tablero.excepciones.MovimientoNoPermitidoException;
+import edu.fiuba.algo3.modelo.tablero.excepciones.MovimientoNoPermitidoException;
 
 public class ComandoMoverSinDeshacer implements Comando {
 

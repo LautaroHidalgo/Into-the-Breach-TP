@@ -1,12 +1,11 @@
 package edu.fiuba.algo3.entrega_1;
 
-import edu.fiuba.algo3.modelo.Casilla.Casilla;
-import edu.fiuba.algo3.modelo.Casilla.Montania;
-import edu.fiuba.algo3.modelo.Casilla.RedElectrica;
-import edu.fiuba.algo3.modelo.Tablero.Posicion;
-import edu.fiuba.algo3.modelo.Tablero.Tablero;
+import edu.fiuba.algo3.modelo.casilla.Casilla;
+import edu.fiuba.algo3.modelo.casilla.Montania;
+import edu.fiuba.algo3.modelo.casilla.RedElectrica;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.unidades.mech.MechCanon;
-import edu.fiuba.algo3.modelo.unidades.mech.MechCombate;
 import edu.fiuba.algo3.modelo.unidades.vek.Luciernaga;
 import edu.fiuba.algo3.modelo.unidades.vek.Saltador;
 
@@ -17,7 +16,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AtaqueMechTest {
+public class Test04ElCanonImpactaALaPrimeraUnidadEnLineaRecta {
 
     private Tablero tablero;
 
@@ -27,30 +26,17 @@ public class AtaqueMechTest {
     }
 
     @Test
-    public void test03ElPunoCausaDosDeDanioAUnaUnidadAdyacenteYLaEmpujaUnaCasillaEnLaDireccionDelGolpe(){
-        Posicion posicionMech = new Posicion(3, 3);
-        Posicion posicionVek = new Posicion(3, 4);
-        MechCombate mech = new MechCombate();
-        Luciernaga vek = new Luciernaga();
-        tablero.posicionarUnidad(posicionMech, mech);
-        tablero.posicionarUnidad(posicionVek, vek);
-
-        mech.atacar(posicionMech, posicionVek, tablero);
-
-        assertEquals(1, vek.vida());
-        assertTrue(tablero.unidadEstaEn(vek, new Posicion(3,5)));
-        assertFalse(tablero.unidadEstaEn(mech, posicionVek));
-    }
-
-    @Test
     public void test04ElCanonImpactaALaPrimeraUnidadEnLineaRectaYNoALasQueEstanDetras() {
         Posicion posicionMech = new Posicion(3, 0);
         MechCanon mech = new MechCanon();
+        Posicion posicionLuciernaga = new Posicion(3, 3);
         Luciernaga primera = new Luciernaga();
+        Posicion posicionSaltador = new Posicion(3, 6);
         Saltador detras = new Saltador();
+
         tablero.posicionarUnidad(posicionMech, mech);
-        tablero.posicionarUnidad(new Posicion(3, 3), primera);
-        tablero.posicionarUnidad(new Posicion(3, 6), detras);
+        tablero.posicionarUnidad(posicionLuciernaga, primera);
+        tablero.posicionarUnidad(posicionSaltador, detras);
 
         mech.atacar(posicionMech, new Posicion(3, 7), tablero);
 
@@ -74,5 +60,4 @@ public class AtaqueMechTest {
         assertEquals(3, detras.vida());
         assertTrue(tablero.unidadEstaEn(detras, new Posicion(3, 4)));
     }
-
 }

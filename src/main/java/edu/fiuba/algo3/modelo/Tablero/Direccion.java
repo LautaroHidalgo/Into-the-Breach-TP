@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.modelo.Tablero;
+package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.Tablero.excepciones.PosicionesNoAlineadasException;
+import edu.fiuba.algo3.modelo.tablero.excepciones.PosicionesNoAlineadasException;
 
 public enum Direccion {
     ARRIBA(-1, 0),

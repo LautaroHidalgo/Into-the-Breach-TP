@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.modelo.Tablero.excepciones;
+package edu.fiuba.algo3.modelo.tablero.excepciones;
 
-import edu.fiuba.algo3.modelo.Tablero.Posicion;
+import edu.fiuba.algo3.modelo.tablero.Posicion;
 
 public class PosicionFueraDelTableroException extends RuntimeException {
     public PosicionFueraDelTableroException(Posicion posicion) {
