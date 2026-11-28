@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.entrega_1;
 import edu.fiuba.algo3.modelo.Casilla.*;
 import edu.fiuba.algo3.modelo.Tablero.*;
-import edu.fiuba.algo3.modelo.unidades.*;
+import edu.fiuba.algo3.modelo.unidades.MechCombate;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
