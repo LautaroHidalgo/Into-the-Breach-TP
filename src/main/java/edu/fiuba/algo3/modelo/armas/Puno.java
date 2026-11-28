@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Tablero.Direccion;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class Puno extends Arma {
+public class Puno extends AtaqueAdyacente {
 
     private static final int DANIO = 2;
 
@@ -14,13 +14,8 @@ public class Puno extends Arma {
     }
 
     @Override
-    public boolean alcanza(Posicion origen, Posicion objetivo) {
-        return origen.distanciaACelda(objetivo) == 1;
-    }
-
-    @Override
     protected void disparar(Tablero tablero, Posicion origen, Posicion objetivo, Direccion direccion) {
-        tablero.atacar(objetivo, danio);
+        super.disparar(tablero, origen, objetivo, direccion);
         tablero.empujarUnidad(objetivo, direccion);
     }
 }

@@ -4,17 +4,17 @@ import edu.fiuba.algo3.modelo.Tablero.Direccion;
 import edu.fiuba.algo3.modelo.Tablero.Posicion;
 import edu.fiuba.algo3.modelo.Tablero.Tablero;
 
-public class Mordida extends Arma {
+public class AtaqueAdyacente extends Arma {
 
-    private static final int DANIO = 2;
+    private static final int DISTANCIA = 1;
 
-    public Mordida() {
-        super(DANIO);
+    public AtaqueAdyacente(int danio) {
+        super(danio);
     }
 
     @Override
-    protected boolean alcanza(Posicion origen, Posicion objetivo) {
-        return origen.distanciaACelda(objetivo) == 1;
+    protected boolean alcanza(Posicion origen, Posicion objetivo){
+        return origen.distanciaACelda(objetivo) == DISTANCIA;
     }
 
     @Override
